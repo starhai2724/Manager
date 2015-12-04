@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Manager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,4 +12,26 @@ public partial class pages_login : System.Web.UI.Page
     {
 
     }
+    [System.Web.Services.WebMethod]
+    public static User_Apartment checkUsernameAndPassword(string username, string password)
+    {
+        User_Apartment user = User_ApartmentDAO.getUser_Apartment(username);
+        if (null != user)
+        {
+            if (user.password.Equals(password))
+            {
+                return user;
+
+            }
+
+
+        }
+
+        return null;
+
+
+
+    }
+
+
 }
