@@ -14,6 +14,7 @@
 }
 
 function OnSuccess(response) {
+	//---thuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu---//
     var item = response.d;
     alert(item.priceSale);
     $('#text_idApartment').val(item.idApartment);
