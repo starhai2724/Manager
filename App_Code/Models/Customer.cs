@@ -11,28 +11,45 @@ namespace Manager.Models
 {
     public class Customer
     {
-        int idCustomer { get; set; }
-        int idApartment { get; set; }
-        string nameCustomer { get; set; }
-        string addressCustomer { get; set; }
-        string birthday { get; set; }
-        string sex { get; set; }
-        string identifiCardCustomer { get; set; }
-        string holder { get; set; }
-        string status { get; set; }
-        string email { get; set; }
-        string sdt { get; set; }
-        string dateCreate { get; set; }
-        string userCreate { get; set; }
-        string dateUpdate { get; set; }
-        string userUpdate { get; set; }
+        public object nam;
+        public int idCustomer { get; set; }
+        public int idApartment { get; set; }
+        public string nameCustomer { get; set; }
+        public string addressCustomer { get; set; }
+        public string birthday { get; set; }
+        public string sex { get; set; }
+        public string identifiCardCustomer { get; set; }
+        public string holder { get; set; }
+        public string status { get; set; }
+        public string email { get; set; }
+        public string sdt { get; set; }
+        public string dateCreate { get; set; }
+        public string userCreate { get; set; }
+        public string dateUpdate { get; set; }
+        public string userUpdate { get; set; }
 
 
 
 
 
-        public Customer()
+        public Customer(int idCustomer, int idApartment, string nameCustomer, string addressCustomer, string birthday, string sex,string identifiCardCustomer, string holder, string status, string email, string sdt, string dateCreate,string userCreate, string dateUpdate, string userUpdate)
+             
         {
+            this.idCustomer = idCustomer;
+            this.idApartment = idApartment;
+            this.nameCustomer = nameCustomer;
+            this.addressCustomer = addressCustomer;
+            this.birthday = birthday;
+            this.sex = sex;
+            this.identifiCardCustomer = identifiCardCustomer;
+            this.holder = holder;
+            this.status = status;
+            this.email = email;
+            this.sdt = sdt;
+            this.dateCreate = dateCreate;
+            this.userCreate = userCreate;
+            this.dateUpdate = dateUpdate;
+            this.userUpdate = userUpdate;
 
         }
     }
