@@ -1,10 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="apartment.aspx.cs" Inherits="_apartment" MasterPageFile="~/masterPage/HomePage.master" %>
 
-<<<<<<< HEAD
-<%@ Import Namespace="Maasdsa" %>
-=======
-<%@ Import Namespace="ManagerABC.Models" %>
->>>>>>> origin/master
+
+
+<%@ Import Namespace="Manager.Models" %>
+
 <asp:Content ContentPlaceHolderID="CPH1" runat="server">
     <script src="../js/apartment.js"></script>
 
