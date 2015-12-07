@@ -18,7 +18,7 @@ using System.Web;
         {
         }
 
-        public int addAparment(Apartment apartment)
+        public static int addAparment(Apartment apartment)
         {
             string sql = "insert into dbo.Apartment(type_Apartment,name_Apartment,size,priceSale,priceRent,status_Apartment,date_create,user_create,date_update,user_update)values( @type_Apartment, @name_Apartment,@size, @priceSale, @priceRent, @status_Apartment, @date_create, @user_create, @date_update, @user_update)";
 
@@ -82,7 +82,7 @@ using System.Web;
 
         //type_Apartment,name_Apartment,size,priceSale,priceRent,
         //status_Apartment,date_create,user_create,date_update,user_update
-        public int updateApartment(Apartment apartment)
+        public static int updateApartment(Apartment apartment)
         {
             string sql = "update Apartment set type_Apartment=@Type_Apartment,name_Apartment=@Name_Apartment,size=@Size,priceSale=@PriceSale,priceRent=@PriceRent,status_Apartment=@Status_Apartment,date_update=@DateUpdate, user_update=@UserUpdate "
 + "Where id_Apartment=@IDApartment";
@@ -140,7 +140,7 @@ using System.Web;
 
         }
 
-        public int deleteApartment(int id)
+        public static int deleteApartment(int id)
         {
 
             string sql = "Delete from Apartment where id_Apartment=@IdApartment";

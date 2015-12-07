@@ -33,11 +33,12 @@ function edit() {
     var priceSale = $('#text_priceSale').val();
     var priceRent = $('#text_priceRent').val();
     var statusApartment = $('#status').val();
-
+    var userEdit = localStorage.getItem('username');
+    alert('userEdit    ' + userEdit)
     $.ajax({
         type: "POST",
         url: "apartment.aspx/editApartment",
-        data: JSON.stringify({ id: idApartment, name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment }),
+        data: JSON.stringify({ id: idApartment, name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment, userUpdate: userEdit }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -63,10 +64,11 @@ function add() {
     var priceSale = $('#text_priceSale').val();
     var priceRent = $('#text_priceRent').val();
     var statusApartment = $('#status').val();
+    var userCreate = localStorage.getItem('username');
     $.ajax({
         type: "POST",
         url: "apartment.aspx/add",
-        data: JSON.stringify({ name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment }),
+        data: JSON.stringify({ name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment, userCreate: userCreate }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {

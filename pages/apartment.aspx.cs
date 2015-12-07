@@ -19,11 +19,12 @@ public partial class _apartment : System.Web.UI.Page
 
     }
     [System.Web.Services.WebMethod]
-    public static void add(string name, string type, string size, string priceS, string priceR, string status)
+    public static void add(string name, string type, string size, string priceS, string priceR, string status,string userCreate)
     {
         DateTime dateTime = DateTime.Now;
         string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
-        Apartment a = new Apartment(0, name, type, size, Double.Parse(priceS), Double.Parse(priceR), Convert.ToInt16(status), dateCreate, "", "", "");
+
+        Apartment a = new Apartment(0, name, type, size, Double.Parse(priceS), Double.Parse(priceR), Convert.ToInt16(status), dateCreate, userCreate, "", "");
         ApartmentDAO.addAparment(a);
 
     }
@@ -58,11 +59,11 @@ public partial class _apartment : System.Web.UI.Page
 
     //edit apartment
     [System.Web.Services.WebMethod]
-    public static void editApartment(string id, string name, string type, string size, string priceS, string priceR, string status)
+    public static void editApartment(string id, string name, string type, string size, string priceS, string priceR, string status,string userUpdate)
     {
         DateTime dateTime = DateTime.Now;
         string dateUpdate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
-        Apartment a = new Apartment(Convert.ToInt16(id), name, type, size, Double.Parse(priceS), Double.Parse(priceR), Convert.ToInt16(status), "", "", dateUpdate, "");
+        Apartment a = new Apartment(Convert.ToInt16(id), name, type, size, Double.Parse(priceS), Double.Parse(priceR), Convert.ToInt16(status), "", "", dateUpdate, userUpdate);
         ApartmentDAO.updateApartment(a);
     }
 

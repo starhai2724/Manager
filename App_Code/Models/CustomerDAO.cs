@@ -77,18 +77,19 @@ namespace Manager.Models
                 idCustomer = Convert.ToInt16(dr[0]);
                 nameCustomer = dr[1].ToString();
                 addressCustomer = dr[2].ToString();
-                birthday = dr[3].ToString();
-                sex = dr[4].ToString();
-                identifiCardCustomer = dr[5].ToString();
-                idApartment = Convert.ToInt16(dr[6]);
-                dateCreate = dr[7].ToString();
-                userCreate = dr[8].ToString();
-                dateUpdate = dr[9].ToString();
-                userUpdate = dr[10].ToString();
-                holder = dr[11].ToString();
-                status = dr[12].ToString();
-                email = dr[13].ToString();
-                sdt = dr[14].ToString();
+              
+                sex = dr[3].ToString();
+                identifiCardCustomer = dr[4].ToString();
+                idApartment = Convert.ToInt16(dr[5]);
+                dateCreate = dr[6].ToString();
+                userCreate = dr[7].ToString();
+                dateUpdate = dr[8].ToString();
+                userUpdate = dr[9].ToString();
+                holder = dr[10].ToString();
+                status = dr[11].ToString();
+                email = dr[12].ToString();
+                sdt = dr[13].ToString();
+                birthday = dr[14].ToString();
                 customer = new Customer(idCustomer, idApartment, nameCustomer, addressCustomer, birthday, sex, identifiCardCustomer, holder, status, email, sdt, dateCreate, userCreate, dateUpdate, userUpdate);
                 lst.Add(customer);
             }

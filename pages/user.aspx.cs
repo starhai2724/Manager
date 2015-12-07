@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Manager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,4 +12,14 @@ public partial class pages_user : System.Web.UI.Page
     {
 
     }
+
+    [System.Web.Services.WebMethod]
+    public static List<User_Apartment> getUsers()
+    {
+        return User_ApartmentDAO.getUser_Apartments();
+
+
+    }
+
+
 }

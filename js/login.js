@@ -14,6 +14,7 @@ function chekLogin() {
             type: 'POST',
             data: JSON.stringify({ username: username, password: pass }),
             contentType: "application/json; charset=utf-8",
+            dataType: "json",
             success: chek,
             error: function (result) {
                 alert("Error");
@@ -29,7 +30,7 @@ function chekLogin() {
 function chek(data) {
     var user = data.d;
     if (null != user) {
-        localStorage.setItem('user', user);
+        localStorage.setItem('username', user.username);
         window.location.href = 'home.aspx';
 
 
