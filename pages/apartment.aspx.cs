@@ -47,12 +47,12 @@ public partial class _apartment : System.Web.UI.Page
 
 
     [System.Web.Services.WebMethod]
-    public static Apartment testJson(string id)
+    public static Apartment getApartment(string id)
     {
-        int numid = Convert.ToInt16(id);
-        Apartment a = ApartmentDAO.getApartment(numid);
 
-        return a;
+        
+
+        return ApartmentDAO.getApartment(Convert.ToInt16(id));
 
     }
 

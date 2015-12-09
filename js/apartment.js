@@ -1,8 +1,8 @@
 ﻿function loadData(name) {
-    alert("name" + name);
+   
     $.ajax({
         type: "POST",
-        url: "apartment.aspx/testJson",
+        url: "apartment.aspx/getApartment",
         data: JSON.stringify({ id: name }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -16,7 +16,7 @@
 function OnSuccess(response) {
 
     var item = response.d;
-    alert(item.priceSale);
+ 
     $('#text_idApartment').val(item.idApartment);
     $('#text_nameApartment').val(item.nameApartment);
     $('#text_priceSale').val(item.priceSale);
@@ -33,8 +33,8 @@ function edit() {
     var priceSale = $('#text_priceSale').val();
     var priceRent = $('#text_priceRent').val();
     var statusApartment = $('#status').val();
-    var userEdit = localStorage.getItem('username');
-    alert('userEdit    ' + userEdit)
+   // var userEdit = localStorage.getItem('username');
+  //  alert('userEdit    ' + userEdit)
     $.ajax({
         type: "POST",
         url: "apartment.aspx/editApartment",
@@ -191,7 +191,8 @@ function getDatas(response) {
 
 
 function search() {
-   
+    var find = $('#srch').val();
+    alert("search  " + find);
     $.ajax({
         type: "POST",
         url: "apartment.aspx/search",
@@ -206,36 +207,9 @@ function search() {
     });
 }
 
-// export
-function exportfile() {
+// xuat file excel
 
-    var url = 'data:application/vnd.ms-excel,' + encodeURIComponent($('#dataTables-example').html());
-    location.href = url;
-    return false;
-
-
-}
-
-function write_headers_to_excel() {
-    str = "";
-
-    var myTableHead = document.getElementById('header');
-    var rowCount = myTableHead.rows.length;
-    var colCount = myTableHead.getElementsByTagName("tr")[0].getElementsByTagName("td").length;
-
-    var ExcelApp = new ActiveXObject("Excel.Application");
-    var ExcelSheet = new ActiveXObject("Excel.Sheet");
-    ExcelSheet.Application.Visible = true;
-
-    for (var i = 0; i < rowCount; i++) {
-        for (var j = 0; j < colCount; j++) {
-            str = myTableHead.getElementsByTagName("tr")[i].getElementsByTagName("td")[j].innerHTML;
-            ExcelSheet.ActiveSheet.Cells(i + 1, j + 1).Value = str;
-        }
-    }
-
-}
-function test1() {
+function exportFile() {
 
     var a = document.createElement('a');
     //getting data from our div that contains the HTML table
@@ -244,10 +218,11 @@ function test1() {
     var table_html = table_div.outerHTML.replace(/ /g, '%20');
     a.href = data_type + ', ' + table_html;
     //setting the file name
-    a.download = 'exported_table_' +'.xls';
+    a.download = 'Apartments' +'.xls';
     //triggering the function
     a.click();
     //just in case, prevent default behaviour
-    e.preventDefault();
-
+   
 }
+
+
