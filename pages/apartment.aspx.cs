@@ -19,7 +19,7 @@ public partial class _apartment : System.Web.UI.Page
 
     }
     [System.Web.Services.WebMethod]
-    public static void add(string name, string type, string size, string priceS, string priceR, string status,string userCreate)
+    public static void add(string name, string type, string size, string priceS, string priceR, string status, string userCreate)
     {
         DateTime dateTime = DateTime.Now;
         string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
@@ -59,7 +59,7 @@ public partial class _apartment : System.Web.UI.Page
 
     //edit apartment
     [System.Web.Services.WebMethod]
-    public static void editApartment(string id, string name, string type, string size, string priceS, string priceR, string status,string userUpdate)
+    public static void editApartment(string id, string name, string type, string size, string priceS, string priceR, string status, string userUpdate)
     {
         DateTime dateTime = DateTime.Now;
         string dateUpdate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
@@ -67,13 +67,26 @@ public partial class _apartment : System.Web.UI.Page
         ApartmentDAO.updateApartment(a);
     }
 
+    //search
+    [System.Web.Services.WebMethod]
+    public static List<Apartment> search(string st)
+    {
+
+        return ApartmentDAO.findApartments(st);
 
 
+    }
 
 
 
 
 }
+
+
+
+
+
+
 
 
 

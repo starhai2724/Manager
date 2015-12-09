@@ -142,8 +142,9 @@ function getDatas(response) {
         $('#dataTables-example').remove();
     }
     var items = response.d;
+    
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables-example' style='margin-top: -13px;'>" +
-                    "<thead>" +
+                    "<thead id='header'>" +
                         "<tr class='info'>"
                            + " <th>Mã </th>"
                             + "<th>Tên </th>"
@@ -185,4 +186,68 @@ function getDatas(response) {
     $('#divtable').html(table);
 }
 
+//search 
 
+
+
+function search() {
+   
+    $.ajax({
+        type: "POST",
+        url: "apartment.aspx/search",
+        data: JSON.stringify({ st: find }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: getDatas,
+        error: function (result) {
+            
+            alert("Error");
+        }
+    });
+}
+
+// export
+function exportfile() {
+
+    var url = 'data:application/vnd.ms-excel,' + encodeURIComponent($('#dataTables-example').html());
+    location.href = url;
+    return false;
+
+
+}
+
+function write_headers_to_excel() {
+    str = "";
+
+    var myTableHead = document.getElementById('header');
+    var rowCount = myTableHead.rows.length;
+    var colCount = myTableHead.getElementsByTagName("tr")[0].getElementsByTagName("td").length;
+
+    var ExcelApp = new ActiveXObject("Excel.Application");
+    var ExcelSheet = new ActiveXObject("Excel.Sheet");
+    ExcelSheet.Application.Visible = true;
+
+    for (var i = 0; i < rowCount; i++) {
+        for (var j = 0; j < colCount; j++) {
+            str = myTableHead.getElementsByTagName("tr")[i].getElementsByTagName("td")[j].innerHTML;
+            ExcelSheet.ActiveSheet.Cells(i + 1, j + 1).Value = str;
+        }
+    }
+
+}
+function test1() {
+
+    var a = document.createElement('a');
+    //getting data from our div that contains the HTML table
+    var data_type = 'data:application/vnd.ms-excel';
+    var table_div = document.getElementById('divtable');
+    var table_html = table_div.outerHTML.replace(/ /g, '%20');
+    a.href = data_type + ', ' + table_html;
+    //setting the file name
+    a.download = 'exported_table_' +'.xls';
+    //triggering the function
+    a.click();
+    //just in case, prevent default behaviour
+    e.preventDefault();
+
+}

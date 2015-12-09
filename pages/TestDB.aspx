@@ -36,7 +36,7 @@
 
     }
     function OnSeccess(data) {
-        var 
+        
 
 
     }
@@ -58,9 +58,6 @@
             <tr>
                 <td id="t"></td>
             </tr>
-
-
-
         </table>
 
 

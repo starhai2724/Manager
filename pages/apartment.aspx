@@ -10,8 +10,8 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Căn hộ</h3>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="add()" id="btnAdd">Them</button>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;"  onclick="edit()" >Luu</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="test1()" id="btnAdd">Them</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;" onclick="edit()">Luu</button>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-   
+
 
     <div class="row">
         <div class="x_panel">
@@ -101,9 +101,9 @@
                 <div class="row">
                     <div class="col col-sm-3 col-md-3 col-lg-3 pull-right">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm" name="srch-term" id="srch-term" />
+                            <input type="text" class="form-control" placeholder="Tìm kiếm" name="srch" id="srch" />
                             <div class="input-group-btn">
-                                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                <button class="btn btn-primary"  type="button" onclick="search()" id="btn_search"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                         </div>
                     </div>
@@ -152,6 +152,6 @@
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
-                            </script>
+    </script>
 </asp:Content>
 

@@ -10,7 +10,7 @@ using System.Web;
 /// </summary>
 /// 
 
- namespace Manager.Models
+namespace Manager.Models
 {
     public class ApartmentDAO
     {
@@ -153,6 +153,65 @@ using System.Web;
 
 
         }
+        // search
+        public static List<Apartment> findApartments(string find)
+        {
+            int idApartment;
+            string nameApartment;
+            string typeApartment;
+            string size;
+            double priceSale;
+            double priceRent;
+            int statusApartment;
+            string dateCreate;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
+
+            List<Apartment> lst = new List<Apartment>();
+            Apartment a;
+            string sql = "select * from Apartment where (id_Apartment LIKE '" + find + "%' OR ";
+            sql += "type_Apartment LIKE '" + find + "%' OR ";
+            sql += "name_Apartment LIKE '" + find + "%' OR ";
+            sql += "size LIKE '" + find + "%' OR ";
+            sql += "priceSale LIKE '" + find + "%' OR ";
+            sql += "priceRent LIKE '" + find + "%' OR ";
+            sql += "date_create LIKE '" + find + "%' OR ";
+            sql += "user_create LIKE '" + find + "%' OR ";
+            sql += "date_update LIKE '" + find + "%' OR ";
+            sql += "user_update LIKE '" + find + "%')";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            foreach (DataRow dr in dt.Rows)
+            {
+                idApartment = Convert.ToInt16(dr[0]);
+                typeApartment = dr[1].ToString();
+                nameApartment = dr[2].ToString();
+                size = dr[3].ToString();
+                priceSale = Convert.ToDouble(dr[4]);
+                priceRent = Convert.ToDouble(dr[5]);
+                statusApartment = Convert.ToInt16(dr[6]);
+                dateCreate = dr[7].ToString();
+                userCreate = dr[8].ToString();
+                dateUpdate = dr[9].ToString();
+                userUpdate = dr[10].ToString();
+                a = new Apartment(idApartment, nameApartment, typeApartment, size, priceSale, priceRent, statusApartment, dateCreate, userCreate, dateUpdate, userUpdate);
+                lst.Add(a);
+
+
+
+            }
+
+
+
+
+            return lst;
+
+
+
+        }
+
 
 
 
