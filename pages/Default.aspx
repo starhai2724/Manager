@@ -1,16 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" MasterPageFile="~/masterPage/HomePage.master" %>
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Example of jQuery AJAX Callback using Asp.net C#</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
-  
-</head>
 
-<body>
-    <form id="form1" runat="server">
+
+
+<asp:content contentplaceholderid="CPH1" runat="server">
+   // <script src="../js/apartment.js"></script>
+    <script src="../js/test.js"></script>
         <div>
             <table>
                 <tr>
@@ -39,14 +35,15 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="button" id="btnSubmit" value="Submit" />
+                        <input type="button" id="btnSubmit"  value="Submit" />
+                        <button type="button" onclick="foo()">TEST</button>
                         <label id="lblmsg" style="color:green" />
                     </td>
                 </tr>
             </table>
             <asp:GridView ID="gvData" AutoGenerateColumns="true" runat="server"></asp:GridView>
         </div>
-    </form>
+    
       <script type="text/javascript">
           $(function () {
               $('#btnSubmit').click(function () {
@@ -74,5 +71,6 @@
               });
           });
     </script>
-</body>
-</html>
+
+        </asp:content>
+

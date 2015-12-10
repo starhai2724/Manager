@@ -18,9 +18,9 @@ namespace Manager.Models
         {
             
         }
-        public int addUser_Apartment(User_Apartment user_Apartment)
+        public static int addUser_Apartment(User_Apartment user_Apartment)
         {
-            string sql = "insert into dbo.User_Apartment(username_Apartment, password_Apartment, id_cus,date_create, user_create,date_update, user_update, status)values( @username_Apartment, @password_Apartment, @id_cus,@date_create, @user_create,@date_update, @user_update, @status)";
+            string sql = "insert into dbo.User_Apartment(username_Apartment, password_Apartment, id_cus,date_create, user_create,date_update, user_update, status, id_emp, rule)values( @username_Apartment, @password_Apartment, @id_cus,@date_create, @user_create,@date_update, @user_update, @status, @IdEmp, @Rule)";
 
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
@@ -33,6 +33,9 @@ namespace Manager.Models
             cmd.Parameters.AddWithValue("@date_update", user_Apartment.dateUpdate);
             cmd.Parameters.AddWithValue("@user_update", user_Apartment.userUpdate);
             cmd.Parameters.AddWithValue("@status", user_Apartment.status);
+            cmd.Parameters.AddWithValue("@IdEmp", user_Apartment.idEmp);
+            cmd.Parameters.AddWithValue("@Rule", user_Apartment.rule);
+
             return GenericDataAccess.ExecuteNoneQuery(cmd);
 
 
@@ -52,7 +55,8 @@ namespace Manager.Models
             string dateUpdate;
             string userUpdate;
             string status;
-
+            int idEmp;
+            string rule;
         List<User_Apartment> lst = new List<User_Apartment>();
             foreach (DataRow dr in dt.Rows)
             {
@@ -64,7 +68,9 @@ namespace Manager.Models
                 dateUpdate = dr[5].ToString();
                 userUpdate = dr[6].ToString();
                 status = dr[7].ToString();
-                user_Apartment = new User_Apartment(username, password, id_cus, dateCreate, userCreate, dateUpdate, userUpdate, status);
+                idEmp = Convert.ToInt16(dr[8]);
+                rule = dr[9].ToString();
+                user_Apartment = new User_Apartment(username, password, id_cus, dateCreate, userCreate, dateUpdate, userUpdate, status,idEmp,rule);
                 lst.Add(user_Apartment);
             }
             return lst;
@@ -76,7 +82,7 @@ namespace Manager.Models
 
         public int updateCustomer(User_Apartment user_Apartment)
         {
-            string sql = "update User_Apartment set username_Apartment=@username_Apartment, password_Apartment=@password_Apartment, id_cus=@id_cus,date_create=@date_create, user_create=@user_create,date_update=@date_update, user_update=@user_update, status=@status"
+            string sql = "update User_Apartment set username_Apartment=@username_Apartment, password_Apartment=@password_Apartment, id_cus=@id_cus,date_create=@date_create, user_create=@user_create,date_update=@date_update, user_update=@user_update, status=@status, id_emp=@idEmp, rule=@Rule"
 + "Where username_Apartment=@username_Apartment";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
@@ -87,6 +93,8 @@ namespace Manager.Models
             cmd.Parameters.AddWithValue("@date_update", user_Apartment.dateUpdate);
             cmd.Parameters.AddWithValue("@user_update", user_Apartment.userUpdate);
             cmd.Parameters.AddWithValue("@status", user_Apartment.status);
+            cmd.Parameters.AddWithValue("@idEmp", user_Apartment.idEmp);
+            cmd.Parameters.AddWithValue("@Rule", user_Apartment.rule);
             return GenericDataAccess.ExecuteNoneQuery(cmd);
 
 
@@ -101,6 +109,8 @@ namespace Manager.Models
             string dateUpdate;
             string userUpdate;
             string status;
+            int idEmp;
+            string rule;
             string sql = "select * from User_Apartment where  username_Apartment=@username_Apartment";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
@@ -115,7 +125,9 @@ namespace Manager.Models
                 dateUpdate = dr[5].ToString();
                 userUpdate = dr[6].ToString();
                 status = dr[7].ToString();
-                return  new User_Apartment(username_Apartment, password, id_cus, dateCreate, userCreate, dateUpdate, userUpdate, status);
+                idEmp = Convert.ToInt16(dr[8]);
+                rule = dr[9].ToString();
+                return  new User_Apartment(username_Apartment, password, id_cus, dateCreate, userCreate, dateUpdate, userUpdate, status, idEmp, rule);
             }
             return null;
 

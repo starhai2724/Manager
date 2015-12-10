@@ -22,7 +22,7 @@ function chekLogin() {
         });
     } else {
 
-        document.getElementById("error").innerHTML = "Sai ten hoac mat khau!";
+        document.getElementById("error").innerHTML = "Sai tên hoặc mật khẩu!";
 
     }
 }
@@ -36,7 +36,7 @@ function chek(data) {
 
     } else {
 
-        document.getElementById("error").innerHTML = "Sai ten hoac mat khau!";
+        document.getElementById("error").innerHTML = "Sai tên hoặc mật khẩu!";
 
     }
 

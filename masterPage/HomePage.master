@@ -35,8 +35,8 @@
     <!-- Custom Fonts -->
     <link href="../fontend/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- jQuery -->
+    
     <script src="../fontend/bower_components/jquery/dist/jquery.min.js"></script>
-
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

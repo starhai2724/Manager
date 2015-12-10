@@ -32,7 +32,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2 text">
-                        <h1><strong>Quan ly chung cu</strong> Login Form</h1>
+                        <h1><strong>Quản lý chung cư</strong> Login Form</h1>
                         <div class="description">
                         </div>
                     </div>
@@ -52,14 +52,14 @@
                         <div class="form-bottom">
 
                             <div class="form-group">
-                                <label class="sr-only" for="form-username">Username</label>
-                                <input type="text" name="username" placeholder="Username..." class="form-username form-control" id="username" />
+                                <label class="sr-only" for="form-username">Tên tài khoản</label>
+                                <input type="text" name="username" placeholder="Tên tài khoản" class="form-username form-control" id="username" />
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="form-password">Password</label>
-                                <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="password" />
+                                <label class="sr-only" for="form-password">Mật khẩu</label>
+                                <input type="password" name="password" placeholder="Mật khẩu" class="form-password form-control" id="password" />
                             </div>
-                            <button type="submit" class="btn" onclick="chekLogin()">Sign in!</button>
+                            <button type="submit" class="btn" onclick="chekLogin()">Đăng nhập</button>
 
                         </div>
                     </div>

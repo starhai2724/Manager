@@ -33,8 +33,9 @@ function edit() {
     var priceSale = $('#text_priceSale').val();
     var priceRent = $('#text_priceRent').val();
     var statusApartment = $('#status').val();
-   // var userEdit = localStorage.getItem('username');
-  //  alert('userEdit    ' + userEdit)
+    var userEdit = localStorage.getItem('username');
+     alert('userEdit    ' + userEdit)
+   
     $.ajax({
         type: "POST",
         url: "apartment.aspx/editApartment",
@@ -226,3 +227,20 @@ function exportFile() {
 }
 
 
+function Test() {
+    alert("a1");
+    $.ajax({
+        type: "POST",
+        url: "apartment.aspx/getApartment",
+        data: JSON.stringify({ id: "11" }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            alert("a2");
+            return data.d;
+        },
+        error: function (result) {
+            alert("Error");
+        }
+    });
+}

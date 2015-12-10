@@ -18,12 +18,10 @@ namespace Manager.Models
         public string dateUpdate { get; set; }
         public string userUpdate { get; set; }
         public string status { get; set; }
-
-        public User_Apartment()
-        {
-
-        }
-        public User_Apartment(string Username, string Password, int Id_cus, string DateCreate, string UserCreate, string DateUpdate, string UserUpdate, string Status)
+        public int idEmp { get; set; }
+        public string rule { get; set; }
+        
+        public User_Apartment(string Username, string Password, int Id_cus, string DateCreate, string UserCreate, string DateUpdate, string UserUpdate, string Status, int IdEmp, string Rule)
         {
             this.username = Username;
             this.password = Password;
@@ -33,6 +31,9 @@ namespace Manager.Models
             this.dateUpdate = DateUpdate;
             this.userUpdate = UserUpdate;
             this.status = Status;
+            this.rule = Rule;
+            this.idEmp = IdEmp;
+
         }
     }
 }

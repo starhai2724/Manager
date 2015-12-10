@@ -49,7 +49,7 @@ public partial class _apartment : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static Apartment getApartment(string id)
     {
-
+       
         
 
         return ApartmentDAO.getApartment(Convert.ToInt16(id));
