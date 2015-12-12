@@ -36,7 +36,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="button" id="btnSubmit"  value="Submit" />
-                        <button type="button" onclick="foo()">TEST</button>
+                        <button type="button" onclick="a();">TEST</button>
                         <label id="lblmsg" style="color:green" />
                     </td>
                 </tr>

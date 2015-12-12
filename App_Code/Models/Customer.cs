@@ -11,7 +11,7 @@ namespace Manager.Models
 {
     public class Customer
     {
-        public object nam;
+       
         public int idCustomer { get; set; }
         public int idApartment { get; set; }
         public string nameCustomer { get; set; }
@@ -49,7 +49,7 @@ namespace Manager.Models
             this.dateCreate = dateCreate;
             this.userCreate = userCreate;
             this.dateUpdate = dateUpdate;
-            this.userUpdate = userUpdate;
+            this.userUpdate = userUpdate; 
 
         }
     }

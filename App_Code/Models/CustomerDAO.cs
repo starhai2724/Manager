@@ -21,9 +21,9 @@ namespace Manager.Models
             //
         }
         //
-        public int addCustomer(Customer customer)
+        public static int addCustomer(Customer customer)
         {
-            string sql = "insert into dbo.Customer(name_cus, address_cus, birthday_cus, sex_cus, identifi_card_cus, id_Apartment,date_create, user_create,date_update, user_update, holder, status, email, sdt) values( @name_cus, @address_cus, @birthday_cus, @sex_cus, @identifi_card_cus, @id_Apartment,@date_create, @user_create,@date_update, @user_update, @holder, @status, @email, @sdt)";
+            string sql = "insert into dbo.Customer(name_cus, address_cus, birthday, sex_cus, identifi_card_cus, id_Apartment, date_create, user_create, date_update, user_update, holder, status, email, sdt) values( @name_cus, @address_cus, @birthday_cus, @sex_cus, @identifi_card_cus, @id_Apartment,@date_create, @user_create,@date_update, @user_update, @holder, @status, @email, @sdt)";
 
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;

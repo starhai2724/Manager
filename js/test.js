@@ -32,3 +32,26 @@ function foo() {
     });
     return result;
 }
+
+function sendMail() {
+    var link = "mailto:hai2724@gmail.com"
+             + "?cc=hai272404237@gmail.com"
+             + "&subject=" + escape("This is my subject")
+             + "&body=" + escape("NGuyen Trung Hai")
+    ;
+
+    window.location.href = link;
+}
+function a() {
+
+    var recipient = 'hai2724@gmail.com',
+         subject = 'Hi',
+         message = 'Write the body of your message here';
+
+    location.href = 'http://mail.google.com/mail/?view=cm&fs=1' +
+                    '&to=' + recipient +
+                    '&su=' + subject +
+                    '&body=' + message +
+
+                      '&ui=1';
+}

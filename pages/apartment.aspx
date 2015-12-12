@@ -12,7 +12,7 @@
             <h3 class="page-header" style="margin: 15px 0 20px;">Căn hộ</h3>
             <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="add()" id="btnAdd">Thêm</button>
             <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;" onclick="edit()">Lưu</button>
-             <button type="button" class="btn btn-primary pull-right"  style="margin-top: -64px; margin-right: 140px" onclick="exportFile()">In</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 140px" onclick="exportFile()">In</button>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -104,7 +104,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Tìm kiếm" name="srch" id="srch" />
                             <div class="input-group-btn">
-                                <button class="btn btn-primary"  type="button" onclick="search()" id="btn_search"><i class="glyphicon glyphicon-search"></i></button>
+                                <button class="btn btn-primary" type="button" onclick="search()" id="btn_search"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                         </div>
                     </div>
