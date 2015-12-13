@@ -12,13 +12,13 @@ function getApartments() {
                 $('#idApartment').remove();
             }
             apartments = data.d;
-            alert(" length: " + apartments.length);
+
             var st = " <div class='form-group'>"
                     + "<p>Căn hộ</p>"
                     + "<select class='form-control' style='margin-top: -10px;' id='idApartment'>";
-            var row ;
+            var row;
             for (var i = 0; i < apartments.length; i++) {
-              row += "<option value='" + apartments[i].idApartment + "'>" + apartments[i].nameApartment + "</option>";
+                row += "<option value='" + apartments[i].idApartment + "'>" + apartments[i].nameApartment + "</option>";
             }
             st += row;
             st += "/select></div>"
@@ -64,7 +64,7 @@ function getDatas(response) {
         $('#dataTables-example').remove();
     }
     var items = response.d;
-    alert(items.length + " length");
+
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables-example' style='margin-top: -13px;'>" +
                     "<thead id='header'>" +
                         "<tr class='info'>"
@@ -107,7 +107,7 @@ function getDatas(response) {
         row += " <td class='a-right a-right '>" + items[i].userCreate + "</td>"
         row += " <td class='a-right a-right '>" + items[i].dateUpdate + "</td>"
         row += " <td class='a-right a-right '>" + items[i].userUpdate + "</td>"
-        row += " <td class=' last'><a onclick='loadData(" + items[i].idCustomer + ")'><i data-toggle='tooltip' title='Sửa' class='glyphicon glyphicon-edit'></i></a> |"
+        row += " <td class=' last'><a onclick='loadCustomer(" + items[i].idCustomer + ")'><i data-toggle='tooltip' title='Sửa' class='glyphicon glyphicon-edit'></i></a> |"
             + "<a onclick='del(" + items[i].idCustomer + ")'><i data-toggle='tooltip' title='Xóa' class='glyphicon glyphicon-remove'></i></a></td>"
         row += "</tr>"
         table += row
@@ -169,7 +169,60 @@ function clear() {
 
 }
 //Edit
-function edit(idCustomer) {
+function loadCustomer(idCustomer) {
+
+    $.ajax({
+        type: "POST",
+        url: "customers.aspx/getCustomer",
+        data: JSON.stringify({ idCustomer: idCustomer }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: getData,
+        error: function (result) {
+            alert("Error");
+        }
+    });
+
+
+}
+
+function getData(data) {
+    var customer = data.d;
+    alert("customer: " + customer.idCustomer);
+
+    $('#txtName').val(customer.nameCustomer);
+    $('#txtAddress').val(customer.addressCustomer);
+    $('#txt_identifiCard').val(customer.identifiCardCustomer);
+    $('#sex').val(customer.sex);
+    // $('#idApartment').val(customer.);
+    $('#txtBirthday').val(customer.birthday);
+    $('#holder').val(customer.holder);
+    $('#txtEmail').val(customer.email);
+    $('#txtPhone').val(customer.sdt);
+    $('#status').val(customer.status);
+
+
+
+    if ($('#idApartment').length != 0) {
+        $('#idApartment').remove();
+    }
+    alert("apartment: " + apartments.length);
+    var st = " <div class='form-group'>"
+            + "<p>Căn hộ</p>"
+            + "<select class='form-control' style='margin-top: -10px;' id='idApartment'>";
+    var row;
+    for (var i = 0; i < apartments.length; i++) {
+        if (apartments[i].idApartment == customer.idApartment) {
+            row += "<option  selected='selected' value='" + apartments[i].idApartment + "'>" + apartments[i].nameApartment + "</option>";
+        } else {
+
+            row += "<option value='" + apartments[i].idApartment + "'>" + apartments[i].nameApartment + "</option>";
+        }
+    }
+    st += row;
+    st += "/select></div>"
+    $('#getApartments').html(st);
+
 
 }
 

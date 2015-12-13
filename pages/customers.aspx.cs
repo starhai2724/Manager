@@ -34,6 +34,14 @@ public partial class pages_customers : System.Web.UI.Page
 
     }
 
+    [System.Web.Services.WebMethod]
+    public static Customer getCustomer(string idCustomer)
+    {
+        return CustomerDAO.getCustomer(Convert.ToInt16(idCustomer));
+
+    }
+
+
 
 
 }
