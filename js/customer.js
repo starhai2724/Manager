@@ -108,7 +108,7 @@ function getDatas(response) {
         row += " <td class='a-right a-right '>" + items[i].dateUpdate + "</td>"
         row += " <td class='a-right a-right '>" + items[i].userUpdate + "</td>"
         row += " <td class=' last'><a onclick='loadCustomer(" + items[i].idCustomer + ")'><i data-toggle='tooltip' title='Sửa' class='glyphicon glyphicon-edit'></i></a> |"
-            + "<a onclick='del(" + items[i].idCustomer + ")'><i data-toggle='tooltip' title='Xóa' class='glyphicon glyphicon-remove'></i></a></td>"
+            + "<a onclick='deleteCustomer(" + items[i].idCustomer + ")'><i data-toggle='tooltip' title='Xóa' class='glyphicon glyphicon-remove'></i></a></td>"
         row += "</tr>"
         table += row
     }
@@ -189,7 +189,7 @@ function loadCustomer(idCustomer) {
 function getData(data) {
     var customer = data.d;
     alert("customer: " + customer.idCustomer);
-
+    $('#idCustomer').val(customer.idCustomer);
     $('#txtName').val(customer.nameCustomer);
     $('#txtAddress').val(customer.addressCustomer);
     $('#txt_identifiCard').val(customer.identifiCardCustomer);
@@ -222,9 +222,147 @@ function getData(data) {
     st += row;
     st += "/select></div>"
     $('#getApartments').html(st);
+    var holder;
+    if (customer.holder == "Thành viên") {
+        if ($('#optionmember').length != 0) {
+            $('#optionmember').remove();
+            holder = "<option id='optionmember' selected='selected'>Thành viên</option>";
+            holder += "<option id='optionholder'>Chủ</option>";
+        }
+
+    } else {
+        if ($('#optionholder').length != 0) {
+            $('#optionholder').remove();
+            holder = "<option id='optionholder' selected='selected'>Chủ</option>";
+            holder += "<option id='optionmember' >Thành viên</option>";
+        }
+    }
+    $('#holder').html(holder);
+
+    var sex;
+    if (customer.sex == "Nam") {
+        if ($('#male').length != 0) {
+            $('#male').remove();
+            sex = "<option selected='selected' id='male'>Nam</option>";
+            sex += "<option id='female'>Nữ</option>";
+        }
+
+        } else {
+            if ($('#female').length != 0) {
+                $('#female').remove();
+                sex = "<option  id='male'>Nam</option>";
+                sex += "<option selected='selected' id='female'>Nữ</option>";
+            }
+
+    }
+    $('#sex').html(sex);
+
+
+    var status;
+    if (customer.status == "Đang hoạt động") {
+        if ($('#active').length != 0) {
+            $('#active').remove();
+            status = "<option id='active' selected='selected'>Đang hoạt động</option>";
+            status += " <option  id='noActive'>Không hoạt động</option>";
+        }
+
+    } else {
+        if ($('#noActive').length != 0) {
+            $('#noActive').remove();
+            status = "<option id='active' >Đang hoạt động</option>";
+            status += " <option  id='noActive' selected='selected'>Không hoạt động</option>";
+        }
+    }
+    $('#status').html(status);
+}
+function edit() {
+
+    var name = $('#txtName').val();
+    var address = $('#txtAddress').val();
+    var identifiCard = $('#txt_identifiCard').val();
+    var sex = $('#sex').val();
+    var idApartment = $('#idApartment').val();
+    var birthday = $('#txtBirthday').val() + "";
+    var holder = $('#holder').val();
+    var email = $('#txtEmail').val();
+    var phone = $('#txtPhone').val();
+    var status = $('#status').val();
+    var id = $('#idCustomer').val();
+    alert("idApartment  " + idApartment);
+    alert("name:" + name + " address:" + address + " address:" + identifiCard + " address:" + sex + " address:" + idApartment, "address:" + birthday + " address:" + holder + " address:" + email + " address:" + phone + " address:" + status);
+    $.ajax({
+        type: "POST",
+        url: "customers.aspx/edit",
+        data: JSON.stringify({id:id, name: name, address: address, identifiCard: identifiCard, sex: sex, idApartment: idApartment, birthday: birthday, holder: holder, email: email, phone: phone, status: status }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            bindData();
+            clear();
+            alert("Sua thanh cong");
+        },
+        error: function (result) {
+            alert("Error");
+        }
+
+    });
+
+}
+//search 
+function search() {
+    var find = $('#srch-term').val();
+    alert("find: " + find);
+    $.ajax({
+        type: "POST",
+        url: "customers.aspx/search",
+        data: JSON.stringify({ find: find }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: getDatas,
+        error: function (result) {
+            alert("Error");
+        }
+    });
 
 
 }
+//delete
+function deleteCustomer(id) {
+    var msg = confirm("Ban co chac chan muon xoa!")
+    if (msg == true) {
+
+        $.ajax({
+            type: "POST",
+            url: "customers.aspx/delete",
+            data: JSON.stringify({ id: id }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                alert("Xoa thanh cong!");
+                bindData();
 
 
+            },
+            error: function (result) {
+                alert("Error");
+            }
+        });
+    }
 
+}
+// in
+function exportFile() {
+
+    var a = document.createElement('a');
+    //getting data from our div that contains the HTML table
+    var data_type = 'data:application/vnd.ms-excel';
+    var table_div = document.getElementById('divtable');
+    var table_html = table_div.outerHTML.replace(/ /g, '%20');
+    a.href = data_type + ', ' + table_html;
+    //setting the file name
+    a.download = 'Customers' + '.xls';
+    //triggering the function
+    a.click();
+    //just in case, prevent default behaviour
+
+}

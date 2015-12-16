@@ -24,26 +24,21 @@ namespace Manager.Models
         //
         public int addPrice(Price price)
         {
-            string sql = "insert into dbo.Price(price_electric, price_water, price_internet, price_Trash, price_management, price_moto, price_car, date_create, user_create, date_update, user_update, status, price_service) values(@price_electric, @price_water, @price_internet, @price_Trash, @price_management, @price_moto, @price_car, @date_create, @user_create, @date_update, @user_update, @status, @price_service)";
+            string sql = "insert into dbo.Price(price_electric, price_water, price_internet, price_Trash, date_create, user_create, date_update, user_update, status) values(@price_electric, @price_water, @price_internet, @price_Trash, @date_create, @user_create, @date_update, @user_update, @status)";
 
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
-            //, @address_cus, , , , ,,
-            //@user_create,@date_update, @user_update, , @status, @email, @sdt
+            //, , , @price_Trash
 
             cmd.Parameters.AddWithValue("@price_electric", price.priceElectric);
             cmd.Parameters.AddWithValue("@price_water", price.priceWater);
             cmd.Parameters.AddWithValue("@price_internet", price.priceInternet);
             cmd.Parameters.AddWithValue("@price_Trash", price.priceTrash);
-            cmd.Parameters.AddWithValue("@price_management", price.priceManagement);
-            cmd.Parameters.AddWithValue("@price_moto", price.priceMoto);
-            cmd.Parameters.AddWithValue("@price_car", price.priceCar);
             cmd.Parameters.AddWithValue("@date_create", price.dateCreate);
             cmd.Parameters.AddWithValue("@user_create", price.userCreate);
             cmd.Parameters.AddWithValue("@date_update", price.dateUpdate);
             cmd.Parameters.AddWithValue("@user_update", price.userUpdate);
             cmd.Parameters.AddWithValue("@status", price.status);
-            cmd.Parameters.AddWithValue("@price_service", price.priceService);
             return GenericDataAccess.ExecuteNoneQuery(cmd);
 
 
@@ -60,10 +55,6 @@ namespace Manager.Models
             double priceWater;
             double priceInternet;
             double priceTrash;
-            double priceManagement;
-            double priceMoto;
-            double priceCar;
-            double priceService;
             string dateCreate;
             string userCreate;
             string dateUpdate;
@@ -77,17 +68,13 @@ namespace Manager.Models
                 priceWater = Convert.ToDouble(dr[2]);
                 priceInternet = Convert.ToDouble(dr[3]);
                 priceTrash = Convert.ToDouble(dr[4]);
-                priceManagement = Convert.ToDouble(dr[5]);
-                priceMoto = Convert.ToDouble(dr[5]);
-                priceCar = Convert.ToDouble(dr[6]);
-                dateCreate = dr[6].ToString();
-                userCreate = dr[7].ToString();
-                dateUpdate = dr[8].ToString();
-                userUpdate = dr[9].ToString();
-                status = dr[10].ToString();
-                priceService = Convert.ToDouble(dr[11]);
+                dateCreate = dr[5].ToString();
+                userCreate = dr[6].ToString();
+                dateUpdate = dr[7].ToString();
+                userUpdate = dr[8].ToString();
+                status = dr[9].ToString();
 
-                price = new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, priceManagement, priceMoto, priceCar, priceService, dateCreate, userCreate, dateUpdate, userUpdate, status);
+                price = new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, dateCreate, userCreate, dateUpdate, userUpdate, status);
                 lst.Add(price);
             }
             return lst;
@@ -99,7 +86,7 @@ namespace Manager.Models
         //status_Apartment,date_create,user_create,date_update,user_update
         public int updatePrice(Price price)
         {
-            string sql = "update Price set price_electric=@price_electric, price_water=@price_water, price_internet=@price_internet, price_Trash=@price_Trash, price_management=@price_management, price_moto=@price_moto, price_car=@price_car, date_create=@date_create, user_create=@user_create, date_update=@date_update, user_update=@user_update, status=@status, price_service=@price_service "
+            string sql = "update Price set price_electric=@price_electric, price_water=@price_water, price_internet=@price_internet, price_Trash=@price_Trash, date_update=@date_update, user_update=@user_update, status=@status "
 + "Where id_Price=@IDPrice";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
@@ -107,19 +94,11 @@ namespace Manager.Models
             cmd.Parameters.AddWithValue("@price_water", price.priceWater);
             cmd.Parameters.AddWithValue("@price_internet", price.priceInternet);
             cmd.Parameters.AddWithValue("@price_Trash", price.priceTrash);
-            cmd.Parameters.AddWithValue("@price_management", price.priceManagement);
-            cmd.Parameters.AddWithValue("@price_moto", price.priceMoto);
-            cmd.Parameters.AddWithValue("@price_car", price.priceCar);
-            cmd.Parameters.AddWithValue("@date_create", price.dateCreate);
-            cmd.Parameters.AddWithValue("@user_create", price.userCreate);
             cmd.Parameters.AddWithValue("@date_update", price.dateUpdate);
             cmd.Parameters.AddWithValue("@user_update", price.userUpdate);
             cmd.Parameters.AddWithValue("@status", price.status);
-            cmd.Parameters.AddWithValue("@price_service", price.priceService);
             cmd.Parameters.AddWithValue("@IDPrice", price.idPrice);
             return GenericDataAccess.ExecuteNoneQuery(cmd);
-
-
 
         }
         public static Price getPrice(int id)
@@ -129,18 +108,15 @@ namespace Manager.Models
             double priceWater;
             double priceInternet;
             double priceTrash;
-            double priceManagement;
-            double priceMoto;
-            double priceCar;
-            double priceService;
             string dateCreate;
             string userCreate;
             string dateUpdate;
             string userUpdate;
             string status;
-            string sql = "select * from Price where id_cus=@IdPrice";
+            string sql = "select * from Price where id_Price=@IdPrice";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
+
             cmd.Parameters.AddWithValue("@IdPrice", id);
             DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
             foreach (DataRow dr in dt.Rows)
@@ -150,16 +126,12 @@ namespace Manager.Models
                 priceWater = Convert.ToDouble(dr[2]);
                 priceInternet = Convert.ToDouble(dr[3]);
                 priceTrash = Convert.ToDouble(dr[4]);
-                priceManagement = Convert.ToDouble(dr[5]);
-                priceMoto = Convert.ToDouble(dr[5]);
-                priceCar = Convert.ToDouble(dr[6]);
-                dateCreate = dr[6].ToString();
-                userCreate = dr[7].ToString();
-                dateUpdate = dr[8].ToString();
-                userUpdate = dr[9].ToString();
-                status = dr[10].ToString();
-                priceService = Convert.ToDouble(dr[11]);
-                return new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, priceManagement, priceMoto, priceCar, priceService, dateCreate, userCreate, dateUpdate, userUpdate, status);
+                dateCreate = dr[5].ToString();
+                userCreate = dr[6].ToString();
+                dateUpdate = dr[7].ToString();
+                userUpdate = dr[8].ToString();
+                status = dr[9].ToString();
+                return new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, dateCreate, userCreate, dateUpdate, userUpdate, status);
 
             }
             return null;
@@ -170,7 +142,7 @@ namespace Manager.Models
         public int deletePrice(int id)
         {
 
-            string sql = "Delete from Price where id_cus=@IdPrice";
+            string sql = "Delete from Price where id_Price=@IdPrice";
 
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
@@ -180,6 +152,61 @@ namespace Manager.Models
 
 
         }
+      
+
+        // search
+        public static List<Price> findPrices(string find)
+        {
+            int idPrice;
+            double priceElectric;
+            double priceWater;
+            double priceInternet;
+            double priceTrash;
+            string dateCreate;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
+            string status;
+            // price_internet, price_Trash, date_create, user_create, date_update, user_update, status
+            List<Price> lst = new List<Price>();
+            Price a;
+            string sql = "select * from Price where (id_Price LIKE '" + find + "%' OR ";
+            sql += "price_electric LIKE '" + find + "%' OR ";
+            sql += "price_water LIKE '" + find + "%' OR ";
+            sql += "price_internet LIKE '" + find + "%' OR ";
+            sql += "price_Trash LIKE '" + find + "%' OR ";
+            sql += "date_create LIKE '" + find + "%' OR ";
+            sql += "user_create LIKE '" + find + "%' OR ";
+            sql += "date_update LIKE '" + find + "%' OR ";
+            sql += "user_update LIKE '" + find + "%' OR ";
+            sql += "status LIKE '" + find + "%')";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            foreach (DataRow dr in dt.Rows)
+            {
+                idPrice = Convert.ToInt16(dr[0]);
+                priceElectric = Convert.ToDouble(dr[1]);
+                priceWater = Convert.ToDouble(dr[2]);
+                priceInternet = Convert.ToDouble(dr[3]);
+                priceTrash = Convert.ToDouble(dr[4]);
+                dateCreate = dr[5].ToString();
+                userCreate = dr[6].ToString();
+                dateUpdate = dr[7].ToString();
+                userUpdate = dr[8].ToString();
+                status = dr[9].ToString();
+                a= new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, dateCreate, userCreate, dateUpdate, userUpdate, status);
+                
+                lst.Add(a);
+                
+            }
+            
+            return lst;
+
+
+
+        }
 
     }
+    
     }

@@ -8,8 +8,9 @@
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Khách hàng</h3>
             <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="add()">Thêm</button>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;">Lưu</button>
-        </div>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;" onclick="edit()">Lưu</button>
+        <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 140px" onclick="exportFile()">In</button>
+             </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
@@ -19,7 +20,7 @@
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Mã khách hàng</p>
-                    <input disabled="disabled" type="text" class="form-control" style="margin-top: -10px;" id="" />
+                    <input disabled="disabled" type="text" class="form-control" style="margin-top: -10px;" id="idCustomer" />
                 </div>
             </div>
             <div class="col col-sm-4 col-md-4 col-lg-4">
@@ -49,8 +50,8 @@
                 <div class="form-group">
                     <p>Giới tính</p>
                     <select class="form-control" style="margin-top: -10px;" id="sex">
-                        <option>Nam</option>
-                        <option>Nữ</option>
+                        <option selected="selected" id="male">Nam</option>
+                        <option id="female">Nữ</option>
                     </select>
                 </div>
             </div>
@@ -70,11 +71,11 @@
             </div>
 
             <div class="col col-sm-4 col-md-4 col-lg-4">
-                <div class="form-group">
+                <div class="form-group"   id="dvholder">
                     <p>Chủ căn hộ</p>
                     <select class="form-control" style="margin-top: -10px;" id="holder">
-                        <option>Thành viên</option>
-                        <option>Chủ</option>
+                        <option id="optionmember" selected="selected">Thành viên</option>
+                        <option id="optionholder">Chủ</option>
                     </select>
                 </div>
             </div>
@@ -99,8 +100,8 @@
                 <div class="form-group">
                     <p>Tình trạng</p>
                     <select class="form-control" style="margin-top: -10px;" id="status">
-                        <option>Đang hoạt động</option>
-                        <option>Không hoạt động</option>
+                        <option id="active">Đang hoạt động</option>
+                        <option selected="selected" id="noActive">Không hoạt động</option>
                     </select>
                 </div>
             </div>
@@ -120,7 +121,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Tìm kiếm" name="srch-term" id="srch-term" />
                             <div class="input-group-btn">
-                                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                <button class="btn btn-primary" type="button" onclick="search()"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                         </div>
                     </div>

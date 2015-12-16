@@ -21,7 +21,7 @@ public partial class pages_customers : System.Web.UI.Page
     }
     //add
     [System.Web.Services.WebMethod]
-    public static void add(string name, string address, string identifiCard, string sex, string idApartment, string birthday, string holder, string email, string phone, string status )
+    public static void add(string name, string address, string identifiCard, string sex, string idApartment, string birthday, string holder, string email, string phone, string status)
     {
         DateTime dateTime = DateTime.Now;
         string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
@@ -33,6 +33,22 @@ public partial class pages_customers : System.Web.UI.Page
         CustomerDAO.addCustomer(c);
 
     }
+    //edit
+    [System.Web.Services.WebMethod]
+    public static void edit(string id, string name, string address, string identifiCard, string sex, string idApartment, string birthday, string holder, string email, string phone, string status)
+    {
+        DateTime dateTime = DateTime.Now;
+        string update = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
+        int idA = Convert.ToInt16(idApartment + "");
+
+
+        Customer c = new Customer(Convert.ToInt16(id), idA, name, address, birthday, sex, identifiCard, holder, status, email, phone, "", "", update, "");
+
+        CustomerDAO.updateCustomer(c);
+
+    }
+
+
 
     [System.Web.Services.WebMethod]
     public static Customer getCustomer(string idCustomer)
@@ -41,6 +57,21 @@ public partial class pages_customers : System.Web.UI.Page
 
     }
 
+    //search 
+    [System.Web.Services.WebMethod]
+    public static List<Customer> search(string find)
+    {
+
+        return CustomerDAO.searchCustomers(find);
+
+
+    }
+    [System.Web.Services.WebMethod]
+    public static void delete(string id)
+    {
+        CustomerDAO.deleteCustomer(Convert.ToInt16(id));
+
+    }
 
 
 
