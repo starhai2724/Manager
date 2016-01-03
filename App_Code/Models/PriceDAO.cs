@@ -207,6 +207,46 @@ namespace Manager.Models
 
         }
 
-    }
-    
+        //get price status="Hoat dong"
+
+        public  Price getPriceApply()
+        {
+            int idPrice;
+            double priceElectric;
+            double priceWater;
+            double priceInternet;
+            double priceTrash;
+            string dateCreate;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
+            string status;
+            string sql = "select * from Price where status='a'";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            foreach (DataRow dr in dt.Rows)
+            {
+                idPrice = Convert.ToInt16(dr[0]);
+                priceElectric = Convert.ToDouble(dr[1]);
+                priceWater = Convert.ToDouble(dr[2]);
+                priceInternet = Convert.ToDouble(dr[3]);
+                priceTrash = Convert.ToDouble(dr[4]);
+                dateCreate = dr[5].ToString();
+                userCreate = dr[6].ToString();
+                dateUpdate = dr[7].ToString();
+                userUpdate = dr[8].ToString();
+                status = dr[9].ToString();
+                return new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, dateCreate, userCreate, dateUpdate, userUpdate, status);
+
+            }
+            return null;
+
+
+
+        }
+
+
+        }
+
     }

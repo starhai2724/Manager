@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class pages_user : System.Web.UI.Page
 {
+    static User_ApartmentDAO dao = new User_ApartmentDAO();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -23,7 +24,7 @@ public partial class pages_user : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static string chekUsername(string username)
     {
-        User_Apartment user = User_ApartmentDAO.getUser_Apartment(username);
+        User_Apartment user = dao.getUser_Apartment(username);
         if (null != user)
         {
             return user.username;
@@ -42,11 +43,23 @@ public partial class pages_user : System.Web.UI.Page
         string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
         User_Apartment a = new User_Apartment(username, password, Convert.ToInt16(customer), dateCreate, "Nguyen", "", "", "", Convert.ToInt16(employee), rule);
 
-
-
         return User_ApartmentDAO.addUser_Apartment(a);
 
 
+    }
+    [System.Web.Services.WebMethod]
+    public static int delete(string username)
+    {
+        return dao.deleteUser_Apartment(username);
+
+    }
+    [System.Web.Services.WebMethod]
+    public static int editUser(string username, string password, string customer, string rePassword, string employee, string rule)
+    {
+        DateTime dateTime = DateTime.Now;
+        string dateUpdate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
+        User_Apartment a = new User_Apartment(username, password, Convert.ToInt16(customer), "", "", dateUpdate, "", "", Convert.ToInt16(employee), rule);
+        return dao.updateCustomer(a);
     }
 
 

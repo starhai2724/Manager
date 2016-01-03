@@ -17,27 +17,26 @@ public class ElectricDAO
     public ElectricDAO()
     {
     }
-    public int addElectric(Electric Electric)
+    public int addElectric(Electric electric)
     {
-        string sql = "insert into dbo.Electric(number_old, number_new, total_money, id_bill, date_create, user_create, date_update, user_update, status)values( @number_old, @number_new, @total_money, @id_bill, @date_create, @user_create, @date_update, @user_update, @status)";
+        string sql = "insert into dbo.Electric(number_old, number_new, total_money, id_bill, date_create, user_create, date_update, user_update, status)values(@number_old, @number_new, @total_money, @id_bill, @date_create, @user_create, @date_update, @user_update, @status)";
 
         SqlCommand cmd = GenericDataAccess.CreateCommand();
         cmd.CommandText = sql;
-
-        cmd.Parameters.AddWithValue("@number_old", Electric.numberOld);
-        cmd.Parameters.AddWithValue("@number_new", Electric.numberNew);
-        cmd.Parameters.AddWithValue("@total_money", Electric.totalMoney);
-        cmd.Parameters.AddWithValue("@id_bill", Electric.idBill);
-        cmd.Parameters.AddWithValue("@date_create", Electric.dateCreate);
-        cmd.Parameters.AddWithValue("@user_create", Electric.userCreate);
-        cmd.Parameters.AddWithValue("@date_update", Electric.dateUpdate);
-        cmd.Parameters.AddWithValue("@user_update", Electric.userUpdate);
-        cmd.Parameters.AddWithValue("@status", Electric.status);
+        cmd.Parameters.AddWithValue("@number_old", electric.numberOld);
+        cmd.Parameters.AddWithValue("@number_new", electric.numberNew);
+        cmd.Parameters.AddWithValue("@total_money", electric.totalMoney);
+        cmd.Parameters.AddWithValue("@id_bill", electric.idBill);
+        cmd.Parameters.AddWithValue("@date_create", electric.dateCreate);
+        cmd.Parameters.AddWithValue("@user_create", electric.userCreate);
+        cmd.Parameters.AddWithValue("@date_update", electric.dateUpdate);
+        cmd.Parameters.AddWithValue("@user_update", electric.userUpdate);
+        cmd.Parameters.AddWithValue("@status", electric.status);
         return GenericDataAccess.ExecuteNoneQuery(cmd);
 
 
     }
-    public static List<Electric> getElectrics()
+    public  List<Electric> getElectrics()
     {
         string sql = "select * from Electric";
         SqlCommand cmd = GenericDataAccess.CreateCommand();
@@ -134,8 +133,42 @@ public class ElectricDAO
 
 
     }
+        public static Electric getElectric_byIdBill(int idBill)
+        {
+            int idElectric;
+            int numberOld;
+            int numberNew;
+            double totalMoney;
+            string status;
+            string dateCreate;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
+            string sql = "select * from Electric where id_bill=@IdBill";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@IdBill", idBill);
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            foreach (DataRow dr in dt.Rows)
+            {
+                idElectric = Convert.ToInt16(dr[0]);
+                numberOld = Convert.ToInt16(dr[1]);
+                numberNew = Convert.ToInt16(dr[2]);
+                totalMoney = Convert.ToDouble(dr[3]);
+                idBill = Convert.ToInt16(dr[4]);
+                dateCreate = dr[5].ToString();
+                userCreate = dr[6].ToString();
+                dateUpdate = dr[7].ToString();
+                userUpdate = dr[8].ToString();
+                status = dr[9].ToString();
+                return new Electric(idElectric, idBill, numberOld, numberNew, totalMoney, status, dateCreate, userCreate, dateUpdate, userUpdate);
+            }
+            return null;
 
-    public int deleteElectric(int id)
+
+        }
+
+        public int deleteElectric(int id)
     {
 
         string sql = "Delete from Electric where id_Electric=@IdElectric";

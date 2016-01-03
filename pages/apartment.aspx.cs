@@ -23,8 +23,12 @@ public partial class _apartment : System.Web.UI.Page
     {
         DateTime dateTime = DateTime.Now;
         string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
+      
 
-        Apartment a = new Apartment(0, name, type, size, Double.Parse(priceS), Double.Parse(priceR), Convert.ToInt16(status), dateCreate, userCreate, "", "");
+
+
+
+        Apartment a = new Apartment(0, name, type, size, Double.Parse(priceS), Double.Parse(priceR), status, dateCreate, userCreate, "", "");
         ApartmentDAO.addAparment(a);
 
     }
@@ -63,7 +67,7 @@ public partial class _apartment : System.Web.UI.Page
     {
         DateTime dateTime = DateTime.Now;
         string dateUpdate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
-        Apartment a = new Apartment(Convert.ToInt16(id), name, type, size, Double.Parse(priceS), Double.Parse(priceR), Convert.ToInt16(status), "", "", dateUpdate, userUpdate);
+        Apartment a = new Apartment(Convert.ToInt16(id), name, type, size, Double.Parse(priceS), Double.Parse(priceR), status, "", "", dateUpdate, userUpdate);
         ApartmentDAO.updateApartment(a);
     }
 

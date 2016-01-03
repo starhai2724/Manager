@@ -63,6 +63,9 @@ function add() {
     var typeApartment = $('#type').val();
     var size = $('#text_size').val();
     var priceSale = $('#text_priceSale').val();
+    var priceSale_2 = priceSale.replace(",", "");
+    
+
     var priceRent = $('#text_priceRent').val();
     var statusApartment = $('#status').val();
     var userCreate = localStorage.getItem('username');
@@ -121,6 +124,12 @@ function del(idDelete) {
 $(document).ready(function () {
 
     bindData();
+    //bat loi
+
+   
+
+    
+
 });
 // load table
 

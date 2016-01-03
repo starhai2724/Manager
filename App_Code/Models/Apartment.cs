@@ -20,7 +20,7 @@ namespace Manager.Models
         public string size { get; set; }
         public double priceSale { get; set; }
         public double priceRent { get; set; }
-        public int statusApartment { get; set; }
+        public string statusApartment { get; set; }
         public string dateCreate { get; set; }
         public string userCreate { get; set; }
         public string dateUpdate { get; set; }
@@ -43,7 +43,7 @@ namespace Manager.Models
 
 
         public Apartment(int IdApartment, string NameApartment, string TypeApartment, string Size, double PriceSale,
-            double PriceRent, int StatusApartment, string DateCreate, string UserCreate, string DateUpdate, string UserUpdate)
+            double PriceRent, string StatusApartment, string DateCreate, string UserCreate, string DateUpdate, string UserUpdate)
         {
 
             this.idApartment = IdApartment;

@@ -1,13 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="bill.aspx.cs" Inherits="pages_bill" MasterPageFile="~/masterPage/HomePage.master" %>
-
-
+<%@ Import Namespace="Manager.Models" %>
 <asp:Content ContentPlaceHolderID="CPH1" runat="server">
-
+    <script src="../js/apartment.js"></script>
+    <script src="../js/bill.js"></script>
+   
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Hóa đơn</h3>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px">Thêm</button>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;">Lưu</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="add_Bill()">Thêm</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;" onclick="edit_bill()">Lưu</button>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -21,38 +22,35 @@
                     <input disabled="disabled" type="text" class="form-control" style="margin-top: -10px;" id="idBill" placeholder="" />
                 </div>
             </div>
-            <div class="col col-sm-3 col-md-3 col-lg-3">
-                <div class="form-group">
-                    <p>Ngày tạo hóa đơn</p>
-                    <input min="2010-01-01"
-                        type="date" name="txtTGTu" value=""
-                        class="form-control" style="margin-top: -10px;" data-toggle="tooltip" title="Ngày sinh"/>
-                </div>
+           
+            <div class="col col-sm-3 col-md-3 col-lg-3" id="getApartments">
+                
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
-                    <p>Áp dụng cho căn hộ</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" placeholder="Nhập tên căn hộ" />
+                    <p>Tiền phòng</p>
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="total_apartment" placeholder="Tiền phòng" />
                 </div>
             </div>
+            
         </div>
         <div class="row">
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Số điện củ</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="electric_old" />
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Số điện mới</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" placeholder="Nhập số điện mới" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="electric_new" placeholder="Nhập số điện mới" onblur="totalElectric()"/>
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Tổng tiền điện</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" placeholder="Nhập số điện mới" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="total_electric"  />
 
                 </div>
             </div>
@@ -61,19 +59,19 @@
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Số nước củ</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="water_old" />
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Số nước mới</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" placeholder="Nhập số nước mới" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="water_new" placeholder="Nhập số nước mới" onblur="totalWater()" />
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Tổng tiền nước</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" placeholder="Nhập số nước mới" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="total_water"  />
                 </div>
             </div>
         </div>
@@ -81,19 +79,21 @@
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Tổng tiền rác</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="trash" />
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Tổng tiền internet</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="internet" />
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
-                    <p>Tiền phòng</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" />
+                    <p>Hóa đơn của tháng</p>
+                    <input min="2010-01-01"
+                        type="date" id="dateBill" value=""
+                        class="form-control" style="margin-top: -10px;" data-toggle="tooltip" title="Ngày tạo"/>
                 </div>
             </div>
         </div>
@@ -101,7 +101,7 @@
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>TỔNG TIỀN</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="total" />
                 </div>
             </div>
         </div>
@@ -114,108 +114,17 @@
                 <div class="row">
                     <div class="col col-sm-3 col-md-3 col-lg-3 pull-right">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm" name="srch-term" id="srch-term">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm" name="srch-term" id="srch-term"/>
                             <div class="input-group-btn">
                                 <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="margin-top: -13px;">
-                    <thead>
-                        <tr class="info">
-                            <th>Mã </th>
-                            <th>Tên căn hộ</th>
-                            <th>Tổng tiền điện</th>
-                            <th>Tổng tiền nước</th>
-                            <th>Tổng tiền rác</th>
-                            <th>Tổng tiền internet</th>
-                            <th>Tổng tiền phòng</th>
-                            <th>Ngày lập</th>
-                            <th>Thành tiền</th>
-                            <th class=" no-link last"><span class="nobr">Thao tác</span>
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr class="even pointer">
-                            <td class=" ">0001</td>
-                            <td class=" ">A001</td>
-                            <td class=" ">520,000</td>
-                            <td class=" ">230,000</td>
-                            <td class=" ">25,000</td>
-                            <td class=" ">100,000</td>
-                            <td class=" ">9,000,000</td>
-                            <td class=" ">28/11/1993</td>
-                            <td class=" ">11,200,000</td>
-                            <td class=" last"><a href="#"><i data-toggle="tooltip" title="Sửa" class="glyphicon glyphicon-edit"></i></a>| <a href="#"><i data-toggle="tooltip" title="Xóa" class="glyphicon glyphicon-remove"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="even pointer">
-                            <td class=" ">0001</td>
-                            <td class=" ">A001</td>
-                            <td class=" ">520,000</td>
-                            <td class=" ">230,000</td>
-                            <td class=" ">25,000</td>
-                            <td class=" ">100,000</td>
-                            <td class=" ">9,000,000</td>
-                            <td class=" ">28/11/1993</td>
-                            <td class=" ">11,200,000</td>
-                            <td class=" last"><a href="#"><i data-toggle="tooltip" title="Sửa" class="glyphicon glyphicon-edit"></i></a>| <a href="#"><i data-toggle="tooltip" title="Xóa" class="glyphicon glyphicon-remove"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="even pointer">
-                            <td class=" ">0001</td>
-                            <td class=" ">A001</td>
-                            <td class=" ">520,000</td>
-                            <td class=" ">230,000</td>
-                            <td class=" ">25,000</td>
-                            <td class=" ">100,000</td>
-                            <td class=" ">9,000,000</td>
-                            <td class=" ">28/11/1993</td>
-                            <td class=" ">11,200,000</td>
-                            <td class=" last"><a href="#"><i data-toggle="tooltip" title="Sửa" class="glyphicon glyphicon-edit"></i></a>| <a href="#"><i data-toggle="tooltip" title="Xóa" class="glyphicon glyphicon-remove"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="even pointer">
-                            <td class=" ">0001</td>
-                            <td class=" ">A001</td>
-                            <td class=" ">520,000</td>
-                            <td class=" ">230,000</td>
-                            <td class=" ">25,000</td>
-                            <td class=" ">100,000</td>
-                            <td class=" ">9,000,000</td>
-                            <td class=" ">28/11/1993</td>
-                            <td class=" ">11,200,000</td>
-                            <td class=" last"><a href="#"><i data-toggle="tooltip" title="Sửa" class="glyphicon glyphicon-edit"></i></a>| <a href="#"><i data-toggle="tooltip" title="Xóa" class="glyphicon glyphicon-remove"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="odd pointer">
-                            <td class=" ">0001</td>
-                            <td class=" ">A001</td>
-                            <td class=" ">520,000</td>
-                            <td class=" ">230,000</td>
-                            <td class=" ">25,000</td>
-                            <td class=" ">100,000</td>
-                            <td class=" ">9,000,000</td>
-                            <td class=" ">28/11/1993</td>
-                            <td class=" ">11,200,000</td>
-                            <td class=" last"><a href="#"><i data-toggle="tooltip" title="Sửa" class="glyphicon glyphicon-edit"></i></a>|  <a href="#"><i data-toggle="tooltip" title="Xóa" class="glyphicon glyphicon-remove"></i></a>
-                            </td>
-                            <script>
-                                $(document).ready(function () {
-                                    $('[data-toggle="tooltip"]').tooltip();
-                                });
-
-                                $('idBill').prop('disabled', true);
-                            </script>
-                        </tr>
-
-                    </tbody>
-
-                </table>
+                <br/>
+                <div class="row" id="divtable_bill">
+                </div>
+              
             </div>
         </div>
 

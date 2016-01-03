@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class pages_customers : System.Web.UI.Page
 {
+  static  CustomerDAO customerDAO = new CustomerDAO();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -16,11 +17,23 @@ public partial class pages_customers : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static List<Customer> getCustomers()
     {
-        return CustomerDAO.getCustomers();
+        return customerDAO.getCustomers();
 
     }
-    //add
+    // get customers by holder
     [System.Web.Services.WebMethod]
+    public static List<Customer> getCustomersByHolder()
+    {
+        return customerDAO.getCustomersByHolder();
+
+    }
+
+    
+
+
+
+//add
+[System.Web.Services.WebMethod]
     public static void add(string name, string address, string identifiCard, string sex, string idApartment, string birthday, string holder, string email, string phone, string status)
     {
         DateTime dateTime = DateTime.Now;
@@ -30,7 +43,7 @@ public partial class pages_customers : System.Web.UI.Page
 
         Customer c = new Customer(0, id, name, address, birthday, sex, identifiCard, holder, status, email, phone, dateCreate, "", "", "");
 
-        CustomerDAO.addCustomer(c);
+        customerDAO.addCustomer(c);
 
     }
     //edit
@@ -44,7 +57,7 @@ public partial class pages_customers : System.Web.UI.Page
 
         Customer c = new Customer(Convert.ToInt16(id), idA, name, address, birthday, sex, identifiCard, holder, status, email, phone, "", "", update, "");
 
-        CustomerDAO.updateCustomer(c);
+        customerDAO.updateCustomer(c);
 
     }
 
@@ -53,7 +66,7 @@ public partial class pages_customers : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static Customer getCustomer(string idCustomer)
     {
-        return CustomerDAO.getCustomer(Convert.ToInt16(idCustomer));
+        return customerDAO.getCustomer(Convert.ToInt16(idCustomer));
 
     }
 
@@ -62,14 +75,14 @@ public partial class pages_customers : System.Web.UI.Page
     public static List<Customer> search(string find)
     {
 
-        return CustomerDAO.searchCustomers(find);
+        return customerDAO.searchCustomers(find);
 
 
     }
     [System.Web.Services.WebMethod]
     public static void delete(string id)
     {
-        CustomerDAO.deleteCustomer(Convert.ToInt16(id));
+        customerDAO.deleteCustomer(Convert.ToInt16(id));
 
     }
 

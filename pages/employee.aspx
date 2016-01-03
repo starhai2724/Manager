@@ -51,7 +51,7 @@
              <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Chứng minh nhân dân</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="text_identyfi_card_emp" placeholder="Nhập chứng minh nhân dân" />
+                    <input type="number" class="form-control" style="margin-top: -10px;" id="text_identyfi_card_emp" placeholder="Nhập chứng minh nhân dân" />
                 </div>
             </div>
           <div class="col col-sm-4 col-md-4 col-lg-4">
@@ -68,8 +68,8 @@
                 <div class="form-group">
                     <p>Giới tính</p>
                     <select class="form-control" style="margin-top: -10px;" id="text_sexEmployee">
-                        <option>Nam</option>
-                        <option>Nữ</option>
+                        <option id="sexMale">Nam</option>
+                        <option id="sexFemale">Nữ</option>
                     </select>
                 </div>
             </div>
@@ -77,8 +77,8 @@
                 <div class="form-group">
                    <p>Tình trạng</p>
                         <select class="form-control" style="margin-top: -10px;" id="text_status">
-                            <option>Đang hoạt động</option>
-                            <option>Không hoạt động</option>
+                            <option id="active">Đang hoạt động</option>
+                            <option id="noActive">Không hoạt động</option>
                         </select>
                 </div>
             </div>
@@ -148,6 +148,13 @@
 
     </div>
 
+    <script>
+        $('#text_salaryEmployee').priceFormat({
+            prefix: '',
+            suffix: ' VND',
+        });
 
+
+    </script>
 
 </asp:Content>

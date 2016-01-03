@@ -41,7 +41,7 @@
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Chứng minh nhân dân</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="txt_identifiCard" placeholder="Nhập chứng minh nhân dân" />
+                    <input type="number" class="form-control" style="margin-top: -10px;" id="txt_identifiCard" placeholder="Nhập chứng minh nhân dân" />
                 </div>
             </div>
         </div>
@@ -84,13 +84,13 @@
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Email</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="txtEmail" placeholder="Nhập email" />
+                    <input type="email" class="form-control" style="margin-top: -10px;" id="txtEmail" placeholder="Nhập email" />
                 </div>
             </div>
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Số điên thoại</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="txtPhone" placeholder="Nhập số điên thoại" />
+                    <input type="number" class="form-control" style="margin-top: -10px;" id="txtPhone" placeholder="Nhập số điên thoại" />
                 </div>
             </div>
 

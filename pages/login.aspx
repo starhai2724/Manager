@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="login.aspx.cs" Inherits="pages_login" %>
 
+<%@ Import Namespace="Manager.Models" %>
 
 
 <!DOCTYPE html>
@@ -22,7 +23,16 @@
     <link href="../fontend/dist/css/style.css" rel="stylesheet" />
 
 </head>
-
+<%string rule = (string)Session["rule"];
+    // User_Apartment u = (User_Apartment)Session["user"];
+   // if (null != rule)
+   // {
+  //      if (rule.Equals("2"))
+      //  {
+       //     Response.Redirect("infoApartment.aspx");
+       // }
+//}
+%>
 <body>
 
     <!-- Top content -->
@@ -43,7 +53,7 @@
                             <div class="form-top-left">
                                 <h3>Quản lý chung cư</h3>
                                 <p>Nhập tên và mật khẩu</p>
-                                <p id="error" style="color:red"></p>
+                                <p id="error" style="color: red"></p>
                             </div>
                             <div class="form-top-right">
                                 <i class="fa fa-key"></i>
@@ -57,7 +67,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Mật khẩu</label>
-                                <input type="password" name="password" placeholder="Mật khẩu" class="form-password form-control" id="password" />
+                                <input type="text" name="password" placeholder="Mật khẩu" class="form-password form-control" id="password" />
                             </div>
                             <button type="submit" class="btn" onclick="chekLogin()">Đăng nhập</button>
 

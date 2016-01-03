@@ -5,7 +5,6 @@
 <%@ Import Namespace="Manager.Models" %>
 
 <asp:Content ContentPlaceHolderID="CPH1" runat="server">
-    <script src="../js/apartment.js"></script>
 
     <div class="row">
         <div class="col-lg-12">
@@ -38,13 +37,13 @@
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Giá bán</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="text_priceSale" placeholder="Nhập giá bán" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="text_priceSale" name="text_priceSale" placeholder="Nhập giá bán" />
                 </div>
             </div>
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Giá thuê</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="text_priceRent" placeholder="Nhập giá thuê" />
+                    <input type="text" class="form-control" style="margin-top: -10px;" id="text_priceRent" name="text_priceRent" placeholder="Nhập giá thuê" />
                 </div>
             </div>
         </div>
@@ -59,9 +58,9 @@
                 <div class="form-group">
                     <p>Tình trạng</p>
                     <select class="form-control" style="margin-top: -10px;" id="status">
-                        <option value="0">Trống</option>
-                        <option value="1">Đang thuê</option>
-                        <option value="2">Đã bán</option>
+                        <option>Trống</option>
+                        <option>Đang thuê</option>
+                        <option>Đã bán</option>
                     </select>
                 </div>
             </div>
@@ -72,8 +71,8 @@
                 <div class="form-group" style="margin-top: -10px;">
                     <p>Loại căn hộ</p>
                     <select class="form-control" id="type" name="type">
-                        <option value="1">VIP</option>
-                        <option value="0">Bình thường</option>
+                        <option>VIP</option>
+                        <option>Bình thường</option>
                     </select>
                 </div>
             </div>
@@ -112,15 +111,8 @@
                 </br>
                 <div class="row" id="divtable">
                 </div>
-
-
-
-
-
             </div>
         </div>
-
-
         <br />
 
         <!--footer -->
@@ -145,6 +137,8 @@
 
     </div>
 
+
+    <script src="../js/apartment.js"></script>
     <script type="text/javascript">
         
 
@@ -153,6 +147,20 @@
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        $('#text_priceSale').priceFormat({
+            prefix: '',
+            suffix: ' VND',
+
+        });
+        $('#text_priceRent').priceFormat({
+            prefix: '',
+            suffix: ' VND',
+
+        });
+
     </script>
+
+
 </asp:Content>
 

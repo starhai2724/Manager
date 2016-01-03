@@ -36,10 +36,7 @@ namespace Manager.Models
             this.userUpdate = userUpdate;
         }
 
-       public Water()
-       {
-           // TODO: Complete member initialization
-       }
+      
         
     }
 

@@ -41,7 +41,7 @@ namespace Manager.Models
 
 
         }
-        public static List<Water> getWaters()
+        public  List<Water> getWaters()
         {
             string sql = "select * from Water";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
@@ -119,6 +119,40 @@ namespace Manager.Models
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@IdWater", id);
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            foreach (DataRow dr in dt.Rows)
+            {
+                idWater = Convert.ToInt16(dr[0]);
+                numberOld = Convert.ToInt16(dr[1]);
+                numberNew = Convert.ToInt16(dr[2]);
+                totalMoney = Convert.ToDouble(dr[3]);
+                idBill = Convert.ToInt16(dr[4]);
+                dateCreate = dr[5].ToString();
+                userCreate = dr[6].ToString();
+                dateUpdate = dr[7].ToString();
+                userUpdate = dr[8].ToString();
+                status = dr[9].ToString();
+                return new Water(idWater, idBill, numberOld, numberNew, totalMoney, status, dateCreate, userCreate, dateUpdate, userUpdate);
+            }
+            return null;
+
+
+        }
+        public static Water getWater_byIdBill(int idBill)
+        {
+            int idWater;
+            int numberOld;
+            int numberNew;
+            double totalMoney;
+            string status;
+            string dateCreate;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
+            string sql = "select * from Water where id_bill=@IdBill";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@IdBill", idBill);
             DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
             foreach (DataRow dr in dt.Rows)
             {

@@ -18,20 +18,17 @@ namespace Manager.Models
         public double totalWater { get; set; }
         public double totalTrash { get; set; }
         public double totalInternet { get; set; }
-        public double totalCarOrMoto { get; set; }
-        public double totalService { get; set; }
-        public double totalAnother { get; set; }
+        public double totalApartment { get; set; }
         public double total { get; set; }
         public string status { get; set; }
         public string dateBill { get; set; }
-        public string dateCreate { get; set; }
         public string userCreate { get; set; }
         public string dateUpdate { get; set; }
         public string userUpdate { get; set; }
 
         public Bill(int IdBill, int IdApartment, int IdPrice, double TotalElectric, double TotalWater,
-          double TotalTrash, double TotalInternet, double TotalCarOrMoto, double TotalService, double TotalAnother,
-         double Total, string Status, string DateBill, string DateCreate, string UserCreate, string DateUpdate, string UserUpdate)
+          double TotalTrash, double TotalInternet, double TotalApartment,
+         double Total, string Status, string DateBill,string UserCreate, string DateUpdate, string UserUpdate)
         {
 
             this.idBill = IdBill;
@@ -41,22 +38,17 @@ namespace Manager.Models
             this.totalWater = TotalWater;
             this.totalTrash = TotalTrash;
             this.totalInternet = TotalInternet;
-            this.totalCarOrMoto = TotalCarOrMoto;
-            this.totalService = TotalService;
-            this.totalAnother = TotalAnother;
+            this.totalApartment = TotalApartment;
             this.total = Total;
             this.status = Status;
             this.dateBill = DateBill;
-            this.dateCreate = DateCreate;
             this.userCreate = UserCreate;
             this.dateUpdate = DateUpdate;
             this.userUpdate = UserUpdate;
 
         }
 
-        public Bill()
-        {
-        }
+        
 
     }
 }

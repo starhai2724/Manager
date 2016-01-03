@@ -23,14 +23,13 @@ namespace Manager.Models
         public string userUpdate { get; set; }
 
 
-        public Electric()
-        {
-        }
+      
         public Electric(int IdElectric, int IdBill, int NumberOld, int numberNew, double totalMoney, string Status, string DateCreate, string UserCreate, string DateUpdate, string UserUpdate)
         {
             this.idElectric = IdElectric;
             this.idBill = IdBill;
-            this.numberNew = NumberOld;
+            this.numberNew = numberNew;
+            this.numberOld = NumberOld;
             this.status = Status;
             this.dateCreate = DateCreate;
             this.userCreate = UserCreate;

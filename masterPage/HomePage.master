@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="HomePage.master.cs" Inherits="masterPage_HomePage" %>
 
+<%@ Import Namespace="Manager.Models" %>
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <style>
@@ -35,17 +35,24 @@
     <!-- Custom Fonts -->
     <link href="../fontend/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- jQuery -->
-    
-    <script src="../fontend/bower_components/jquery/dist/jquery.min.js"></script>
 
+    <script src="../fontend/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../validation/jquery.price_format.2.0.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
 </head>
+<% User_Apartment a = (User_Apartment)Session["user"];
+    string rule = (string)Session["rule"];
+%>
+<%if (null != a && null != rule)
+    {
+        if (rule.Equals("1"))
+        {
+%>
 <body>
     <form id="form1" runat="server">
         <div id="wrapper">
-
             <!-- Navigation -->
             <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
@@ -157,9 +164,16 @@
                 </asp:ContentPlaceHolder>
             </div>
         </div>
-
     </form>
 </body>
+<%}
+    }
+    else
+    {
+        Response.Redirect("login.aspx");
+%>
+
+<%} %>
 </html>
 
 

@@ -20,7 +20,7 @@ namespace Manager.Models
         }
         public static int addUser_Apartment(User_Apartment user_Apartment)
         {
-            string sql = "insert into dbo.User_Apartment(username_Apartment, password_Apartment, id_cus,date_create, user_create,date_update, user_update, status, id_emp, rule)values( @username_Apartment, @password_Apartment, @id_cus,@date_create, @user_create,@date_update, @user_update, @status, @IdEmp, @Rule)";
+            string sql = "insert into User_Apartment(username_Apartment, password_Apartment, id_cus, date_create, user_create, date_update, user_update, status, id_emp, [rule] ) values( @username_Apartment, @password_Apartment, @id_cus, @date_create, @user_create,@date_update, @user_update, @status, @idEmp, @rule)";
 
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
@@ -33,9 +33,9 @@ namespace Manager.Models
             cmd.Parameters.AddWithValue("@date_update", user_Apartment.dateUpdate);
             cmd.Parameters.AddWithValue("@user_update", user_Apartment.userUpdate);
             cmd.Parameters.AddWithValue("@status", user_Apartment.status);
-            cmd.Parameters.AddWithValue("@IdEmp", user_Apartment.idEmp);
-            cmd.Parameters.AddWithValue("@Rule", user_Apartment.rule);
-
+            cmd.Parameters.AddWithValue("@idEmp", user_Apartment.idEmp);
+            cmd.Parameters.AddWithValue("@rule", user_Apartment.rule);
+            cmd.Parameters.AddWithValue("@id_cus", user_Apartment.id_cus);
             return GenericDataAccess.ExecuteNoneQuery(cmd);
 
 
@@ -82,25 +82,23 @@ namespace Manager.Models
 
         public int updateCustomer(User_Apartment user_Apartment)
         {
-            string sql = "update User_Apartment set username_Apartment=@username_Apartment, password_Apartment=@password_Apartment, id_cus=@id_cus,date_create=@date_create, user_create=@user_create,date_update=@date_update, user_update=@user_update, status=@status, id_emp=@idEmp, rule=@Rule"
-+ "Where username_Apartment=@username_Apartment";
+            string sql = "update User_Apartment set  password_Apartment=@password_Apartment, id_cus=@id_cus , date_update=@date_update, user_update=@user_update, status=@status, id_emp=@idEmp, [rule]=@rule Where username_Apartment=@username_Apartment";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@username_Apartment", user_Apartment.username);
             cmd.Parameters.AddWithValue("@password_Apartment", user_Apartment.password);
-            cmd.Parameters.AddWithValue("@date_create", user_Apartment.dateCreate);
-            cmd.Parameters.AddWithValue("@user_create", user_Apartment.userCreate);
+            cmd.Parameters.AddWithValue("@id_cus", user_Apartment.id_cus);
             cmd.Parameters.AddWithValue("@date_update", user_Apartment.dateUpdate);
             cmd.Parameters.AddWithValue("@user_update", user_Apartment.userUpdate);
             cmd.Parameters.AddWithValue("@status", user_Apartment.status);
             cmd.Parameters.AddWithValue("@idEmp", user_Apartment.idEmp);
-            cmd.Parameters.AddWithValue("@Rule", user_Apartment.rule);
+            cmd.Parameters.AddWithValue("@rule", user_Apartment.rule);
             return GenericDataAccess.ExecuteNoneQuery(cmd);
 
 
 
         }
-        public static User_Apartment getUser_Apartment(string username_Apartment)
+        public  User_Apartment getUser_Apartment(string username_Apartment)
         {
             string password;
             int id_cus;
@@ -111,7 +109,7 @@ namespace Manager.Models
             string status;
             int idEmp;
             string rule;
-            string sql = "select * from User_Apartment where  username_Apartment=@username_Apartment";
+            string sql = "select * from User_Apartment where  username_Apartment= @username_Apartment";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@username_Apartment", username_Apartment);
@@ -143,8 +141,6 @@ namespace Manager.Models
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@username_Apartment", username_Apartment);
             return GenericDataAccess.ExecuteNoneQuery(cmd);
-
-
 
         }
     }

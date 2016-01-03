@@ -52,7 +52,7 @@ namespace Manager.Models
             string size;
             double priceSale;
             double priceRent;
-            int statusApartment;
+            string statusApartment;
             string dateCreate;
             string userCreate;
             string dateUpdate;
@@ -67,7 +67,7 @@ namespace Manager.Models
                 size = dr[3].ToString();
                 priceSale = Convert.ToDouble(dr[4]);
                 priceRent = Convert.ToDouble(dr[5]);
-                statusApartment = Convert.ToInt16(dr[6]);
+                statusApartment = dr[6].ToString();
                 dateCreate = dr[7].ToString();
                 userCreate = dr[8].ToString();
                 dateUpdate = dr[9].ToString();
@@ -110,7 +110,7 @@ namespace Manager.Models
             string size;
             double priceSale;
             double priceRent;
-            int statusApartment;
+            string statusApartment;
             string dateCreate;
             string userCreate;
             string dateUpdate;
@@ -128,7 +128,7 @@ namespace Manager.Models
                 size = dr[3].ToString();
                 priceSale = Convert.ToDouble(dr[4]);
                 priceRent = Convert.ToDouble(dr[5]);
-                statusApartment = Convert.ToInt16(dr[6]);
+                statusApartment = dr[6].ToString();
                 dateCreate = dr[7].ToString();
                 userCreate = dr[8].ToString();
                 dateUpdate = dr[9].ToString();
@@ -162,7 +162,7 @@ namespace Manager.Models
             string size;
             double priceSale;
             double priceRent;
-            int statusApartment;
+            string statusApartment;
             string dateCreate;
             string userCreate;
             string dateUpdate;
@@ -191,7 +191,7 @@ namespace Manager.Models
                 size = dr[3].ToString();
                 priceSale = Convert.ToDouble(dr[4]);
                 priceRent = Convert.ToDouble(dr[5]);
-                statusApartment = Convert.ToInt16(dr[6]);
+                statusApartment = dr[6].ToString();
                 dateCreate = dr[7].ToString();
                 userCreate = dr[8].ToString();
                 dateUpdate = dr[9].ToString();

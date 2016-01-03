@@ -19,12 +19,47 @@ function OnSuccess(response) {
     $('#text_idEmployee').val(item.idEmployee);
     $('#text_nameEmployee').val(item.nameEmployee);
     $('#text_officeEmployee').val(item.officeEmployee);
-    $('#text_sexEmployee').val(item.sex);
     $('#text_addressEmployee').val(item.address);
     $('#text_salaryEmployee').val(item.salaryEmployee);
     $('#text_identyfi_card_emp').val(item.identifiCard);
    // $('#text_status').val(item.status);
     $('#birthday_emp').val(item.birthday);
+    
+    var sex;
+    if (item.sex == "Nam") {
+        if ($('#sexMale').length != 0) {
+            $('#sexMale').remove();
+            sex = "<option selected='selected' id='sexMale'>Nam</option>";
+            sex += "<option id='sexFemale'>Nữ</option>";
+        }
+
+    } else {
+        if ($('#sexFemale').length != 0) {
+            $('#sexFemale').remove();
+            sex = "<option  id='sexMale'>Nam</option>";
+            sex += "<option selected='selected' id='sexFemale'>Nữ</option>";
+        }
+
+    }
+    $('#text_sexEmployee').html(sex);
+
+
+    var status;
+    if (item.status == "Đang hoạt động") {
+        if ($('#active').length != 0) {
+            $('#active').remove();
+            status = "<option id='active' selected='selected'>Đang hoạt động</option>";
+            status += " <option  id='noActive'>Không hoạt động</option>";
+        }
+
+    } else {
+        if ($('#noActive').length != 0) {
+            $('#noActive').remove();
+            status = "<option id='active' >Đang hoạt động</option>";
+            status += " <option  id='noActive' selected='selected'>Không hoạt động</option>";
+        }
+    }
+    $('#text_status').html(status);
 
 }
 //edit 
