@@ -9,9 +9,10 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Căn hộ</h3>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="add()" id="btnAdd">Thêm</button>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;" onclick="edit()">Lưu</button>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 140px" onclick="exportFile()">In</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px" onclick="clear()">Xóa</button>
+            <button id="btnAdd" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 130px " onclick="add()" id="btnAdd">Thêm</button>
+            <button id="btnEdit" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="edit()">Lưu</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 205px" onclick="exportFile()">In</button>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -37,13 +38,13 @@
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Giá bán</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="text_priceSale" name="text_priceSale" placeholder="Nhập giá bán" />
+                    <input type="text" class="form-control" style="margin-top: -10px; TEXT-ALIGN: right;" id="text_priceSale" name="text_priceSale" placeholder="0VND " />
                 </div>
             </div>
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Giá thuê</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="text_priceRent" name="text_priceRent" placeholder="Nhập giá thuê" />
+                    <input type="text" class="form-control" style="margin-top: -10px; TEXT-ALIGN: right;" id="text_priceRent" name="text_priceRent" placeholder="0VND" />
                 </div>
             </div>
         </div>
@@ -58,9 +59,9 @@
                 <div class="form-group">
                     <p>Tình trạng</p>
                     <select class="form-control" style="margin-top: -10px;" id="status">
-                        <option>Trống</option>
-                        <option>Đang thuê</option>
-                        <option>Đã bán</option>
+                        <option id="status1">Trống</option>
+                        <option id="status2">Đang thuê</option>
+                        <option id="status3">Đã bán</option>
                     </select>
                 </div>
             </div>
@@ -71,23 +72,8 @@
                 <div class="form-group" style="margin-top: -10px;">
                     <p>Loại căn hộ</p>
                     <select class="form-control" id="type" name="type">
-                        <option>VIP</option>
-                        <option>Bình thường</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col col-sm-4 col-md-4 col-lg-4">
-                <div class="form-group">
-                    <p>Tầng</p>
-                    <select class="form-control" style="margin-top: -10px;">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
+                        <option id="VIP">VIP</option>
+                        <option id="Nomal">Bình thường</option>
                     </select>
                 </div>
             </div>
@@ -114,7 +100,6 @@
             </div>
         </div>
         <br />
-
         <!--footer -->
         </hr>
         <address class="text-center">

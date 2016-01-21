@@ -143,5 +143,32 @@ namespace Manager.Models
             return GenericDataAccess.ExecuteNoneQuery(cmd);
 
         }
+
+
+        public int deleteUser_ApartmentByIdCustomer(string idCustomer)
+        {
+
+            string sql = "Delete from User_Apartment where id_cus=@idCus";
+
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@idCus", idCustomer);
+            return GenericDataAccess.ExecuteNoneQuery(cmd);
+
+        }
+
+        public int deleteUser_ApartmentByIdEmployee(string idEmployee)
+        {
+
+            string sql = "Delete from User_Apartment where id_emp=@idEmp";
+
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@idEmp", idEmployee);
+            return GenericDataAccess.ExecuteNoneQuery(cmd);
+
+        }
+
+
     }
 }

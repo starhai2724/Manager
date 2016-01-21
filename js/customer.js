@@ -1,9 +1,10 @@
 ﻿var apartments;
+var pCustomers;
 // get apartments
 function getApartments() {
     $.ajax({
         type: "POST",
-        url: "apartment.aspx/getApartments",
+        url: "apartment.aspx/getApartmentsExcept",
         data: "{}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -38,12 +39,10 @@ $(document).ready(function () {
     bindData();
     getApartments();
 });
-
-
-
 // load table
-
 function bindData() {
+    $('#btnEdit').prop('disabled', true);
+    $('#btnAdd').prop('disabled', false);
     alert("bind");
     $.ajax({
         type: "POST",
@@ -57,14 +56,13 @@ function bindData() {
         }
     });
 }
-
 //OnSuccess
 function getDatas(response) {
     if ($('#dataTables-example').length != 0) {
         $('#dataTables-example').remove();
     }
     var items = response.d;
-
+    pCustomers = items;
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables-example' style='margin-top: -13px;'>" +
                     "<thead id='header'>" +
                         "<tr class='info'>"
@@ -97,12 +95,10 @@ function getDatas(response) {
         row += "<td class=''>" + items[i].addressCustomer + "</td>";
         row += "<td class=''>" + items[i].identifiCardCustomer + "</td>";
         row += "<td class=''>" + items[i].email + "</td>";
-        row += " <td class='a-right a-right '>" + items[i].sdt + "</td>"
-
-        row += " <td class='a-right a-right '>" + items[i].idApartment + "</td>"
+        row += " <td class='a-right a-right '>" + items[i].sdt + "</td>";
+        row += " <td class='a-right a-right '>" + items[i].idApartment + "</td>";
         row += " <td class='a-right a-right '>" + items[i].holder + "</td>"
         row += " <td class='a-right a-right '>" + items[i].status + "</td>"
-
         row += " <td class='a-right a-right '>" + items[i].dateCreate + "</td>"
         row += " <td class='a-right a-right '>" + items[i].userCreate + "</td>"
         row += " <td class='a-right a-right '>" + items[i].dateUpdate + "</td>"
@@ -119,6 +115,7 @@ function getDatas(response) {
 
 
 function add() {
+    var id = $('#idCustomer').val();
     var name = $('#txtName').val();
     var address = $('#txtAddress').val();
     var identifiCard = $('#txt_identifiCard').val();
@@ -129,26 +126,25 @@ function add() {
     var email = $('#txtEmail').val();
     var phone = $('#txtPhone').val();
     var status = $('#status').val();
+    var check = validationCustomer(name, identifiCard, phone, id, idApartment, holder);
+    if (check == true) {
+        $.ajax({
+            type: "POST",
+            url: "customers.aspx/add",
+            data: JSON.stringify({ name: name, address: address, identifiCard: identifiCard, sex: sex, idApartment: idApartment, birthday: birthday, holder: holder, email: email, phone: phone, status: status }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                bindData();
+                clear();
+                alert("Them thanh cong");
+            },
+            error: function (result) {
+                alert("Error");
+            }
 
-    alert("idApartment  " + idApartment);
-    alert("name:" + name + " address:" + address + " address:" + identifiCard + " address:" + sex + " address:" + idApartment, "address:" + birthday + " address:" + holder + " address:" + email + " address:" + phone + " address:" + status);
-    $.ajax({
-        type: "POST",
-        url: "customers.aspx/add",
-        data: JSON.stringify({ name: name, address: address, identifiCard: identifiCard, sex: sex, idApartment: idApartment, birthday: birthday, holder: holder, email: email, phone: phone, status: status }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            bindData();
-            clear();
-            alert("Them thanh cong");
-        },
-        error: function (result) {
-            alert("Error");
-        }
-
-    });
-
+        });
+    }
 
 
 }
@@ -166,11 +162,15 @@ function clear() {
     $('#txtEmail').val('');
     $('#txtPhone').val('');
     $('#status').val('');
-
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
 }
 //Edit
 function loadCustomer(idCustomer) {
-
+    $('#btnEdit').prop('disabled', false);
+    $('#btnAdd').prop('disabled', true);
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     $.ajax({
         type: "POST",
         url: "customers.aspx/getCustomer",
@@ -201,7 +201,8 @@ function getData(data) {
     $('#txtPhone').val(customer.sdt);
     $('#status').val(customer.status);
 
-
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
 
     if ($('#idApartment').length != 0) {
         $('#idApartment').remove();
@@ -247,12 +248,12 @@ function getData(data) {
             sex += "<option id='female'>Nữ</option>";
         }
 
-        } else {
-            if ($('#female').length != 0) {
-                $('#female').remove();
-                sex = "<option  id='male'>Nam</option>";
-                sex += "<option selected='selected' id='female'>Nữ</option>";
-            }
+    } else {
+        if ($('#female').length != 0) {
+            $('#female').remove();
+            sex = "<option  id='male'>Nam</option>";
+            sex += "<option selected='selected' id='female'>Nữ</option>";
+        }
 
     }
     $('#sex').html(sex);
@@ -290,26 +291,32 @@ function edit() {
     var id = $('#idCustomer').val();
     alert("idApartment  " + idApartment);
     alert("name:" + name + " address:" + address + " address:" + identifiCard + " address:" + sex + " address:" + idApartment, "address:" + birthday + " address:" + holder + " address:" + email + " address:" + phone + " address:" + status);
-    $.ajax({
-        type: "POST",
-        url: "customers.aspx/edit",
-        data: JSON.stringify({id:id, name: name, address: address, identifiCard: identifiCard, sex: sex, idApartment: idApartment, birthday: birthday, holder: holder, email: email, phone: phone, status: status }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            bindData();
-            clear();
-            alert("Sua thanh cong");
-        },
-        error: function (result) {
-            alert("Error");
-        }
+    var check = validationCustomer(name, identifiCard, phone, id, idApartment, holder);
+    if (check == true) {
+        $.ajax({
+            type: "POST",
+            url: "customers.aspx/edit",
+            data: JSON.stringify({ id: id, name: name, address: address, identifiCard: identifiCard, sex: sex, idApartment: idApartment, birthday: birthday, holder: holder, email: email, phone: phone, status: status }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                bindData();
+                clear();
+                alert("Sửa thành công");
 
-    });
+            },
+            error: function (result) {
+                alert("Error");
+            }
+
+        });
+    }
 
 }
 //search 
 function search() {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var find = $('#srch-term').val();
     alert("find: " + find);
     $.ajax({
@@ -328,6 +335,8 @@ function search() {
 }
 //delete
 function deleteCustomer(id) {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var msg = confirm("Ban co chac chan muon xoa!")
     if (msg == true) {
 
@@ -352,7 +361,8 @@ function deleteCustomer(id) {
 }
 // in
 function exportFile() {
-
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var a = document.createElement('a');
     //getting data from our div that contains the HTML table
     var data_type = 'data:application/vnd.ms-excel';
@@ -366,3 +376,57 @@ function exportFile() {
     //just in case, prevent default behaviour
 
 }
+
+
+function validationCustomer(name, identifiCard, phone, id, idApartment, holder) {
+    $('#holder').val();
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    var err = "<div class='form-group' id='listErr'";
+    err+="<p>Các lỗi:</p>"
+    var check = true;
+    if ("" == name) {
+        check = false;
+        err += "<p style='color:red'>Nhập Tên</p>";
+        
+
+    }
+    if ("" == identifiCard) {
+        check = false;
+        err += "<p style='color:red'>Nhập cmnd</p>";
+    }
+    if ("" == phone) {
+        check = false;
+        err += "<p style='color:red'>Nhập sdt</p>";
+    }
+    for (var i = 0; i < pCustomers.length; i++) {
+        if (pCustomers[i].identifiCardCustomer == identifiCard && id != pCustomers[i].idCustomer) {
+            err += "<p style='color:red'>Số CMND đã tồn tại</p>";
+            check = false;
+            break;
+        }
+    }
+    if (check == false) {
+
+        err += "</div>";
+        $('#err').html(err);
+    }
+    return check;
+
+
+
+}
+function ruleCustomer(idApartment) {
+
+    for (var i = 0; i < pCustomers; i++) {
+        if (pCustomers[i].idApartment == idApartment && pCustomers[i].holder == "Chủ") {
+
+        }
+
+    }
+
+
+}
+
+
+

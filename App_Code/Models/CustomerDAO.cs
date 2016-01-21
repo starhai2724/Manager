@@ -225,7 +225,68 @@ namespace Manager.Models
 
         }
 
+        public Customer getCustomerByIdApartment(int id)
+        {
+            int idCustomer;
+            int idApartment;
+            string nameCustomer;
+            string addressCustomer;
+            string birthday;
+            string sex;
+            string identifiCardCustomer;
+            string holder;
+            string status;
+            string email;
+            string sdt;
+            string dateCreate;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
+            string sql = "select * from Customer where id_Apartment=@idApartment and holder=@Holder";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@idApartment", id);
+            cmd.Parameters.AddWithValue("@Holder", "Chủ");
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            foreach (DataRow dr in dt.Rows)
+            {
+                idCustomer = Convert.ToInt16(dr[0]);
+                nameCustomer = dr[1].ToString();
+                addressCustomer = dr[2].ToString();
+
+                sex = dr[3].ToString();
+                identifiCardCustomer = dr[4].ToString();
+                idApartment = Convert.ToInt16(dr[5]);
+                dateCreate = dr[6].ToString();
+                userCreate = dr[7].ToString();
+                dateUpdate = dr[8].ToString();
+                userUpdate = dr[9].ToString();
+                holder = dr[10].ToString();
+                status = dr[11].ToString();
+                email = dr[12].ToString();
+                sdt = dr[13].ToString();
+                birthday = dr[14].ToString();
+
+                return new Customer(idCustomer, idApartment, nameCustomer, addressCustomer, birthday, sex, identifiCardCustomer, holder, status, email, sdt, dateCreate, userCreate, dateUpdate, userUpdate);
+
+            }
+            return null;
+
+
+        }
+
         public  int deleteCustomer(int id)
+        {
+
+            string sql = "Delete from Customer where id_cus= @IdCustomer";
+
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@IdCustomer", id);
+            return GenericDataAccess.ExecuteNoneQuery(cmd);
+        }
+
+        public int deleteCustomerByApartment(int id)
         {
 
             string sql = "Delete from Customer where id_cus= @IdCustomer";
@@ -273,7 +334,6 @@ namespace Manager.Models
             string userCreate;
             string dateUpdate;
             string userUpdate;
-
             List<Customer> lst = new List<Customer>();
             foreach (DataRow dr in dt.Rows)
             {
@@ -297,12 +357,6 @@ namespace Manager.Models
             }
             return lst;
         }
-
-
-
-
-
-
 
     }
 }

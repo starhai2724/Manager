@@ -186,6 +186,19 @@ namespace Manager.Models
 
 
         }
+        public int deleteWaterByIdBill(int id)
+        {
+
+            string sql = "Delete from Water where id_bill=@idBill";
+
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@idBill", id);
+            return GenericDataAccess.ExecuteNoneQuery(cmd);
+
+
+
+        }
 
 
 

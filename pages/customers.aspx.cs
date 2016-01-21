@@ -39,9 +39,10 @@ public partial class pages_customers : System.Web.UI.Page
         DateTime dateTime = DateTime.Now;
         string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
         int id = Convert.ToInt16(idApartment + "");
-
-
-        Customer c = new Customer(0, id, name, address, birthday, sex, identifiCard, holder, status, email, phone, dateCreate, "", "", "");
+        Page p = new Page();
+        User_Apartment user = (User_Apartment)p.Session["user"];
+        string userCreate = user.username;
+        Customer c = new Customer(0, id, name, address, birthday, sex, identifiCard, holder, status, email, phone, dateCreate, userCreate, "", "");
 
         customerDAO.addCustomer(c);
 
@@ -53,9 +54,11 @@ public partial class pages_customers : System.Web.UI.Page
         DateTime dateTime = DateTime.Now;
         string update = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
         int idA = Convert.ToInt16(idApartment + "");
+        Page p = new Page();
+        User_Apartment user = (User_Apartment)p.Session["user"];
+        string userUpdate = user.username;
 
-
-        Customer c = new Customer(Convert.ToInt16(id), idA, name, address, birthday, sex, identifiCard, holder, status, email, phone, "", "", update, "");
+        Customer c = new Customer(Convert.ToInt16(id), idA, name, address, birthday, sex, identifiCard, holder, status, email, phone, "", "", update, userUpdate);
 
         customerDAO.updateCustomer(c);
 

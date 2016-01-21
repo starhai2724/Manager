@@ -87,7 +87,7 @@ function getDatas_bill(response) {
 function getApartments() {
     $.ajax({
         type: "POST",
-        url: "apartment.aspx/getApartments",
+        url: "apartment.aspx/getApartmentsExcept",
         data: "{}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",

@@ -182,5 +182,15 @@ public class ElectricDAO
 
     }
 
-}
+        public int deleteElectricByIdBill(int id)
+        {
+            string sql = "Delete from Electric where id_bill=@idBill";
+
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@idBill", id);
+            return GenericDataAccess.ExecuteNoneQuery(cmd);
+        }
+
+    }
 }

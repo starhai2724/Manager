@@ -15,7 +15,6 @@ namespace Manager.Models
         {
             string sql = "insert into dbo.Bill(date_Bill, total_electricity, total_water, total_trash, total_internet, total_apartment, total, id_Apartment, id_Price,user_create, date_update, user_update, status) values"
                 + "(@date_Bill, @total_electricity, @total_water, @total_trash, @total_internet, @total_apartment, @total, @id_Apartment, @id_Price, @user_create, @date_update, @user_update, @status)";
-
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@date_Bill", bill.dateBill);
@@ -158,6 +157,19 @@ namespace Manager.Models
             return GenericDataAccess.ExecuteNoneQuery(cmd);
             
         }
+
+        public int deleteBillByIdApartment(int id)
+        {
+
+            string sql = "Delete from Bill  Where id_Apartment=@idApartment";
+
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@idApartment", id);
+            return GenericDataAccess.ExecuteNoneQuery(cmd);
+
+        }
+
         public  string getBilldetail(string idBill)
         {
             string result = "";
@@ -197,6 +209,49 @@ namespace Manager.Models
             return idBill;
         }
 
+        public Bill getBillByIdApartment(int id)
+        {
+            Bill bill;
+            int idBill;
+            int idApartment;
+            int idPrice;
+            double totalElectric;
+            double totalWater;
+            double totalTrash;
+            double totalInternet;
+            double totalApartment;
+            double total;
+            string status;
+            string dateBill;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
 
+            string sql = "select * from Bill  Where id_Apartment=@idApartment";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@idApartment", id);
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            foreach (DataRow dr in dt.Rows)
+            {
+                idBill = Convert.ToInt16(dr[0]);
+                dateBill = dr[1].ToString();
+                totalElectric = Convert.ToDouble(dr[2]);
+                totalWater = Convert.ToDouble(dr[3]);
+                totalTrash = Convert.ToDouble(dr[4]);
+                totalInternet = Convert.ToDouble(dr[5]);
+                total = Convert.ToDouble(dr[6]);
+                idApartment = Convert.ToInt16(dr[7]);
+                idPrice = Convert.ToInt16(dr[8]);
+                userCreate = dr[9].ToString();
+                dateUpdate = dr[10].ToString();
+                userUpdate = dr[11].ToString();
+                status = dr[12].ToString();
+                totalApartment = Convert.ToDouble(dr[13]);
+                bill = new Bill(id, idApartment, idPrice, totalElectric, totalWater, totalTrash, totalInternet, totalApartment, total, status, dateBill, userCreate, dateUpdate, userUpdate);
+                return bill;
+            }
+            return null;
+        }
     }
 }

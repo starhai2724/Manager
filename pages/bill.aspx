@@ -44,7 +44,7 @@
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Số điện mới</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="electric_new" placeholder="Nhập số điện mới" onblur="totalElectric()"/>
+                    <input type="number" class="form-control" style="margin-top: -10px;" id="electric_new" placeholder="Nhập số điện mới" onblur="totalElectric()"/>
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">
@@ -65,7 +65,7 @@
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Số nước mới</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="water_new" placeholder="Nhập số nước mới" onblur="totalWater()" />
+                    <input type="number" class="form-control" style="margin-top: -10px;" id="water_new" placeholder="Nhập số nước mới" onblur="totalWater()" />
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">

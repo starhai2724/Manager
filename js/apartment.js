@@ -1,5 +1,6 @@
 ﻿function loadData(name) {
-   
+    $('#btnEdit').prop('disabled', false);
+    $('#btnAdd').prop('disabled', true);
     $.ajax({
         type: "POST",
         url: "apartment.aspx/getApartment",
@@ -14,14 +15,79 @@
 }
 
 function OnSuccess(response) {
-
     var item = response.d;
- 
     $('#text_idApartment').val(item.idApartment);
     $('#text_nameApartment').val(item.nameApartment);
     $('#text_priceSale').val(item.priceSale);
     $('#text_size').val(item.size);
     $('#text_priceRent').val(item.priceRent);
+
+    var status;
+    if (item.statusApartment == "Trống") {
+        if ($('#status1').length != 0) {
+            $('#status1').remove();
+            $('#status2').remove();
+            $('#status3').remove();
+            status = "<option selected='selected' id='status1'>Trống</option>";
+            status += "<option id='status2'>Đang thuê</option>";
+            status += "<option id='status3'>Đã bán</option>";
+        }
+
+    } else if (item.statusApartment == "Đang thuê") {
+
+        if ($('#status2').length != 0) {
+            $('#status1').remove();
+            $('#status2').remove();
+            $('#status3').remove();
+            status = "<option  id='status1'>Trống</option>";
+            status += "<option id='status2' selected='selected'>Đang thuê</option>";
+            status += "<option id='status3'>Đã bán</option>";
+        }
+
+
+    } else if (item.statusApartment == "Đã bán") {
+
+
+        if ($('#status3').length != 0) {
+            $('#status1').remove();
+            $('#status2').remove();
+            $('#status3').remove();
+            status = "<option  id='status1'>Trống</option>";
+            status += "<option id='status2'>Đang thuê</option>";
+            status += "<option id='status3' selected='selected'>Đã bán</option>";
+        }
+    }
+
+    $('#status').html(status);
+
+
+
+    var type;
+    if (item.typeApartment == "VIP") {
+        if ($('#VIP').length != 0) {
+            $('#VIP').remove();
+            $('#Nomal').remove();
+            type = "<option selected='selected' id='VIP'>VIP</option>";
+            type += "<option id='Nomal'>Bình thường</option>";
+           
+        }
+
+       
+
+    } else  {
+        if ($('#Nomal').length != 0) {
+            $('#VIP').remove();
+            $('#Nomal').remove();
+            type = "<option  id='VIP'>VIP</option>";
+            type += "<option selected='selected' id='Nomal'>Bình thường</option>";
+
+        }
+
+    } 
+
+    $('#type').html(type);
+
+
 
 }
 //edit 
@@ -34,8 +100,8 @@ function edit() {
     var priceRent = $('#text_priceRent').val();
     var statusApartment = $('#status').val();
     var userEdit = localStorage.getItem('username');
-     alert('userEdit    ' + userEdit)
-   
+    alert('userEdit    ' + userEdit)
+
     $.ajax({
         type: "POST",
         url: "apartment.aspx/editApartment",
@@ -58,21 +124,17 @@ function edit() {
 
 
 function add() {
-
     var nameApartment = $('#text_nameApartment').val();
     var typeApartment = $('#type').val();
     var size = $('#text_size').val();
     var priceSale = $('#text_priceSale').val();
     var priceSale_2 = priceSale.replace(",", "");
-    
-
     var priceRent = $('#text_priceRent').val();
     var statusApartment = $('#status').val();
-    var userCreate = localStorage.getItem('username');
     $.ajax({
         type: "POST",
         url: "apartment.aspx/add",
-        data: JSON.stringify({ name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment, userCreate: userCreate }),
+        data: JSON.stringify({ name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -126,14 +188,16 @@ $(document).ready(function () {
     bindData();
     //bat loi
 
-   
 
-    
+
+
 
 });
 // load table
 
 function bindData() {
+    $('#btnEdit').prop('disabled', true);
+    $('#btnAdd').prop('disabled', false);
     $.ajax({
         type: "POST",
         url: "apartment.aspx/getApartments",
@@ -152,7 +216,7 @@ function getDatas(response) {
         $('#dataTables-example').remove();
     }
     var items = response.d;
-    
+
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables-example' style='margin-top: -13px;'>" +
                     "<thead id='header'>" +
                         "<tr class='info'>"
@@ -162,7 +226,7 @@ function getDatas(response) {
                             + "<th>Kích thước </th>"
                             + "<th>Giá bán </th>"
                             + "<th>Giá thuê </th>"
-                            + "<th>Tầng </th>"
+                           
                             + "<th>Tình trạng </th>"
                             + "<th>Ngày tạo</th>"
                             + "<th>Người tạo </th>"
@@ -180,8 +244,7 @@ function getDatas(response) {
         row += "<td class=''>" + items[i].typeApartment + "</td>";
         row += "<td class=''>" + items[i].size + "</td>";
         row += "<td class=''>" + items[i].priceSale + "</td>";
-        row += "<td class=''>" + items[i].priceRent + "</td>";
-        row += "<td class=''>" + items[i].priceRent + "</td>";
+        row += "<td class=''>" + items[i].priceRent + "</td>";      
         row += " <td class='a-right a-right '>" + items[i].statusApartment + "</td>"
         row += " <td class='a-right a-right '>" + items[i].dateCreate + "</td>"
         row += " <td class='a-right a-right '>" + items[i].userCreate + "</td>"
@@ -211,7 +274,7 @@ function search() {
         dataType: "json",
         success: getDatas,
         error: function (result) {
-            
+
             alert("Error");
         }
     });
@@ -228,11 +291,11 @@ function exportFile() {
     var table_html = table_div.outerHTML.replace(/ /g, '%20');
     a.href = data_type + ', ' + table_html;
     //setting the file name
-    a.download = 'Apartments' +'.xls';
+    a.download = 'Apartments' + '.xls';
     //triggering the function
     a.click();
     //just in case, prevent default behaviour
-   
+
 }
 
 

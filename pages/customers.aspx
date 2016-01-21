@@ -7,15 +7,25 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Khách hàng</h3>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="add()">Thêm</button>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;" onclick="edit()">Lưu</button>
-        <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 140px" onclick="exportFile()">In</button>
-             </div>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px" onclick="clear()">Xóa</button>
+            <button id="btnAdd" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 130px" onclick="add()">Thêm</button>
+            <button id="btnEdit" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="edit()">Lưu</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 205px" onclick="exportFile()">In</button>
+        </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <!-- add apartment -->
     <div class="row">
+
+        <div class="row">
+
+            <div class="col col-sm-4 col-md-4 col-lg-4" id="err" >
+            </div>
+
+
+        </div>
+
         <div class="row">
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
@@ -25,7 +35,7 @@
             </div>
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
-                    <p>Tên khách hàng</p>
+                    <p>Tên khách hàng *</p>
                     <input type="text" class="form-control" style="margin-top: -10px;" id="txtName" placeholder="Nhập tên khách hàng" />
                 </div>
             </div>
@@ -40,7 +50,7 @@
             </div>
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
-                    <p>Chứng minh nhân dân</p>
+                    <p>Chứng minh nhân dân *</p>
                     <input type="number" class="form-control" style="margin-top: -10px;" id="txt_identifiCard" placeholder="Nhập chứng minh nhân dân" />
                 </div>
             </div>
@@ -55,24 +65,23 @@
                     </select>
                 </div>
             </div>
-            <div class="col col-sm-4 col-md-4 col-lg-4" id="getApartments" >
-                
+            <div class="col col-sm-4 col-md-4 col-lg-4" id="getApartments">
             </div>
         </div>
 
         <div class="row">
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
-                    <p>Ngày sinh</p>
-                    <input min="2010-01-01"
+                    <p>Ngày sinh *</p>
+                    <input min="1920-01-01"
                         type="date" name="txtTGTu" value="" id="txtBirthday"
                         class="form-control" style="margin-top: -10px;" data-toggle="tooltip" title="Ngày sinh" />
                 </div>
             </div>
 
             <div class="col col-sm-4 col-md-4 col-lg-4">
-                <div class="form-group"   id="dvholder">
-                    <p>Chủ căn hộ</p>
+                <div class="form-group" id="dvholder">
+                    <p>Quyền căn hộ</p>
                     <select class="form-control" style="margin-top: -10px;" id="holder">
                         <option id="optionmember" selected="selected">Thành viên</option>
                         <option id="optionholder">Chủ</option>
@@ -89,7 +98,7 @@
             </div>
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
-                    <p>Số điên thoại</p>
+                    <p>Số điên thoại *</p>
                     <input type="number" class="form-control" style="margin-top: -10px;" id="txtPhone" placeholder="Nhập số điên thoại" />
                 </div>
             </div>
@@ -107,7 +116,10 @@
             </div>
 
 
+
         </div>
+
+
 
 
     </div>

@@ -67,7 +67,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Mật khẩu</label>
-                                <input type="text" name="password" placeholder="Mật khẩu" class="form-password form-control" id="password" />
+                                <input type="password" name="password" placeholder="Mật khẩu" class="form-password form-control" id="password" />
                             </div>
                             <button type="submit" class="btn" onclick="chekLogin()">Đăng nhập</button>
 

@@ -1,4 +1,10 @@
-﻿function loadData(idEmployee) {
+﻿var pEmployees;
+function loadData(idEmployee) {
+    $('#btnedit').prop('disabled', false);
+    $('#btnadd').prop('disabled', true);
+    
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     alert("idEmployee" + idEmployee);
     $.ajax({
         type: "POST",
@@ -22,9 +28,9 @@ function OnSuccess(response) {
     $('#text_addressEmployee').val(item.address);
     $('#text_salaryEmployee').val(item.salaryEmployee);
     $('#text_identyfi_card_emp').val(item.identifiCard);
-   // $('#text_status').val(item.status);
+    // $('#text_status').val(item.status);
     $('#birthday_emp').val(item.birthday);
-    
+
     var sex;
     if (item.sex == "Nam") {
         if ($('#sexMale').length != 0) {
@@ -73,27 +79,30 @@ function edit() {
     var identifyCardEmployee = $('#text_identyfi_card_emp').val();
     var status = $('#text_status').val();
     var birthday = $('#birthday_emp').val();
+    var check = validationEmployee(idEmployee, nameEmployee, salaryEmployee, sexEmployee, officeEmployee, address, identifyCardEmployee, status, birthday);
+    if (check == true) {
+        $.ajax({
+            type: "POST",
+            url: "employee.aspx/editEmployee",
+            data: JSON.stringify({ id: idEmployee, name_emp: nameEmployee, salary_emp: salaryEmployee, sex_emp: sexEmployee, office_emp: officeEmployee, address_emp: address, identify_card_emp: identifyCardEmployee, status: status, birthday_emp: birthday }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                bindData();
+                clear();
+                alert("Sua thanh cong");
+            },
+            error: function (result) {
+                alert("Error");
+            }
 
-    $.ajax({
-        type: "POST",
-        url: "employee.aspx/editEmployee",
-        data: JSON.stringify({ id: idEmployee, name_emp: nameEmployee, salary_emp: salaryEmployee, sex_emp: sexEmployee, office_emp: officeEmployee, address_emp : address,  identify_card_emp: identifyCardEmployee,  status: status,  birthday_emp: birthday }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            bindData();
-            clear();
-            alert("Sua thanh cong");
-        },
-        error: function (result) {
-            alert("Error");
-        }
-
-    });
+        });
+    }
 }
 // them emp
 
 function add() {
+    var idEmployee = $('#text_idEmployee').val();
     var nameEmployee = $('#text_nameEmployee').val();
     var salaryEmployee = $('#text_salaryEmployee').val();
     var sexEmployee = $('#text_sexEmployee').val();
@@ -102,23 +111,25 @@ function add() {
     var identifyCardEmployee = $('#text_identyfi_card_emp').val();
     var status = $('#text_status').val();
     var birthday = $('#birthday_emp').val();
-    alert("add " + nameEmployee);
-    $.ajax({
-        type: "POST",
-        url: "employee.aspx/add",
-        data: JSON.stringify({ name_emp: nameEmployee, salary_emp: salaryEmployee, sex_emp: sexEmployee, office_emp: officeEmployee, address_emp: address, identify_card_emp: identifyCardEmployee, status: status, birthday_emp: birthday }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            bindData();
-            clear();
-            alert("Them thanh cong");
-        },
-        error: function (result) {
-            alert("Error");
-        }
+    var check = validationEmployee(idEmployee, nameEmployee, salaryEmployee, sexEmployee, officeEmployee, address, identifyCardEmployee, status, birthday);
+    if (check == true) {
+        $.ajax({
+            type: "POST",
+            url: "employee.aspx/add",
+            data: JSON.stringify({ name_emp: nameEmployee, salary_emp: salaryEmployee, sex_emp: sexEmployee, office_emp: officeEmployee, address_emp: address, identify_card_emp: identifyCardEmployee, status: status, birthday_emp: birthday }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                bindData();
+                clear();
+                alert("Them thanh cong");
+            },
+            error: function (result) {
+                alert("Error");
+            }
 
-    });
+        });
+    }
 }
 
 //reset input
@@ -132,6 +143,10 @@ function clear() {
     $('#text_addressEmployee').val('');
     $('#text_salaryEmployee').val('');
     $('#text_status').val('');
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    $('#btnedit').prop('disabled', true);
+    $('#btnadd').prop('disabled', false);
 
 }
 
@@ -139,6 +154,8 @@ function clear() {
 //delete 
 
 function del(idEmployee) {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var msg = confirm("Ban co chac chan muon xoa!")
     if (msg == true) {
         $.ajax({
@@ -166,6 +183,8 @@ $(document).ready(function () {
 // load table
 
 function bindData() {
+    $('#btnedit').prop('disabled', true);
+    $('#btnadd').prop('disabled', false);
     $.ajax({
         type: "POST",
         url: "employee.aspx/getEmployees",
@@ -184,6 +203,7 @@ function getDatas(response) {
         $('#dataTables-example').remove();
     }
     var items = response.d;
+    pEmployees = items;
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables-example' style='margin-top: -13px;'>" +
                     "<thead>" +
                         "<tr class='info'>"
@@ -221,7 +241,7 @@ function getDatas(response) {
         row += " <td class='a-right a-right '>" + items[i].dateUpdate + "</td>"
         row += " <td class='a-right a-right '>" + items[i].userUpdate + "</td>"
         row += " <td class=' last'><a onclick='loadData(" + items[i].idEmployee + ")'><i data-toggle='tooltip' title='Sửa' class='glyphicon glyphicon-edit'></i></a> |"
-           + "<a onclick='del(" + items[i].idEmployee+ ")'><i data-toggle='tooltip' title='Xóa' class='glyphicon glyphicon-remove'></i></a></td>"
+           + "<a onclick='del(" + items[i].idEmployee + ")'><i data-toggle='tooltip' title='Xóa' class='glyphicon glyphicon-remove'></i></a></td>"
         row += "</tr>"
         table += row
     }
@@ -235,6 +255,8 @@ function getDatas(response) {
 
 
 function search() {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var find = $('#srch').val();
     alert("search  " + find);
     $.ajax({
@@ -254,7 +276,8 @@ function search() {
 // xuat file excel
 
 function exportFile() {
-
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var a = document.createElement('a');
     //getting data from our div that contains the HTML table
     var data_type = 'data:application/vnd.ms-excel';
@@ -262,9 +285,68 @@ function exportFile() {
     var table_html = table_div.outerHTML.replace(/ /g, '%20');
     a.href = data_type + ', ' + table_html;
     //setting the file name
-    a.download = 'Employees' +'.xls';
+    a.download = 'Employees' + '.xls';
     //triggering the function
     a.click();
     //just in case, prevent default behaviour
-   
+
+}
+function validationEmployee(id, nameEmployee, salaryEmployee, sexEmployee, officeEmployee, address, identifyCardEmployee, status, birthday) {
+
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    var err = "<div class='form-group' id='listErr'";
+    err += "<p>Các lỗi:</p>"
+    var check = true;
+    if ("" == nameEmployee) {
+        check = false;
+        err += "<p style='color:red'>Nhập Tên</p>";
+    }
+    if ("" == salaryEmployee || 0 == salaryEmployee || null == salaryEmployee) {
+        check = false;
+        err += "<p style='color:red'>Nhập lương</p>";
+    }
+    if ("" == sexEmployee) {
+        check = false;
+        err += "<p style='color:red'>Chọn giới tính</p>";
+    }
+    if ("" == officeEmployee) {
+        check = false;
+        err += "<p style='color:red'>Nhập chức vụ</p>";
+    }
+    if ("" == address) {
+        check = false;
+        err += "<p style='color:red'>Nhập địa chỉ</p>";
+    }
+    if ("" == identifyCardEmployee) {
+        check = false;
+        err += "<p style='color:red'>Nhập số CMND</p>";
+    }
+    for (var i = 0; i < pEmployees.length; i++) {
+        if (pEmployees[i].identifiCard == identifyCardEmployee && id != pEmployees[i].idEmployee) {
+            err += "<p style='color:red'>Số CMND đã tồn tại</p>";
+            check = false;
+            break;
+        }
+    }
+
+
+
+    if ("" == status) {
+        check = false;
+        err += "<p style='color:red'>Chọn trạng thái</p>";
+    }
+    if ("" == birthday) {
+        check = false;
+        err += "<p style='color:red'>Chọn ngày sinh</p>";
+    }
+
+
+    if (check == false) {
+
+        err += "</div>";
+        $('#err').html(err);
+    }
+    return check;
+
 }
