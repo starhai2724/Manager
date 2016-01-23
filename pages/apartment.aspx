@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Căn hộ</h3>
             <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px" onclick="clear()">Xóa</button>
-            <button id="btnAdd" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 130px " onclick="add()" id="btnAdd">Thêm</button>
+            <button id="btnAdd" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 130px " onclick="add()" >Thêm</button>
             <button id="btnEdit" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="edit()">Lưu</button>
             <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 205px" onclick="exportFile()">In</button>
         </div>
