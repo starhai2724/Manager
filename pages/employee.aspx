@@ -6,10 +6,10 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Nhân viên</h3>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px" onclick="clear()">Xóa</button>
-            <button id="btnadd" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 130px" onclick="add()">Thêm</button>
-            <button id="btnedit"  type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="edit()">Lưu</button>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 205px" onclick="exportFile()">In</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px" onclick="clearDataEmployee()">Làm lại</button>
+            <button id="btnadd" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 150px" onclick="add()">Thêm</button>
+            <button id="btnedit"  type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 85px" onclick="edit()">Lưu</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 225px" onclick="exportFile()">In</button>
             
         </div>
         <!-- /.col-lg-12 -->

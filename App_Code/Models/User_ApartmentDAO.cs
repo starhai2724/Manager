@@ -170,5 +170,52 @@ namespace Manager.Models
         }
 
 
+
+        public  List<User_Apartment> findUser(string find)
+        {
+            string sql = "select * from User_Apartment where (username_Apartment LIKE '" + find + "%' OR ";
+            sql += "id_cus LIKE '" + find + "%' OR ";
+            sql += "user_create LIKE '" + find + "%' OR ";
+            sql += "date_create LIKE '" + find + "%' OR ";
+            sql += "date_update LIKE '" + find + "%' OR ";
+            sql += "user_update LIKE '" + find + "%' OR ";
+            sql += "status LIKE '" + find + "%' OR ";
+            sql += "id_emp LIKE '" + find + "%' OR ";
+            sql += "[rule] LIKE '" + find + "%')";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            User_Apartment user_Apartment;
+            string username;
+            string password;
+            int id_cus;
+            string dateCreate;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
+            string status;
+            int idEmp;
+            string rule;
+            List<User_Apartment> lst = new List<User_Apartment>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                username = dr[0].ToString();
+                password = dr[1].ToString();
+                id_cus = Convert.ToInt16(dr[2]);
+                dateCreate = dr[3].ToString();
+                userCreate = dr[4].ToString();
+                dateUpdate = dr[5].ToString();
+                userUpdate = dr[6].ToString();
+                status = dr[7].ToString();
+                idEmp = Convert.ToInt16(dr[8]);
+                rule = dr[9].ToString();
+                user_Apartment = new User_Apartment(username, password, id_cus, dateCreate, userCreate, dateUpdate, userUpdate, status, idEmp, rule);
+                lst.Add(user_Apartment);
+            }
+            return lst;
+
+        }
+
+
     }
 }

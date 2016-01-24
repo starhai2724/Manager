@@ -7,14 +7,24 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Hóa đơn</h3>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px" onclick="add_Bill()">Thêm</button>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;" onclick="edit_bill()">Lưu</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px" onclick="clearBill()">Làm lại</button>
+            <button id="btnAddBill" type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 150px" onclick="add_Bill()">Thêm</button>
+            <button id="btnEditBill" type="button" class="btn btn-primary pull-right" style="margin-top: -64px;margin-right: 85px" onclick="edit()">Lưu</button>
+             <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 225px" onclick="exportFileBill()">In</button>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <!-- add apartment -->
     <div class="row">
+         <div class="row">
+
+            <div class="col col-sm-4 col-md-4 col-lg-4" id="err" >
+            </div>
+
+
+        </div>
+
         <div class="row">
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
@@ -38,7 +48,7 @@
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Số điện củ</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="electric_old" />
+                    <input type="number" class="form-control" style="margin-top: -10px;" id="electric_old" />
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">
@@ -50,7 +60,7 @@
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Tổng tiền điện</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="total_electric"  />
+                    <input type="number" class="form-control" style="margin-top: -10px;" id="total_electric"  />
 
                 </div>
             </div>
@@ -59,7 +69,7 @@
             <div class="col col-sm-3 col-md-3 col-lg-3">
                 <div class="form-group">
                     <p>Số nước củ</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="water_old" />
+                    <input type="number" class="form-control" style="margin-top: -10px;" id="water_old" />
                 </div>
             </div>
             <div class="col col-sm-3 col-md-3 col-lg-3">

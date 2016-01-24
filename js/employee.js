@@ -2,7 +2,7 @@
 function loadData(idEmployee) {
     $('#btnedit').prop('disabled', false);
     $('#btnadd').prop('disabled', true);
-    
+
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     alert("idEmployee" + idEmployee);
@@ -132,17 +132,24 @@ function add() {
     }
 }
 
+function clearDataEmployee() {
+
+    clear();
+}
+
+
 //reset input
 function clear() {
+
     $('#text_idEmployee').val('');
     $('#text_nameEmployee').val('');
     $('#text_officeEmployee').val('');
-    $('#text_sexEmployee').val('');
+    //$('#text_sexEmployee').val('');
     $('#birthday_emp').val('');
     $('#text_identyfi_card_emp').val('');
     $('#text_addressEmployee').val('');
     $('#text_salaryEmployee').val('');
-    $('#text_status').val('');
+    //$('#text_status').val('');
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     $('#btnedit').prop('disabled', true);
@@ -329,8 +336,6 @@ function validationEmployee(id, nameEmployee, salaryEmployee, sexEmployee, offic
             break;
         }
     }
-
-
 
     if ("" == status) {
         check = false;

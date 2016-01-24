@@ -79,20 +79,17 @@ public class ElectricDAO
     //status_Apartment,date_create,user_create,date_update,user_update
     public int updateElectric(Electric Electric)
     {
-        string sql = "update Electric set number_old=@number_old, number_new=@number_new, total_money=@total_money, id_bill=@id_bill, date_create=@date_create, user_create=@user_create, date_update=@date_update, user_update=@user_update, status=@status "
-+ "Where id_Electric=@IDElectric";
+        string sql = "update Electric set number_old=@number_old, number_new=@number_new, total_money=@total_money, date_update=@date_update, user_update=@user_update, status=@status "
++ "Where id_bill=@id_bill";
         SqlCommand cmd = GenericDataAccess.CreateCommand();
         cmd.CommandText = sql;
         cmd.Parameters.AddWithValue("@number_old", Electric.numberOld);
         cmd.Parameters.AddWithValue("@number_new", Electric.numberNew);
         cmd.Parameters.AddWithValue("@total_money", Electric.totalMoney);
         cmd.Parameters.AddWithValue("@id_bill", Electric.idBill);
-        cmd.Parameters.AddWithValue("@date_create", Electric.dateCreate);
-        cmd.Parameters.AddWithValue("@user_create", Electric.userCreate);
         cmd.Parameters.AddWithValue("@date_update", Electric.dateUpdate);
         cmd.Parameters.AddWithValue("@user_update", Electric.userUpdate);
         cmd.Parameters.AddWithValue("@status", Electric.status);
-        cmd.Parameters.AddWithValue("@IDElectric", Electric.idElectric);
         return GenericDataAccess.ExecuteNoneQuery(cmd);
 
 
@@ -178,14 +175,11 @@ public class ElectricDAO
         cmd.Parameters.AddWithValue("@IdElectric", id);
         return GenericDataAccess.ExecuteNoneQuery(cmd);
 
-
-
     }
 
         public int deleteElectricByIdBill(int id)
         {
             string sql = "Delete from Electric where id_bill=@idBill";
-
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@idBill", id);

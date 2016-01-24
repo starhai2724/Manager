@@ -44,8 +44,15 @@ public partial class pages_bill : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static Price getPriceApply()
     {
+        List<Price> lst = priceDAO.getPriceApply();
+        foreach (Price p in lst)
+        {
+            if (p.status.Equals("Đang hoạt động"))
+                return p;
+        }
 
-        return priceDAO.getPriceApply();
+        return null;
+
     }
     [System.Web.Services.WebMethod]
     public static List<Water> getWaters()
@@ -72,7 +79,7 @@ public partial class pages_bill : System.Web.UI.Page
         Bill bill = new Bill(0, Convert.ToInt16(idApartment), Convert.ToInt16(idPrice), Convert.ToDouble(totalElectric), Convert.ToDouble(totalWater), Convert.ToDouble(totalTrash), Convert.ToDouble(totalInternet), Convert.ToDouble(totalApartment), Convert.ToDouble(total), "", dateBill, "", "", "");
         billDAO.addBill(bill);
         int id = billDAO.getId();
-        if (0!=id)
+        if (0 != id)
         {
             Water water = new Water(0, id, Convert.ToInt16(water_old), Convert.ToInt32(water_new), Convert.ToDouble(totalWater), "", dateBill, "", "", "");
             Electric electric = new Electric(0, id, Convert.ToInt16(electric_old), Convert.ToInt16(electric_new), Convert.ToDouble(totalElectric), "", dateBill, "", "", "");
@@ -83,6 +90,37 @@ public partial class pages_bill : System.Web.UI.Page
 
     }
 
+    [System.Web.Services.WebMethod]
+    public static void edit(string idBill, string idApartment, string water_new, string water_old, string electric_new, string electric_old,
+           string totalWater, string totalElectric, string totalApartment, string totalTrash, string totalInternet,
+             string total, string dateBill, string idPrice)
+    {
+
+        DateTime dateTime = DateTime.Now;
+        string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
+        int id = Convert.ToInt16(idBill);
+        Bill bill = new Bill(id, Convert.ToInt16(idApartment), Convert.ToInt16(idPrice), Convert.ToDouble(totalElectric), Convert.ToDouble(totalWater), Convert.ToDouble(totalTrash), Convert.ToDouble(totalInternet), Convert.ToDouble(totalApartment), Convert.ToDouble(total), "", dateBill, "", "", "");
+
+        billDAO.updateBill(bill);
+        if (0 != id)
+        {
+            Water water = new Water(0, id, Convert.ToInt16(water_old), Convert.ToInt32(water_new), Convert.ToDouble(totalWater), "", "", "", dateBill, "");
+            Electric electric = new Electric(0, id, Convert.ToInt16(electric_old), Convert.ToInt16(electric_new), Convert.ToDouble(totalElectric), "", "", "", dateBill, "");
+            waterDAO.updateWater(water);
+            electricDAO.updateElectric(electric);
+
+        }
+
+    }
+    [System.Web.Services.WebMethod]
+    public static int deleteBill(string idBill)
+    {
+        int id = Convert.ToInt16(idBill);
+        electricDAO.deleteElectricByIdBill(id);
+        waterDAO.deleteWaterByIdBill(id);
+        return billDAO.deleteBill(id);
+
+    }
 
 
 }

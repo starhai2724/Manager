@@ -39,9 +39,12 @@ public partial class pages_user : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static int add(string username, string password, string customer, string rePassword, string employee, string rule)
     {
+        Page p = new Page();
+        User_Apartment user = (User_Apartment)p.Session["user"];
+        string userCreate = user.username;
         DateTime dateTime = DateTime.Now;
         string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
-        User_Apartment a = new User_Apartment(username, password, Convert.ToInt16(customer), dateCreate, "Nguyen", "", "", "", Convert.ToInt16(employee), rule);
+        User_Apartment a = new User_Apartment(username, password, Convert.ToInt16(customer), dateCreate, userCreate, "", "", "", Convert.ToInt16(employee), rule);
 
         return User_ApartmentDAO.addUser_Apartment(a);
 
@@ -56,9 +59,12 @@ public partial class pages_user : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static int editUser(string username, string password, string customer, string rePassword, string employee, string rule)
     {
+        Page p = new Page();
+        User_Apartment user = (User_Apartment)p.Session["user"];
+        string userUpdate = user.username;
         DateTime dateTime = DateTime.Now;
         string dateUpdate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
-        User_Apartment a = new User_Apartment(username, password, Convert.ToInt16(customer), "", "", dateUpdate, "", "", Convert.ToInt16(employee), rule);
+        User_Apartment a = new User_Apartment(username, password, Convert.ToInt16(customer), "", "", dateUpdate, userUpdate, "", Convert.ToInt16(employee), rule);
         return dao.updateCustomer(a);
     }
 

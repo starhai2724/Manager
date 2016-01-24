@@ -24,7 +24,17 @@ public partial class pages_customers : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static List<Customer> getCustomersByHolder()
     {
-        return customerDAO.getCustomersByHolder();
+        List<Customer> lst= customerDAO.getCustomersByHolder();
+        List<Customer> lstCustomerByHolder = new List<Customer>();
+        for (int i = 0; i < lst.Count; i++)
+        {
+            if (lst[i].holder.Equals("Chủ"))
+            {
+                lstCustomerByHolder.Add(lst[i]);
+            }
+        }
+
+        return lstCustomerByHolder;
 
     }
 

@@ -101,7 +101,7 @@ namespace Manager.Models
 
         public  List<Customer> getCustomersByHolder()
         {
-            string sql = "select * from Customer where holder = 'Chủ'";
+            string sql = "select * from Customer ";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
             DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);

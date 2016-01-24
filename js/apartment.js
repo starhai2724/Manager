@@ -1,4 +1,8 @@
-﻿function loadData(name) {
+﻿
+var pApartments;
+function loadData(name) {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     $('#btnEdit').prop('disabled', false);
     $('#btnAdd').prop('disabled', true);
     $.ajax({
@@ -92,6 +96,8 @@ function OnSuccess(response) {
 }
 //edit 
 function edit() {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var idApartment = $('#text_idApartment').val();
     var nameApartment = $('#text_nameApartment').val();
     var typeApartment = $('#type').val();
@@ -101,64 +107,80 @@ function edit() {
     var statusApartment = $('#status').val();
     var userEdit = localStorage.getItem('username');
     alert('userEdit    ' + userEdit)
+    var check = validationApartment(idApartment, nameApartment, typeApartment, size, priceSale, priceRent, statusApartment);
+    if (chek == true) {
+        $.ajax({
+            type: "POST",
+            url: "apartment.aspx/editApartment",
+            data: JSON.stringify({ id: idApartment, name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment, userUpdate: userEdit }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                bindData();
+                clear();
+                alert("Sua thanh cong");
+            },
+            error: function (result) {
+                alert("Error");
+            }
 
-    $.ajax({
-        type: "POST",
-        url: "apartment.aspx/editApartment",
-        data: JSON.stringify({ id: idApartment, name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment, userUpdate: userEdit }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            bindData();
-            clear();
-            alert("Sua thanh cong");
-        },
-        error: function (result) {
-            alert("Error");
-        }
-
-    });
+        });
+    }
 }
 // them can ho
 
 
 
 function add() {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var nameApartment = $('#text_nameApartment').val();
     var typeApartment = $('#type').val();
     var size = $('#text_size').val();
     var priceSale = $('#text_priceSale').val();
-    var priceSale_2 = priceSale.replace(",", "");
     var priceRent = $('#text_priceRent').val();
     var statusApartment = $('#status').val();
-    $.ajax({
-        type: "POST",
-        url: "apartment.aspx/add",
-        data: JSON.stringify({ name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            bindData();
-            clear();
-            alert("Them thanh cong");
-        },
-        error: function (result) {
-            alert("Error");
-        }
+    var idApartment = $('#text_idApartment').val();
+    var check = validationApartment(idApartment, nameApartment, typeApartment, size, priceSale, priceRent, statusApartment);
+    if (chek == true) {
+        $.ajax({
+            type: "POST",
+            url: "apartment.aspx/add",
+            data: JSON.stringify({ name: nameApartment, type: typeApartment, size: size, priceS: priceSale, priceR: priceRent, status: statusApartment }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                bindData();
+                clear();
+                alert("Them thanh cong");
+            },
+            error: function (result) {
+                alert("Error");
+            }
 
-    });
+        });
+    }
 }
+//refesh data
+function clearDataApartment() {
+    clear();
+}
+
+
 
 //reset input
 function clear() {
     $('#text_idApartment').val('');
     $('#text_nameApartment').val('');
-    $('#type').val('');
+    //$('#type').val('');
     $('#text_size').val('');
     $('#text_priceSale').val('');
     $('#text_priceRent').val('');
-    $('#status').val('');
-
+   // $('#status').val('');
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    $('#btnEdit').prop('disabled', true);
+    $('#btnAdd').prop('disabled', false);
 }
 //delete 
 
@@ -198,6 +220,8 @@ $(document).ready(function () {
 function bindData() {
     $('#btnEdit').prop('disabled', true);
     $('#btnAdd').prop('disabled', false);
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     $.ajax({
         type: "POST",
         url: "apartment.aspx/getApartments",
@@ -216,6 +240,7 @@ function getDatas(response) {
         $('#dataTables-example').remove();
     }
     var items = response.d;
+    pApartments = items;
 
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables-example' style='margin-top: -13px;'>" +
                     "<thead id='header'>" +
@@ -226,7 +251,6 @@ function getDatas(response) {
                             + "<th>Kích thước </th>"
                             + "<th>Giá bán </th>"
                             + "<th>Giá thuê </th>"
-                           
                             + "<th>Tình trạng </th>"
                             + "<th>Ngày tạo</th>"
                             + "<th>Người tạo </th>"
@@ -264,6 +288,8 @@ function getDatas(response) {
 
 
 function search() {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var find = $('#srch').val();
     alert("search  " + find);
     $.ajax({
@@ -283,7 +309,8 @@ function search() {
 // xuat file excel
 
 function exportFile() {
-
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var a = document.createElement('a');
     //getting data from our div that contains the HTML table
     var data_type = 'data:application/vnd.ms-excel';
@@ -297,6 +324,59 @@ function exportFile() {
     //just in case, prevent default behaviour
 
 }
+function validationApartment(idApartment, nameApartment, typeApartment, size, priceSale, priceRent, statusApartment) {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    var err = "<div class='form-group' id='listErr'";
+    err += "<p>Các lỗi:</p>"
+    var check = true;
+    if ("" == nameApartment) {
+        check = false;
+        err += "<p style='color:red'>Nhập tên</p>";
+    }
+    if ("" == size) {
+        check = false;
+        err += "<p style='color:red'>Nhập kích thước</p>";
+    }
+    
+    for (var i = 0; i < pApartments.length; i++) {
+        if (pApartments[i].nameApartment == nameApartment && idApartment!=pApartments[i].idApartment) {
+            check = false;
+            err += "<p style='color:red'>Tên đã tồn tại</p>";
+            break;
+        }
+
+    }
+
+
+    if ("" == priceSale  || null == priceSale ) {
+        check = false;
+        err += "<p style='color:red'>Nhập giá bán</p>";
+    }
+    if ("" == priceRent  || null == priceRent ) {
+        check = false;
+        err += "<p style='color:red'>Nhập giá thuê</p>";
+    }
+    if ("" == statusApartment) {
+        check = false;
+        err += "<p style='color:red'>Chọn trạng thái</p>";
+    }
+    if ("" == typeApartment) {
+        check = false;
+        err += "<p style='color:red'>Chọn loại</p>";
+    }
+    if (check == false) {
+
+        err += "</div>";
+        $('#err').html(err);
+    }
+    return check;
+
+}
+
+
+
+
 
 
 function Test() {

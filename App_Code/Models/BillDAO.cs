@@ -33,6 +33,12 @@ namespace Manager.Models
             return GenericDataAccess.ExecuteNoneQuery(cmd);
             
         }
+
+        public static List<Bill> getInfomation_apartment(int v, string date_start, string date_end)
+        {
+            throw new NotImplementedException();
+        }
+
         public  List<Bill> getBills()
         {
             string sql = "select * from Bill";
@@ -79,7 +85,7 @@ namespace Manager.Models
         }
         public int updateBill(Bill bill)
         {
-            string sql = "update Bill set date_Bill=@date_Bill,total_electricity=@total_electricity, total_electricity = @total_electricity , total_water = @total_water, total_trash = @total_trash , total_internet = @total_internet, total_apartment=@total_apartment , total = @total, id_Apartment = @id_Apartment, id_Price = @id_Price, user_create = @user_create, date_update = @date_update, status = @status, user_update = @user_update"
+            string sql = "update Bill set date_Bill=@date_Bill, total_electricity = @total_electricity , total_water = @total_water, total_trash = @total_trash , total_internet = @total_internet, total_apartment=@total_apartment , total = @total, id_Apartment = @id_Apartment, date_update = @date_update, status = @status, user_update = @user_update "
             + "Where id_Bill=@IdBill";
           
             SqlCommand cmd = GenericDataAccess.CreateCommand();
@@ -91,14 +97,13 @@ namespace Manager.Models
             cmd.Parameters.AddWithValue("@total_trash", bill.totalTrash);
             cmd.Parameters.AddWithValue("@total_internet", bill.totalInternet);
             cmd.Parameters.AddWithValue("@total", bill.total);
-            cmd.Parameters.AddWithValue("@id_Price", bill.userCreate);
-            cmd.Parameters.AddWithValue("@date_update", bill.dateUpdate);
-            cmd.Parameters.AddWithValue("@user_create", bill.userUpdate);
+            
+            //cmd.Parameters.AddWithValue("@user_create", bill.userCreate);
             cmd.Parameters.AddWithValue("@date_update", bill.dateUpdate);
             cmd.Parameters.AddWithValue("@user_update", bill.userUpdate);
             cmd.Parameters.AddWithValue("@status", bill.status);
             cmd.Parameters.AddWithValue("@total_apartment", bill.totalApartment);
-            
+            cmd.Parameters.AddWithValue("@id_Apartment", bill.idApartment); 
             return GenericDataAccess.ExecuteNoneQuery(cmd);
         }
         public  Bill getBill(int id)

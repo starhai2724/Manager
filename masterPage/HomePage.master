@@ -107,15 +107,22 @@
                                 <a href="employee.aspx"><i class="fa fa-user"></i>Quản lý nhân viên</a>
                             </li>
                             <li>
-                                <a href="user.aspx"><i class="fa fa-users"></i>Quản lý tài khoản</a>
+                                <a href="userEmployee.aspx"><i class="fa fa-users"></i>Tai khoan nhan vien</a>
                             </li>
-
+                            <li>
+                                <a href="userCustomer.aspx"><i class="fa fa-users"></i>Tai khoan khach hang</a>
+                            </li>
+                          
                             <li>
                                 <a href="bill.aspx"><i class="fa fa-files-o fa-fw"></i>Quản lý hóa đơn</a>
 
                             </li>
                             <li>
                                 <a href="price.aspx"><i class="glyphicon glyphicon-list-alt"></i>Quản lý bảng giá</a>
+
+                            </li>
+                            <li>
+                                <a href="thongke.aspx"><i class="glyphicon glyphicon-list-alt"></i>Thống kê</a>
 
                             </li>
                         </ul>

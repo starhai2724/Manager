@@ -32,13 +32,15 @@ function loadTable(data) {
     if ($('#dataTables-example').length != 0) {
         $('#dataTables-example').remove();
     }
+    getEmloyees();
+    getCustomers();
     items = data.d;
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables-example' style='margin-top: -13px;'>"
                 + "<thead>"
                     + "<tr class='info'>"
                         + "<th>Tên tài khoản</th>"
-                        + "<th>Tên khách hàng</th>"
-                        + "<th>Tên nhân viên</th>"
+                        + "<th>ID khách hàng</th>"
+                        + "<th>ID nhân viên</th>"
                         + "<th>Ngày tạo</th>"
                         + "<th>Người tạo</th>"
                         + "<th>Ngày sửa</th>"
@@ -112,41 +114,54 @@ function add() {
 
 
 function validation(username, password, customer, rePassword, employee, rule) {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    var err = "<div class='form-group' id='listErr'";
+    err += "<p>Các lỗi:</p>"
     var chek = true;
+    if (customer == null)
+        customer = 0;
+    if (employee == null)
+        employee = 0;
+
     if (username != "") {
         for (var i = 0; i < items.length; i++) {
             if (items[i].username == username) {
-                //alert('Tên tài khoản đã tồn tại');
                 chek = false;
+                err += "<p style='color:red'>Tên tài khoản đã tồn tại</p>";
                 break;
             }
         }
 
     } else {
-        $('#username_err').val('Nhập lại');
+        err += "<p style='color:red'>Nhập Tên</p>";
         chek = false;
     }
     if ("" == password) {
-        $('#password_err').val('Nhập lại');
+        err += "<p style='color:red'>Nhập mật khẩu</p>";
         chek = false;
     }
     if ("" == rePassword) {
-        $('#rePassword_err').val('Nhập lại');
+        err += "<p style='color:red'>Nhập lại mật khẩu</p>";
         chek = false;
     }
     if (("" != password) && ("" != rePassword)) {
         if (password != rePassword) {
 
-            //   alert("Mật khẩu không trùng nhau!");
+            err += "<p style='color:red'>Mật khẩu không trùng nhau</p>";
             chek = false;
         }
     }
     if ((customer == 0 && employee == 0) || (customer != 0 && employee != 0)) {
 
-        //  alert("Vui lòng chọn nhân viên hoặc khách hàng!");
+        err += "<p style='color:red'>Vui lòng chọn khách hàng hoặc nhân viên</p>";
         chek = false;
     }
+    if (chek == false) {
 
+        err += "</div>";
+        $('#err').html(err);
+    }
 
     return chek;
 }
@@ -163,6 +178,10 @@ function getCustomers() {
         dataType: "json",
         success: function (data) {
             customers = data.d;
+           
+
+
+
             if (null != customers) {
                 if ($('#customer').length != 0) {
                     $('#customer').remove();
@@ -180,6 +199,7 @@ function getCustomers() {
                 st += "/select>"
                 $('#getCustomers').html(st);
 
+              //  $('#identifiCardCustomer0').val('ABC');
 
             }
 
@@ -245,7 +265,7 @@ function deleteUser(username) {
                 }
             },
             error: function (data) {
-                alert("error  sfsdf")
+                alert("error  ")
             }
         });
     }
@@ -262,7 +282,7 @@ function editUser() {
     alert("rule: " + rule);
     // alert("username  " + username + "; " + "password  " + password + "; " + "customer  " + customer + "; " + "rePassword  " + rePassword + "; " + "employee  " + employee + "; " + "  " + "; " + "rule  " + rule + " ");
     var chek = validation("DHF", password, customer, rePassword, employee, rule);
-   // alert("check " + chek+" customer: "+customer+" employee: "+employee);
+    alert("check " + chek+" customer: "+customer+" employee: "+employee);
     if (chek == true) {
         if (chek == true) {
             alert("check " + chek);
@@ -327,6 +347,7 @@ function loadUser(username) {
             if ($('#customer').length != 0) {
                 $('#customer').remove();
             }
+            $('#employee').val('');
             var selectCustomer = ""
                + "<p>Khách hàng</p>"
                + "<select class='form-control' style='margin-top: -10px;' id='customer'  >";
@@ -351,6 +372,7 @@ function loadUser(username) {
             if ($('#employee').length != 0) {
                 $('#employee').remove();
             }
+            $('#customer').val('');
             var st = ""
                + "<p>Nhân viên</p>"
                + "<select class='form-control' style='margin-top: -10px;' id='employee'  >";

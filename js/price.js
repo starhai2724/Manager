@@ -1,4 +1,8 @@
 ﻿function loadData(idPrice) {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    $('#btnedit').prop('disabled', false);
+    $('#btnadd').prop('disabled', true);
     alert("idEmployee" + idPrice);
     $.ajax({
         type: "POST",
@@ -22,6 +26,25 @@ function OnSuccess(response) {
     $('#text_priceInternet').val(item.priceInternet);
     $('#text_priceTrash').val(item.priceTrash);
 
+    var status;
+    if (item.status == "Đang hoạt động") {
+        if ($('#active').length != 0) {
+            $('#active').remove();
+            status = "<option id='active' selected='selected'>Đang hoạt động</option>";
+            status += " <option  id='noActive'>Không hoạt động</option>";
+        }
+
+    } else {
+        if ($('#unactive').length != 0) {
+            $('#unactive').remove();
+            status = "<option id='active' >Đang hoạt động</option>";
+            status += " <option  id='unactive' selected='selected'>Không hoạt động</option>";
+        }
+    }
+    $('#text_status').html(status);
+
+
+
 }
 //edit 
 function edit() {
@@ -31,23 +54,25 @@ function edit() {
     var priceInternet = $('#text_priceInternet').val();
     var priceTrash = $('#text_priceTrash').val();
     var status = $('#text_status').val();
+    var check = validationPrice(priceElectric, priceWater, priceInternet, priceTrash, status);
+    if (check == true) {
+        $.ajax({
+            type: "POST",
+            url: "price.aspx/editPrice",
+            data: JSON.stringify({ idPrice: idPrice, priceElectric: priceElectric, priceWater: priceWater, priceInternet: priceInternet, priceTrash: priceTrash, status: status }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                bindData();
+                clear();
+                alert("Sua thanh cong");
+            },
+            error: function (result) {
+                alert("Error edit");
+            }
 
-    $.ajax({
-        type: "POST",
-        url: "price.aspx/editPrice",
-        data: JSON.stringify({ idPrice: idPrice, priceElectric: priceElectric, priceWater: priceWater, priceInternet: priceInternet, priceTrash: priceTrash, status: status }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            bindData();
-            clear();
-            alert("Sua thanh cong");
-        },
-        error: function (result) {
-            alert("Error edit");
-        }
-
-    });
+        });
+    }
 }
 // them price
 
@@ -60,22 +85,30 @@ function add() {
     var priceInternet = $('#text_priceInternet').val();
     var priceTrash = $('#text_priceTrash').val();
     var status = $('#text_status').val();
-    $.ajax({
-        type: "POST",
-        url: "price.aspx/add",
-        data: JSON.stringify({ priceElectric: priceElectric, priceWater: priceWater, priceInternet: priceInternet, priceTrash: priceTrash, status: status }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            bindData();
-            clear();
-            alert("Them thanh cong");
-        },
-        error: function (result) {
-            alert("Error");
-        }
+    var check = validationPrice(priceElectric, priceWater, priceInternet, priceTrash, status);
+    if (check == true) {
+        $.ajax({
+            type: "POST",
+            url: "price.aspx/add",
+            data: JSON.stringify({ priceElectric: priceElectric, priceWater: priceWater, priceInternet: priceInternet, priceTrash: priceTrash, status: status }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                bindData();
+                clear();
+                alert("Them thanh cong");
+            },
+            error: function (result) {
+                alert("Error");
+            }
 
-    });
+        });
+    }
+}
+//refesh data
+function clearPrice() {
+    clear();
+
 }
 
 //reset input
@@ -85,7 +118,11 @@ function clear() {
     $('#text_priceWater').val('');
     $('#text_priceInternet').val('');
     $('#text_priceTrash').val('');
-    $('#text_status').val('');
+   // $('#text_status').val('');
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    $('#btnedit').prop('disabled', true);
+    $('#btnadd').prop('disabled', false);
 
 }
 //delete 
@@ -119,6 +156,10 @@ $(document).ready(function () {
 
 function bindData() {
     //alert("bind data");
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    $('#btnedit').prop('disabled', true);
+    $('#btnadd').prop('disabled', false);
     $.ajax({
         type: "POST",
         url: "price.aspx/getPrices",
@@ -183,6 +224,8 @@ function getDatas(response) {
 
 
 function search() {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var find = $('#srch').val();
     alert("search  " + find);
     $.ajax({
@@ -202,7 +245,8 @@ function search() {
 // xuat file excel
 
 function exportFile() {
-
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
     var a = document.createElement('a');
     //getting data from our div that contains the HTML table
     var data_type = 'data:application/vnd.ms-excel';
@@ -214,5 +258,44 @@ function exportFile() {
     //triggering the function
     a.click();
     //just in case, prevent default behaviour
+
+}
+
+function validationPrice(priceElectric, priceWater, priceInternet, priceTrash, status) {
+
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    var err = "<div class='form-group' id='listErr'";
+    err += "<p>Các lỗi:</p>"
+    var check = true;
+    
+    if ("" == priceElectric  || null == priceElectric ) {
+        check = false;
+        err += "<p style='color:red'>Nhập giá tiền điện</p>";
+    }
+    if ("" == priceWater  || null == priceWater ) {
+        check = false;
+        err += "<p style='color:red'>Nhập giá tiền nước</p>";
+    }
+    if ("" == priceInternet || null == priceInternet ) {
+        check = false;
+        err += "<p style='color:red'>Nhập giá tiền internet</p>";
+    }
+    if ("" == priceTrash || null == priceTrash ) {
+        check = false;
+        err += "<p style='color:red'>Nhập giá tiền rác</p>";
+    }
+    if ("" == status) {
+        check = false;
+        err += "<p style='color:red'>Chọn trạng thái</p>";
+    }
+
+    if (check == false) {
+
+        err += "</div>";
+        $('#err').html(err);
+    }
+    return check;
+
 
 }

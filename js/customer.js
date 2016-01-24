@@ -149,21 +149,32 @@ function add() {
 
 }
 
+//refesh data
+
+function clearDataCustomer() {
+    clear();
+}
+
+
+
+
 //clear 
 function clear() {
 
     $('#txtName').val('');
     $('#txtAddress').val('');
     $('#txt_identifiCard').val('');
-    $('#sex').val('');
+    //$('#sex').val('');
     $('#idApartment').val('');
     $('#txtBirthday').val('');
-    $('#holder').val('');
+    //$('#holder').val('');
     $('#txtEmail').val('');
     $('#txtPhone').val('');
-    $('#status').val('');
+    //$('#status').val('');
     if ($('#listErr').length != 0)
         $('#listErr').remove();
+    $('#btnEdit').prop('disabled', true);
+    $('#btnAdd').prop('disabled', false);
 }
 //Edit
 function loadCustomer(idCustomer) {

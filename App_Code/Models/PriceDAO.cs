@@ -101,6 +101,21 @@ namespace Manager.Models
             return GenericDataAccess.ExecuteNoneQuery(cmd);
 
         }
+
+        public int updatePriceByStatus(Price price)
+        {
+            string sql = "update Price set status=@status "
++ "Where id_Price=@IDPrice";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@status", price.status);
+            cmd.Parameters.AddWithValue("@IDPrice", price.idPrice);
+            return GenericDataAccess.ExecuteNoneQuery(cmd);
+
+        }
+
+
+
         public static Price getPrice(int id)
         {
             int idPrice;
@@ -152,7 +167,7 @@ namespace Manager.Models
 
 
         }
-      
+
 
         // search
         public static List<Price> findPrices(string find)
@@ -195,12 +210,12 @@ namespace Manager.Models
                 dateUpdate = dr[7].ToString();
                 userUpdate = dr[8].ToString();
                 status = dr[9].ToString();
-                a= new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, dateCreate, userCreate, dateUpdate, userUpdate, status);
-                
+                a = new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, dateCreate, userCreate, dateUpdate, userUpdate, status);
+
                 lst.Add(a);
-                
+
             }
-            
+
             return lst;
 
 
@@ -209,7 +224,7 @@ namespace Manager.Models
 
         //get price status="Hoat dong"
 
-        public  Price getPriceApply()
+        public List<Price> getPriceApply()
         {
             int idPrice;
             double priceElectric;
@@ -221,10 +236,11 @@ namespace Manager.Models
             string dateUpdate;
             string userUpdate;
             string status;
-            string sql = "select * from Price where status='a'";
+            string sql = "select * from Price";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
             DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            List<Price> lst = new List<Price>();
             foreach (DataRow dr in dt.Rows)
             {
                 idPrice = Convert.ToInt16(dr[0]);
@@ -237,16 +253,16 @@ namespace Manager.Models
                 dateUpdate = dr[7].ToString();
                 userUpdate = dr[8].ToString();
                 status = dr[9].ToString();
-                return new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, dateCreate, userCreate, dateUpdate, userUpdate, status);
+                lst.Add(new Price(idPrice, priceElectric, priceWater, priceInternet, priceTrash, dateCreate, userCreate, dateUpdate, userUpdate, status));
 
             }
-            return null;
+            return lst;
 
 
 
         }
 
-
-        }
 
     }
+
+}

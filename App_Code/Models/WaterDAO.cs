@@ -84,20 +84,18 @@ namespace Manager.Models
         //status_Apartment,date_create,user_create,date_update,user_update
         public int updateWater(Water water)
         {
-            string sql = "update Water set number_old=@number_old, number_new=@number_new, total_money=@total_money, id_bill=@id_bill, date_create=@date_create, user_create=@user_create, date_update=@date_update, user_update=@user_update, status=@status "
-+ "Where id_water=@IDWater";
+            string sql = "update Water set number_old=@number_old, number_new=@number_new, total_money=@total_money,  date_update=@date_update, user_update=@user_update, status=@status "
++ "Where id_bill=@id_bill";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
+
             cmd.Parameters.AddWithValue("@number_old", water.numberOld);
             cmd.Parameters.AddWithValue("@number_new", water.numberNew);
             cmd.Parameters.AddWithValue("@total_money", water.totalMoney);
             cmd.Parameters.AddWithValue("@id_bill", water.idBill);
-            cmd.Parameters.AddWithValue("@date_create", water.dateCreate);
-            cmd.Parameters.AddWithValue("@user_create", water.userCreate);
             cmd.Parameters.AddWithValue("@date_update", water.dateUpdate);
             cmd.Parameters.AddWithValue("@user_update", water.userUpdate);
             cmd.Parameters.AddWithValue("@status", water.status);
-            cmd.Parameters.AddWithValue("@IDWater", water.idWater);
             return GenericDataAccess.ExecuteNoneQuery(cmd);
 
 

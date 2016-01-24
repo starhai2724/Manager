@@ -2,20 +2,27 @@
 
 <asp:Content ContentPlaceHolderID="CPH1" runat="server">
     <script src="../js/user.js"></script>
-
-
-
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Tài khoản</h3>
-            <button type="button" onclick="add()" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 65px">Thêm</button>
-            <button type="button" onclick="editUser()" class="btn btn-primary pull-right" style="margin-top: -64px;">Lưu</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px" onclick="">Làm lại</button>
+            <button type="button" onclick="add()" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 150px">Thêm</button>
+            <button type="button" onclick="editUser()" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 85px">Lưu</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 225px" onclick="">In</button>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <!-- add apartment -->
     <div class="row">
+        <div class="row">
+
+            <div class="col col-sm-4 col-md-4 col-lg-4" id="err">
+            </div>
+
+
+        </div>
+
         <div class="row">
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">

@@ -25,7 +25,7 @@ public partial class _apartment : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static void add(string name, string type, string size, string priceS, string priceR, string status)
     {
-        
+
         DateTime dateTime = DateTime.Now;
         string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
         priceS = priceS.Replace(",", "");
@@ -115,20 +115,21 @@ public partial class _apartment : System.Web.UI.Page
     public static List<Apartment> getApartmentsExcept()
     {
         List<Apartment> lst = ApartmentDAO.getApartments();
+        List<Apartment> lstApartmentByStatus = new List<Apartment>();
         if (null != lst)
         {
-            for(int i=0; i<lst.Count;i++)
+            for (int i = 0; i < lst.Count; i++)
             {
-                if (lst[i].statusApartment.Equals("Trống"))
+                if (!lst[i].statusApartment.Equals("Trống"))
                 {
-                    lst.Remove(lst[i]);
+                    lstApartmentByStatus.Add(lst[i]);
                 }
 
             }
         }
 
 
-        return lst;
+        return lstApartmentByStatus;
 
 
     }
