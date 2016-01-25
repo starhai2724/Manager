@@ -217,5 +217,20 @@ namespace Manager.Models
         }
 
 
+        public int resetPassword(User_Apartment user_Apartment)
+        {
+            string sql = "update User_Apartment set  password_Apartment=@password_Apartment Where username_Apartment=@username_Apartment";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@username_Apartment", user_Apartment.username);
+            cmd.Parameters.AddWithValue("@password_Apartment", user_Apartment.password);
+            return GenericDataAccess.ExecuteNoneQuery(cmd);
+
+
+
+        }
+
+
+
     }
 }

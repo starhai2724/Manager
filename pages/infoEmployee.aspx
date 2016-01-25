@@ -21,9 +21,11 @@
         </div>
         <%}
             else
-            { %>
+            
+            { Response.Redirect("login.aspx");
+                 %>
 
-        Ban khong co quyen!
+        
         <%} %>
     </form>
 </body>

@@ -241,11 +241,12 @@
         <%
             string rule = (string)Session["rule"];
             User_Apartment u = (User_Apartment)Session["user"];
-            CustomerDAO dao = new CustomerDAO();
-            Customer cus = (Customer)dao.getCustomer(u.id_cus);
-            Apartment apartment = ApartmentDAO.getApartment(cus.idApartment);
             if (u != null && rule.Equals("2"))
             {
+                CustomerDAO dao = new CustomerDAO();
+                Customer cus = (Customer)dao.getCustomer(u.id_cus);
+                Apartment apartment = ApartmentDAO.getApartment(cus.idApartment);
+
         %>
 
     <section class="hero">
@@ -259,6 +260,8 @@
                     
                      <ul>
                         <li><a href="#">Chào </a>&nbsp;<label style="color:red"><%=cus.nameCustomer %></label></li>
+                         <li><a href="ResetPassword.aspx">Đổi mật khẩu</a></li>
+                          <li><a href="Logout.aspx">Đăng xuất</a></li>
                     </ul>
                     
                 </nav>
@@ -439,9 +442,11 @@
     <!--  end footer  -->
         <%}
             else
-            { %>
 
-        Ban khong co quyen!
+            {
+                Response.Redirect("login.aspx");%>
+        
+        
         <%} %>
     </form>
 </body>

@@ -114,6 +114,16 @@
                     <input type="text" class="form-control" style="margin-top: -10px;" id="total" />
                 </div>
             </div>
+            
+            <div class="col col-sm-3 col-md-3 col-lg-3">
+                <div class="form-group">
+                    <p>Tình trạng</p>
+                   <select class="form-control" style="margin-top: -10px;" id="status">
+                        <option id="status1">Đã thanh toán</option>
+                        <option id="status2">Chưa thanh toán</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
     </div>

@@ -19,7 +19,7 @@ public partial class pages_login : System.Web.UI.Page
         User_Apartment user = dao.getUser_Apartment(username);
         if (null != user)
         {
-            if (user.password.Equals(password))
+            if (user.password.Equals(Encode.GetMd5Hash(password)))
             {
                 Page p = new Page();
                 p.Session["user"] = "OK";
@@ -29,7 +29,7 @@ public partial class pages_login : System.Web.UI.Page
                     p.Session["rule"] = "1";
                     //p.Response.Redirect("home.aspx");
                 }
-                else if (user.rule.Equals("Xem thong tin căn hộ"))
+                else if (user.rule.Equals("Xem thông tin căn hộ"))
                 {
                     p.Session["user"] = user;
                     p.Session["rule"] = "2";

@@ -26,6 +26,7 @@ namespace Manager.Models
         public string dateUpdate { get; set; }
         public string userUpdate { get; set; }
 
+       
         public Bill(int IdBill, int IdApartment, int IdPrice, double TotalElectric, double TotalWater,
           double TotalTrash, double TotalInternet, double TotalApartment,
          double Total, string Status, string DateBill,string UserCreate, string DateUpdate, string UserUpdate)
@@ -45,6 +46,7 @@ namespace Manager.Models
             this.userCreate = UserCreate;
             this.dateUpdate = DateUpdate;
             this.userUpdate = UserUpdate;
+          
 
         }
 

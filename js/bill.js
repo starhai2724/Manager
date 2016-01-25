@@ -28,7 +28,7 @@ function loadData_bill() {
         dataType: "json",
         success: getDatas_bill,
         error: function (result) {
-            alert("Error load data");
+            alert("Không thành công");
         }
     });
 }
@@ -111,7 +111,7 @@ function getApartments() {
             $('#getApartments').html(st);
         },
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 }
@@ -129,7 +129,7 @@ function getPriceApply() {
             prices = data.d;
         },
         error: function (result) {
-            alert("Error load data");
+            alert("Không thành công");
         }
     });
 }
@@ -146,7 +146,7 @@ function getElectrics() {
             electrics = data.d;
         },
         error: function (result) {
-            alert("Error load data");
+            alert("Không thành công");
         }
     });
 }
@@ -163,7 +163,7 @@ function getWaters() {
             warters = data.d;
         },
         error: function (result) {
-            alert("Error load data");
+            alert("Không thành công");
         }
     });
 }
@@ -235,7 +235,7 @@ function get_oldWater_oldElectric_trash_internet(idApartment) {
 
 //caculate
 function totalElectric() {
-    alert("Dien");
+
 
     var electric_new = $('#electric_new').val();
     var electric_old = $('#electric_old').val();
@@ -258,7 +258,7 @@ function totalElectric() {
 
 
 function totalWater() {
-    alert("Nuoc");
+ 
     var water_new = $('#water_new').val();
     var water_old = $('#water_old').val();
     if ("" != water_new && "" != water_old) {
@@ -314,22 +314,22 @@ function add_Bill() {
     var totalInternet = $('#internet').val();
     var total = $('#total').val();
     var dateBill = $('#dateBill').val();
-    var check = validation(idApartment, dateBill, electric_new, electric_old, water_new, water_old);
+    var status = $('#status').val();
+    var check = validation(idApartment, dateBill, electric_new, electric_old, water_new, water_old, status);
     if (check == true) {
-        alert("DIEN:  " + electric_new + "; " + electric_old);
+     
         $.ajax({
             type: "POST",
             url: "bill.aspx/add",
-            data: JSON.stringify({ idApartment: idApartment, water_new: water_new, water_old: water_old, electric_new: electric_new, electric_old: electric_old, totalWater: totalWater, totalElectric: totalElectric, totalApartment: totalApartment, totalTrash: totalTrash, totalInternet: totalInternet, total: total, dateBill: dateBill, idPrice: prices.idPrice }),
+            data: JSON.stringify({ idApartment: idApartment, water_new: water_new, water_old: water_old, electric_new: electric_new, electric_old: electric_old, totalWater: totalWater, totalElectric: totalElectric, totalApartment: totalApartment, totalTrash: totalTrash, totalInternet: totalInternet, total: total, dateBill: dateBill, idPrice: prices.idPrice, status: status }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
                 load();
-                
-                alert("Them thanh cong");
+                alert("Thêm thành công");
             },
             error: function (result) {
-                alert("Error add");
+                alert("Không thành công");
             }
 
         });
@@ -436,6 +436,35 @@ function loadBill(idBill) {
         $('#total').prop('disabled', true);
         $('#total_water').prop('disabled', true);
         $('#total_electric').prop('disabled', true);
+
+
+
+        var status;
+        if (bill.status == "Đã thanh toán") {
+            if ($('#status1').length != 0) {
+                $('#status1').remove();
+                $('#status2').remove();
+              
+                status = "<option selected='selected' id='status1'>Đã thanh toán</option>";
+                status += "<option id='status2'>Chưa thanh toán</option>";
+              
+            }
+
+        } else if (bill.status == "Chưa thanh toán") {
+
+            if ($('#status2').length != 0) {
+                $('#status1').remove();
+                $('#status2').remove();
+                status = "<option  id='status1'>Đã thanh toán</option>";
+                status += "<option id='status2' selected='selected'>Chưa thanh toán</option>";
+               
+            }
+
+
+        }
+        $('#status').html(status);
+
+
     }
 
 
@@ -457,28 +486,29 @@ function edit() {
     var totalInternet = $('#internet').val();
     var total = $('#total').val();
     var dateBill = $('#dateBill').val();
-    var check = validation(idApartment, dateBill, electric_new, electric_old, water_new, water_old);
+    var status = $('#status').val();
+    var check = validation(idApartment, dateBill, electric_new, electric_old, water_new, water_old, status);
     if(check==true){
     $.ajax({
         type: "POST",
         url: "bill.aspx/edit",
-        data: JSON.stringify({ idBill:idBill, idApartment: idApartment, water_new: water_new, water_old: water_old, electric_new: electric_new, electric_old: electric_old, totalWater: totalWater, totalElectric: totalElectric, totalApartment: totalApartment, totalTrash: totalTrash, totalInternet: totalInternet, total: total, dateBill: dateBill, idPrice: prices.idPrice }),
+        data: JSON.stringify({ idBill: idBill, idApartment: idApartment, water_new: water_new, water_old: water_old, electric_new: electric_new, electric_old: electric_old, totalWater: totalWater, totalElectric: totalElectric, totalApartment: totalApartment, totalTrash: totalTrash, totalInternet: totalInternet, total: total, dateBill: dateBill, idPrice: prices.idPrice, status: status }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
             load();
             
-            alert("Sua thanh cong");
+            alert("Sửa thành công");
         },
         error: function (result) {
-            alert("Error add");
+            alert("Không thành công");
         }
 
     });
     }
 
 }
-function validation(idApartment, dateBill, electric_new, electric_old, water_new, water_old) {
+function validation(idApartment, dateBill, electric_new, electric_old, water_new, water_old,status) {
 
     if ($('#listErr').length != 0)
         $('#listErr').remove();
@@ -501,6 +531,11 @@ function validation(idApartment, dateBill, electric_new, electric_old, water_new
         check = false;
         err += "<p style='color:red'>Chọn ngày</p>";
     }
+    if ("" == status) {
+        check = false;
+        err += "<p style='color:red'>Chọn tình trạng</p>";
+    }
+
     if (check == false) {
         err += "</div>";
         $('#err').html(err);
