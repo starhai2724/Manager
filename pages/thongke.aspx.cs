@@ -13,18 +13,15 @@ public partial class pages_thongke : System.Web.UI.Page
 
     }
     [System.Web.Services.WebMethod]
-    public static string tk(string a, string b)
+    public static List<Bill> thongKe_Bill(string a, string b)
     {
-       // string[] arrs = date_start.Split('-');
-       // string start = arrs[2] +"/" + arrs[1] + "/" + arrs[0];
+        // string[] arrs = date_start.Split('-');
+        // string start = arrs[2] +"/" + arrs[1] + "/" + arrs[0];
         //string[] arre = date_end.Split('-');
-       // string end = arre[2] + "/"  + arre[1] + "/" + arre[0];
+        // string end = arre[2] + "/"  + arre[1] + "/" + arre[0];
 
-        string result = ThongKeDAO.thongKe(a, b);
-            //  string[] arr = result.Split(' ');
-            //   string total = arr[0];
-            //   string total_rent = arr[1];
-            //   string total_sale = arr[2];
+        List<Bill> result = ThongKeDAO.thongKe_Bill(a, b);
+           
             return result;
        
     }

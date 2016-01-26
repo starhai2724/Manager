@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 public partial class pages_customers : System.Web.UI.Page
 {
   static  CustomerDAO customerDAO = new CustomerDAO();
+    static User_ApartmentDAO userDAO = new User_ApartmentDAO();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -95,7 +96,12 @@ public partial class pages_customers : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static void delete(string id)
     {
-        customerDAO.deleteCustomer(Convert.ToInt16(id));
+        Customer cus = customerDAO.getCustomer(Convert.ToInt16(id));
+        if (null != cus)
+        {
+            userDAO.deleteUser_ApartmentByIdCustomer(cus.idCustomer + "");
+            customerDAO.deleteCustomerByApartment(cus.idCustomer);
+        }
 
     }
 

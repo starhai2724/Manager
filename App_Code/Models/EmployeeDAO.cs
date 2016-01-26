@@ -80,12 +80,9 @@ namespace Manager.Models
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@IdEmployee", id);
             return GenericDataAccess.ExecuteNoneQuery(cmd);
-
-
-
         }
         //get list employee
-        public static List<Employee> getEmployees()
+        public  List<Employee> getEmployees()
         {
             string sql = "select * from Employee";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
@@ -117,7 +114,7 @@ namespace Manager.Models
 
         }
         //get employee
-        public static Employee getEmployee(int id)
+        public  Employee getEmployee(int id)
         {
 
             int idEmployee; string nameEmployee; double salaryEmployee; 
@@ -155,7 +152,7 @@ namespace Manager.Models
 
 
           // search
-        public static List<Employee> findEmployees(string find)
+        public  List<Employee> findEmployees(string find)
         {
             int idEmployee; string nameEmployee; double salaryEmployee;
             string sex; string officeEmployee; string address; string identifiCard;

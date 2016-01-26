@@ -8,7 +8,8 @@ using Manager.Models;
 
 public partial class pages_employee : System.Web.UI.Page
 {
-
+    static User_ApartmentDAO userDAO = new User_ApartmentDAO();
+    static EmployeeDAO empDAO = new EmployeeDAO();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -35,7 +36,18 @@ public partial class pages_employee : System.Web.UI.Page
     public static void delete(string id)
     {
         EmployeeDAO dao = new EmployeeDAO();
-        dao.deleteEmployee(Convert.ToInt16(id));
+        int idNum = Convert.ToInt16(id);
+        Employee emp = empDAO.getEmployee(idNum);
+        if (null != emp)
+        {
+            userDAO.deleteUser_ApartmentByIdEmployee(emp.idEmployee+"");
+            dao.deleteEmployee(idNum);
+        }
+       
+
+
+
+      
     }
 
 
@@ -43,7 +55,7 @@ public partial class pages_employee : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static List<Employee> getEmployees()
     {
-        return EmployeeDAO.getEmployees();
+        return empDAO.getEmployees();
 
 
     }
@@ -54,7 +66,7 @@ public partial class pages_employee : System.Web.UI.Page
     public static Employee getEmployee(string id)
     {
         int numid = Convert.ToInt16(id);
-        Employee a = EmployeeDAO.getEmployee(numid);
+        Employee a = empDAO.getEmployee(numid);
 
         return a;
 
@@ -82,8 +94,9 @@ public partial class pages_employee : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static List<Employee> search(string st)
     {
+        
 
-        return EmployeeDAO.findEmployees(st);
+        return empDAO.findEmployees(st);
 
 
     }

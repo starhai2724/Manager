@@ -9,6 +9,7 @@ namespace Manager.Models
 {
     public class BillDAO
     {
+        ApartmentDAO apartmentDAO = new ApartmentDAO();
         public BillDAO()
         {
         }
@@ -175,6 +176,7 @@ namespace Manager.Models
 
         public string getBilldetail(string idBill)
         {
+            
             string result = "";
             Bill bill = getBill(Convert.ToInt16(idBill));
             Apartment a = ApartmentDAO.getApartment(bill.idApartment);
@@ -212,7 +214,7 @@ namespace Manager.Models
             return idBill;
         }
 
-        public Bill getBillByIdApartment(int id)
+        public List<Bill> getBillByIdApartment(int id)
         {
             Bill bill;
             int idBill;
@@ -229,7 +231,7 @@ namespace Manager.Models
             string userCreate;
             string dateUpdate;
             string userUpdate;
-
+            List<Bill> lst = new List<Bill>();
             string sql = "select * from Bill  Where id_Apartment=@idApartment";
             SqlCommand cmd = GenericDataAccess.CreateCommand();
             cmd.CommandText = sql;
@@ -252,9 +254,10 @@ namespace Manager.Models
                 status = dr[12].ToString();
                 totalApartment = Convert.ToDouble(dr[13]);
                 bill = new Bill(id, idApartment, idPrice, totalElectric, totalWater, totalTrash, totalInternet, totalApartment, total, status, dateBill, userCreate, dateUpdate, userUpdate);
-                return bill;
+                lst.Add(bill);
+ 
             }
-            return null;
+            return lst;
         }
 
         public List<Bill> search(string find)

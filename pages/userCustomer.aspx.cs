@@ -45,7 +45,6 @@ public partial class pages_userCustomer : System.Web.UI.Page
         DateTime dateTime = DateTime.Now;
         string dateCreate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
         password = Encode.GetMd5Hash(password);
-        p.Response.Write(password);
         User_Apartment a = new User_Apartment(username, password, Convert.ToInt16(customer), dateCreate, userCreate, "", "", "", 0, rule);
 
         return User_ApartmentDAO.addUser_Apartment(a);

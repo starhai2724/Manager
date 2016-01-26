@@ -9,7 +9,7 @@ function xem() {
     var start = arrs[2] + "/" + arrs[1] + "/" + arrs[0];
     var arre = date_end.split('-');
     var end = arre[2] + "/" + arre[1] + "/" + arre[0];
-     alert("date_start : " + start + ",date_end :" + end + "ID " + id_Cus);
+   //  alert("date_start : " + start + ",date_end :" + end + "ID " + id_Cus);
     $.ajax({
         type: "POST",
         url: "infoApartment.aspx/getInfomation_apartment",
@@ -18,7 +18,7 @@ function xem() {
         dataType: "json",
         success: getDatas,
         error: function (result) {
-            alert("Error1");
+            alert("Không thành công");
         }
 
     });
@@ -35,7 +35,7 @@ function bindData() {
         dataType: "json",
         success: getDatas,
         error: function (result) {
-            alert("Error2");
+            alert("Không thành công");
         }
     });
 }
@@ -43,7 +43,7 @@ function bindData() {
 function getDatas(response) {
     var items = response.d;
     bills = items;
-    alert("size bill : " + items.length);
+   // alert("size bill : " + items.length);
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables_cus' style='margin-top: -13px;margin-left :20px'>" +
                     "<thead>" +
                         "<tr class='info'>"

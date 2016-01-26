@@ -11,7 +11,7 @@
     <div>
     <%
         Session["user"] = null;
-        Response.Redirect("login.aspx");
+        Response.Redirect("index.aspx");
          %>
 
 

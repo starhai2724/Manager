@@ -417,6 +417,14 @@ function validationCustomer(name, identifiCard, phone, id, idApartment, holder, 
         }
     }
 
+    for (var i = 0; i < pCustomers.length; i++) {
+        if (pCustomers[i].email == email && id != pCustomers[i].idCustomer) {
+            err += "<p style='color:red'>Email đã tồn tại</p>";
+            check = false;
+            break;
+        }
+    }
+
 
 
     if ("" == phone) {

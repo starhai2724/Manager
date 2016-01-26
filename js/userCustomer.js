@@ -81,7 +81,7 @@ function add() {
     var customer = $('#customer').val();
     var rule = $('#rule').val();
     // alert("username  " + username + "; " + "password  " + password + "; " + "customer  " + customer + "; " + "rePassword  " + rePassword + "; " + "employee  " + employee + "; " + "  " + "; " + "rule  " + rule + " ");
-    var chek = validation(username, password, rePassword, customer, rule);
+    var chek = validation(username, password, rePassword, customer, rule,"add");
 
     if (chek == true) {
 
@@ -110,7 +110,7 @@ function add() {
 }
 
 
-function validation(username, password, rePassword, customer, rule) {
+function validation(username, password, rePassword, customer, rule,editOrAdd) {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var err = "<div class='form-group' id='listErr'";
@@ -118,7 +118,7 @@ function validation(username, password, rePassword, customer, rule) {
     var chek = true;
     if (username != "") {
         for (var i = 0; i < items.length; i++) {
-            if (items[i].username == username) {
+            if (items[i].username == username && editOrAdd != "edit") {
                 chek = false;
                 err += "<p style='color:red'>Tên tài khoản đã tồn tại</p>";
                 break;
@@ -151,12 +151,27 @@ function validation(username, password, rePassword, customer, rule) {
     } else {
 
         for (var i = 0; i < items.length; i++) {
-            if ("DHF" != username && items[i].id_cus == customer) {
+            if ("edit" != editOrAdd && items[i].id_cus == customer) {
                 chek = false;
                 err += "<p style='color:red'>Khách hàng đã được tạo tài khoản</p>";
                 break;
             }
         }
+
+        if (editOrAdd == "edit") {
+            for (var j = 0; j < items.length; j++) {
+                if (items[j].username != username) {
+                    if (items[j].id_cus == customer) {
+                        chek = false;
+                        err += "<p style='color:red'>Khách hàng đã được tạo tài khoản</p>";
+                        break;
+                    }
+                }
+            }
+        }
+
+
+
     }
 
     if (chek == false) {
@@ -242,7 +257,7 @@ function editUser() {
     var rule = $('#rule').val();
    
     // alert("username  " + username + "; " + "password  " + password + "; " + "customer  " + customer + "; " + "rePassword  " + rePassword + "; " + "employee  " + employee + "; " + "  " + "; " + "rule  " + rule + " ");
-    var chek = validation("DHF", password, rePassword, customer, rule);
+    var chek = validation(username, password, rePassword, customer, rule,"edit");
     
     if (chek == true) {
 

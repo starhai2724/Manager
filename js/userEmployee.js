@@ -81,11 +81,11 @@ function add() {
     var employee = $('#employee').val();
     var rule = $('#rule').val();
     // alert("username  " + username + "; " + "password  " + password + "; " + "customer  " + customer + "; " + "rePassword  " + rePassword + "; " + "employee  " + employee + "; " + "  " + "; " + "rule  " + rule + " ");
-    var chek = validation(username, password, rePassword, employee, rule);
+    var chek = validation(username, password, rePassword, employee, rule, "add");
 
     if (chek == true) {
 
-        
+
         $.ajax({
             url: 'userEmployee.aspx/add',
             type: 'POST',
@@ -110,7 +110,7 @@ function add() {
 }
 
 
-function validation(username, password, rePassword, employee, rule) {
+function validation(username, password, rePassword, employee, rule, editOrAdd) {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var err = "<div class='form-group' id='listErr'";
@@ -118,7 +118,7 @@ function validation(username, password, rePassword, employee, rule) {
     var chek = true;
     if (username != "") {
         for (var i = 0; i < items.length; i++) {
-            if (items[i].username == username) {
+            if (items[i].username == username && editOrAdd != "edit") {
                 chek = false;
                 err += "<p style='color:red'>Tên tài khoản đã tồn tại</p>";
                 break;
@@ -151,12 +151,27 @@ function validation(username, password, rePassword, employee, rule) {
     } else {
 
         for (var i = 0; i < items.length; i++) {
-            if ("DHF" != username&&items[i].idEmp==employee) {
+            if ("edit" != editOrAdd && items[i].idEmp == employee) {
                 chek = false;
                 err += "<p style='color:red'>Nhân viên đã được tạo tài khoản</p>";
                 break;
             }
         }
+        if (editOrAdd == "edit") {
+            for (var j = 0; j < items.length; j++) {
+                if (items[j].username != username) {
+                    if (items[j].idEmp == employee) {
+                        chek = false;
+                        err += "<p style='color:red'>Nhân viên đã được tạo tài khoản</p>";
+                        break;
+                    }
+                }
+            }
+        }
+
+
+
+
     }
 
     if (chek == false) {
@@ -208,7 +223,7 @@ function getEmloyees() {
 }
 //delete 
 function deleteUser(username) {
-   
+
     var chek = confirm("Bạn có muốn xóa?");
     if (chek == true) {
         $.ajax({
@@ -238,10 +253,10 @@ function editUser() {
     var rePassword = $('#txt_rePassword').val();
     var employee = $('#employee').val();
     var rule = $('#rule').val();
-   
+
     // alert("username  " + username + "; " + "password  " + password + "; " + "customer  " + customer + "; " + "rePassword  " + rePassword + "; " + "employee  " + employee + "; " + "  " + "; " + "rule  " + rule + " ");
-    var chek = validation("DHF", password, rePassword, employee, rule);
-    
+    var chek = validation(username, password, rePassword, employee, rule, "edit");
+
     if (chek == true) {
         if (chek == true) {
 
@@ -277,7 +292,7 @@ function loadUser(username) {
     $('#btnAdd').prop('disabled', true);
     var user;
     var employee;
-    
+
     for (var i = 0; i < items.length; i++) {
         if (username == items[i].username)
             user = items[i];
@@ -388,7 +403,7 @@ function searchUserEmployee() {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var find = $('#srch').val();
-  
+
     $.ajax({
         type: "POST",
         url: "userEmployee.aspx/search",

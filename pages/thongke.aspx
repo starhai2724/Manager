@@ -7,7 +7,7 @@
         <div class="col-lg-12">
             <h3 class="page-header" style="margin: 15px 0 20px;">Thống kê</h3>
             <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px;" onclick="thongke()">Thống kê</button>
-            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 140px" onclick="exportFile()">In</button>
+            <button type="button" class="btn btn-primary pull-right" style="margin-top: -64px; margin-right: 140px" onclick="exportFileThongKe()">In</button>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-     <div class="row" id="divtk">
+     <div class="row" id="divtable_bill">
      </div>
     <%-- <div class="row">
          <div class="col col-sm-4 col-md-4 col-lg-4">

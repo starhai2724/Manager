@@ -15,7 +15,7 @@ public partial class _apartment : System.Web.UI.Page
     static WaterDAO waterDAO = new WaterDAO();
     static CustomerDAO customerDAO = new CustomerDAO();
     static User_ApartmentDAO userDAO = new User_ApartmentDAO();
-
+    static ApartmentDAO apartmentDAO = new ApartmentDAO();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -36,7 +36,7 @@ public partial class _apartment : System.Web.UI.Page
         User_Apartment user = (User_Apartment)p.Session["user"];
         string userCreate = user.username;
         Apartment a = new Apartment(0, name, type, size, Double.Parse(priceS), Double.Parse(priceR), status, dateCreate, userCreate, "", "");
-        ApartmentDAO.addAparment(a);
+        apartmentDAO.addAparment(a);
 
 
 
@@ -46,22 +46,25 @@ public partial class _apartment : System.Web.UI.Page
     {
         int numId = Convert.ToInt16(id);
         // water; electric; bill; User_apartment;  Customer; Apartment
+        List<Bill> lst = billDAO.getBillByIdApartment(numId);
 
-        Bill bill = billDAO.getBillByIdApartment(numId);
-        if (null != bill)
+        if (null != lst)
         {
-            waterDAO.deleteWaterByIdBill(bill.idBill);
-            elecDAO.deleteElectricByIdBill(bill.idBill);
-            billDAO.deleteBillByIdApartment(numId);
+            for (int i = 0; i < lst.Count; i++)
+            {
+                waterDAO.deleteWaterByIdBill(lst[i].idBill);
+                elecDAO.deleteElectricByIdBill(lst[i].idBill);
+                billDAO.deleteBill(lst[i].idBill);
+            }
         }
 
         Customer cus = customerDAO.getCustomerByIdApartment(numId);
         if (null != cus)
         {
             userDAO.deleteUser_ApartmentByIdCustomer(cus.idCustomer + "");
-            customerDAO.deleteCustomerByApartment(numId);
+            customerDAO.deleteCustomerByApartment(cus.idCustomer);
         }
-        ApartmentDAO.deleteApartment(numId);
+        apartmentDAO.deleteApartment(numId);
     }
 
 
@@ -97,7 +100,7 @@ public partial class _apartment : System.Web.UI.Page
         DateTime dateTime = DateTime.Now;
         string dateUpdate = dateTime.Day + "/" + dateTime.Month + "/" + dateTime.Year;
         Apartment a = new Apartment(Convert.ToInt16(id), name, type, size, Double.Parse(priceS), Double.Parse(priceR), status, "", "", dateUpdate, userEdit);
-        ApartmentDAO.updateApartment(a);
+        apartmentDAO.updateApartment(a);
     }
 
     //search
@@ -105,7 +108,7 @@ public partial class _apartment : System.Web.UI.Page
     public static List<Apartment> search(string st)
     {
 
-        return ApartmentDAO.findApartments(st);
+        return apartmentDAO.findApartments(st);
 
 
     }
