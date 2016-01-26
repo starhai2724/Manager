@@ -50,3 +50,62 @@ function chek(data) {
 
 
 }
+
+function forgetPassword() {
+    var email = $('#email').val();
+    var check = true;
+    var checkEmail;
+    if ("" == email) {
+        check = false;
+        document.getElementById("error").innerHTML = "Vui lòng nhập  email";
+
+
+    } else {
+        checkEmail = isEmailAddress(email);
+        if (checkEmail == false) {
+            check = false;
+            document.getElementById("error").innerHTML = "Vui lòng nhập lại email";
+
+        }
+    }
+
+    if (check == true) {
+
+        $.ajax({
+            url: 'login.aspx/fogetPassword',
+            type: 'POST',
+            data: JSON.stringify({ email:email}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var ojb = data.d;
+                if (ojb == "true") {
+                    alert("Đổi mật khẩu thành công vào email để lấy");
+                    window.location.href = "login.aspx";
+                } else
+                    document.getElementById("error").innerHTML = "Vui lòng nhập lại email";
+            },
+            error: function (result) {
+                alert("Không thành công");
+            }
+        });
+
+
+    }
+
+
+
+
+
+}
+
+
+function isEmailAddress(str) {
+    var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return pattern.test(str);  // returns a boolean 
+}
+
+
+function qk() {
+    window.location.href = "forgetPassword.aspx";
+}

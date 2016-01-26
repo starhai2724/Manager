@@ -40,7 +40,8 @@ function getDatas_bill(response) {
 
     var items = response.d;
     bills = items;
-    //alert("size bill : " + items.length);
+
+    alert("size bill : " + items.length);
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables_cus' style='margin-top: -13px;'>" +
                     "<thead>" +
                         "<tr class='info'>"
@@ -583,4 +584,23 @@ function del_bill(idBill) {
     });
     }
 
+}
+
+function searchBill() {
+    if ($('#listErr').length != 0)
+        $('#listErr').remove();
+    var find = $('#srch').val();
+    alert("search  " + find);
+    $.ajax({
+        type: "POST",
+        url: "bill.aspx/search",
+        data: JSON.stringify({ st: find }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: getDatas_bill,
+        error: function (result) {
+
+            alert("Không thành công");
+        }
+    });
 }

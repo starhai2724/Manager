@@ -13,7 +13,7 @@ namespace Manager.Models
         public static SqlCommand CreateCommand()
         {
             string connectString =
-                WebConfigurationManager.ConnectionStrings["ApartmentConnection"].ConnectionString;
+            WebConfigurationManager.ConnectionStrings["ApartmentConnection"].ConnectionString;
             SqlConnection connection = new SqlConnection(connectString);
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.Text;

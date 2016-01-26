@@ -5,7 +5,7 @@ function loadData(idEmployee) {
 
     if ($('#listErr').length != 0)
         $('#listErr').remove();
-    alert("idEmployee" + idEmployee);
+    
     $.ajax({
         type: "POST",
         url: "employee.aspx/getEmployee",
@@ -14,7 +14,7 @@ function loadData(idEmployee) {
         dataType: "json",
         success: OnSuccess,
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 }
@@ -90,10 +90,10 @@ function edit() {
             success: function (data) {
                 bindData();
                 clear();
-                alert("Sua thanh cong");
+                alert("Sửa thành công");
             },
             error: function (result) {
-                alert("Error");
+                alert("Không thành công");
             }
 
         });
@@ -122,10 +122,10 @@ function add() {
             success: function (data) {
                 bindData();
                 clear();
-                alert("Them thanh cong");
+                alert("Thêm thành công");
             },
             error: function (result) {
-                alert("Error");
+                alert("Không thành công");
             }
 
         });
@@ -163,7 +163,7 @@ function clear() {
 function del(idEmployee) {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
-    var msg = confirm("Ban co chac chan muon xoa!")
+    var msg = confirm("Bạn có muốn xóa!")
     if (msg == true) {
         $.ajax({
             type: "POST",
@@ -173,11 +173,11 @@ function del(idEmployee) {
             dataType: "json",
             success: function () {
                 bindData();
-                alert("Xoa thanh cong!")
+                alert("Xóa thành công!")
 
             },
             error: function (result) {
-                alert("Error");
+                alert("Không thành công");
             }
         });
     }
@@ -200,7 +200,7 @@ function bindData() {
         dataType: "json",
         success: getDatas,
         error: function (result) {
-            alert("Error bind employee");
+            alert("Không thành công");
         }
     });
 }
@@ -275,7 +275,7 @@ function search() {
         success: getDatas,
         error: function (result) {
 
-            alert("Error");
+            alert("Không thành công");
         }
     });
 }

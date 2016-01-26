@@ -13,7 +13,7 @@ function loadData(name) {
         dataType: "json",
         success: OnSuccess,
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 }
@@ -106,7 +106,6 @@ function edit() {
     var priceRent = $('#text_priceRent').val();
     var statusApartment = $('#status').val();
     var userEdit = localStorage.getItem('username');
-    alert('userEdit    ' + userEdit)
     var check = validationApartment(idApartment, nameApartment, typeApartment, size, priceSale, priceRent, statusApartment);
     if (chek == true) {
         $.ajax({
@@ -118,10 +117,10 @@ function edit() {
             success: function (data) {
                 bindData();
                 clear();
-                alert("Sua thanh cong");
+                alert("Sửa thành công");
             },
             error: function (result) {
-                alert("Error");
+                alert("Không thành công");
             }
 
         });
@@ -152,10 +151,10 @@ function add() {
             success: function (data) {
                 bindData();
                 clear();
-                alert("Them thanh cong");
+                alert("Thêm thành công");
             },
             error: function (result) {
-                alert("Error");
+                alert("Không thành công");
             }
 
         });
@@ -185,7 +184,7 @@ function clear() {
 //delete 
 
 function del(idDelete) {
-    var msg = confirm("Ban co chac chan muon xoa!")
+    var msg = confirm("Bạn muốn xóa!")
     if (msg == true) {
         $.ajax({
             type: "POST",
@@ -195,11 +194,11 @@ function del(idDelete) {
             dataType: "json",
             success: function () {
                 bindData();
-                alert("Xoa thanh cong!")
+                alert("Xóa thành công!")
 
             },
             error: function (result) {
-                alert("Error");
+                alert("Không thành công");
             }
         });
     }
@@ -230,7 +229,7 @@ function bindData() {
         dataType: "json",
         success: getDatas,
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 }
@@ -301,7 +300,7 @@ function search() {
         success: getDatas,
         error: function (result) {
 
-            alert("Error");
+            alert("Không thành công");
         }
     });
 }
@@ -380,7 +379,7 @@ function validationApartment(idApartment, nameApartment, typeApartment, size, pr
 
 
 function Test() {
-    alert("a1");
+    
     $.ajax({
         type: "POST",
         url: "apartment.aspx/getApartment",
@@ -388,11 +387,11 @@ function Test() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            alert("a2");
+           
             return data.d;
         },
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 }

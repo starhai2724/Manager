@@ -1,4 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="login.aspx.cs" Inherits="pages_login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="forgetPassword.aspx.cs" Inherits="pages_forgetPassword" %>
+
+
 
 <%@ Import Namespace="Manager.Models" %>
 
@@ -52,7 +54,7 @@
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h3>Quản lý chung cư</h3>
-                                <p>Nhập tên và mật khẩu</p>
+                                <p>Nhập email</p>
                                 <p id="error" style="color: red"></p>
                             </div>
                             <div class="form-top-right">
@@ -62,15 +64,10 @@
                         <div class="form-bottom">
 
                             <div class="form-group">
-                                <label class="sr-only" for="form-username">Tên tài khoản</label>
-                                <input type="text" name="username" placeholder="Tên tài khoản" class="form-username form-control" id="username" />
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="form-password">Mật khẩu</label>
-                                <input type="password" name="password" placeholder="Mật khẩu" class="form-password form-control" id="password" />
-                            </div>
-                            <button type="submit" class="btn" onclick="chekLogin()">Đăng nhập</button>
-                            <button type="submit" class="btn" onclick="qk()">Quên mật khẩu</button>
+                                <label class="sr-only" for="form-username">Email</label>
+                                <input type="text" name="email" placeholder="Email" class="form-username form-control" id="email" />
+                            </div>                            
+                            <button type="submit" class="btn" onclick="forgetPassword()">Đồng ý</button>
                         </div>
                         
 

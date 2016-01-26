@@ -92,7 +92,7 @@
         <div class="row">
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
-                    <p>Email</p>
+                    <p>Email *</p>
                     <input type="email" class="form-control" style="margin-top: -10px;" id="txtEmail" placeholder="Nhập email" />
                 </div>
             </div>

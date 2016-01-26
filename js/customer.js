@@ -27,7 +27,7 @@ function getApartments() {
 
         },
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 }
@@ -43,7 +43,7 @@ $(document).ready(function () {
 function bindData() {
     $('#btnEdit').prop('disabled', true);
     $('#btnAdd').prop('disabled', false);
-    alert("bind");
+
     $.ajax({
         type: "POST",
         url: "customers.aspx/getCustomers",
@@ -52,7 +52,7 @@ function bindData() {
         dataType: "json",
         success: getDatas,
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 }
@@ -126,7 +126,7 @@ function add() {
     var email = $('#txtEmail').val();
     var phone = $('#txtPhone').val();
     var status = $('#status').val();
-    var check = validationCustomer(name, identifiCard, phone, id, idApartment, holder);
+    var check = validationCustomer(name, identifiCard, phone, id, idApartment, holder, email);
     if (check == true) {
         $.ajax({
             type: "POST",
@@ -137,10 +137,10 @@ function add() {
             success: function (data) {
                 bindData();
                 clear();
-                alert("Them thanh cong");
+                alert("Thêm thành công");
             },
             error: function (result) {
-                alert("Error");
+                alert("Không thành công");
             }
 
         });
@@ -190,7 +190,7 @@ function loadCustomer(idCustomer) {
         dataType: "json",
         success: getData,
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 
@@ -300,9 +300,9 @@ function edit() {
     var phone = $('#txtPhone').val();
     var status = $('#status').val();
     var id = $('#idCustomer').val();
-    alert("idApartment  " + idApartment);
-    alert("name:" + name + " address:" + address + " address:" + identifiCard + " address:" + sex + " address:" + idApartment, "address:" + birthday + " address:" + holder + " address:" + email + " address:" + phone + " address:" + status);
-    var check = validationCustomer(name, identifiCard, phone, id, idApartment, holder);
+    //alert("idApartment  " + idApartment);
+    //alert("name:" + name + " address:" + address + " address:" + identifiCard + " address:" + sex + " address:" + idApartment, "address:" + birthday + " address:" + holder + " address:" + email + " address:" + phone + " address:" + status);
+    var check = validationCustomer(name, identifiCard, phone, id, idApartment, holder, email);
     if (check == true) {
         $.ajax({
             type: "POST",
@@ -317,7 +317,7 @@ function edit() {
 
             },
             error: function (result) {
-                alert("Error");
+                alert("Không thành công");
             }
 
         });
@@ -329,7 +329,6 @@ function search() {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var find = $('#srch-term').val();
-    alert("find: " + find);
     $.ajax({
         type: "POST",
         url: "customers.aspx/search",
@@ -338,7 +337,7 @@ function search() {
         dataType: "json",
         success: getDatas,
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 
@@ -348,7 +347,7 @@ function search() {
 function deleteCustomer(id) {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
-    var msg = confirm("Ban co chac chan muon xoa!")
+    var msg = confirm("Bạn có chắc chắn muốn xóa!")
     if (msg == true) {
 
         $.ajax({
@@ -358,13 +357,13 @@ function deleteCustomer(id) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                alert("Xoa thanh cong!");
+                alert("Xóa thành công!");
                 bindData();
 
 
             },
             error: function (result) {
-                alert("Error");
+                alert("Không thành công");
             }
         });
     }
@@ -389,23 +388,37 @@ function exportFile() {
 }
 
 
-function validationCustomer(name, identifiCard, phone, id, idApartment, holder) {
+function validationCustomer(name, identifiCard, phone, id, idApartment, holder, email) {
     $('#holder').val();
+    var checkEmail = isEmailAddress(email);
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var err = "<div class='form-group' id='listErr'";
-    err+="<p>Các lỗi:</p>"
+    err += "<p>Các lỗi:</p>"
     var check = true;
     if ("" == name) {
         check = false;
         err += "<p style='color:red'>Nhập Tên</p>";
-        
+
 
     }
     if ("" == identifiCard) {
         check = false;
         err += "<p style='color:red'>Nhập cmnd</p>";
     }
+
+    if ("" == email) {
+        check = false;
+        err += "<p style='color:red'>Nhập email</p>";
+    } else {
+        if (checkEmail == false) {
+            check = false;
+            err += "<p style='color:red'>Nhập lại email</p>";
+        }
+    }
+
+
+
     if ("" == phone) {
         check = false;
         err += "<p style='color:red'>Nhập sdt</p>";
@@ -441,3 +454,7 @@ function ruleCustomer(idApartment) {
 
 
 
+function isEmailAddress(str) {
+    var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return pattern.test(str);  // returns a boolean 
+}

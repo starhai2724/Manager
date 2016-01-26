@@ -105,10 +105,10 @@
                                 <a href="employee.aspx"><i class="fa fa-user"></i>Quản lý nhân viên</a>
                             </li>
                             <li>
-                                <a href="userEmployee.aspx"><i class="fa fa-users"></i>Tai khoan nhan vien</a>
+                                <a href="userEmployee.aspx"><i class="fa fa-users"></i>Tài khoản nhân viên</a>
                             </li>
                             <li>
-                                <a href="userCustomer.aspx"><i class="fa fa-users"></i>Tai khoan khach hang</a>
+                                <a href="userCustomer.aspx"><i class="fa fa-users"></i>Tài khoản khách hàng</a>
                             </li>
 
                             <li>

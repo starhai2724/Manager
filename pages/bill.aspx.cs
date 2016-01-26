@@ -70,7 +70,7 @@ public partial class pages_bill : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     public static void add(string idApartment, string water_new, string water_old, string electric_new, string electric_old,
            string totalWater, string totalElectric, string totalApartment, string totalTrash, string totalInternet,
-             string total, string dateBill, string idPrice,string status)
+             string total, string dateBill, string idPrice, string status)
     {
 
         DateTime dateTime = DateTime.Now;
@@ -121,6 +121,13 @@ public partial class pages_bill : System.Web.UI.Page
         return billDAO.deleteBill(id);
 
     }
+    [System.Web.Services.WebMethod]
+    public static List<Bill> search(string st)
+    {
+        return billDAO.search(st);
+    }
+
+
 
 
 }

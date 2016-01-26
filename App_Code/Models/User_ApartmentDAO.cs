@@ -225,12 +225,59 @@ namespace Manager.Models
             cmd.Parameters.AddWithValue("@username_Apartment", user_Apartment.username);
             cmd.Parameters.AddWithValue("@password_Apartment", user_Apartment.password);
             return GenericDataAccess.ExecuteNoneQuery(cmd);
+        }
+
+        public int resetPassword(string username,string pass)
+        {
+            string sql = "update User_Apartment set  password_Apartment=@password_Apartment Where username_Apartment=@username_Apartment";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@username_Apartment", username);
+            cmd.Parameters.AddWithValue("@password_Apartment", pass);
+            return GenericDataAccess.ExecuteNoneQuery(cmd);
 
 
 
         }
 
 
+
+
+        public User_Apartment getUser_ApartmentByIdCustomer(int id)
+        {
+            string username;
+            string password;
+            int id_cus;
+            string dateCreate;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
+            string status;
+            int idEmp;
+            string rule;
+            string sql = "select * from User_Apartment where  id_cus= @idCus";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@idCus", id);
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            foreach (DataRow dr in dt.Rows)
+            {
+                username = dr[0].ToString();
+                password = dr[1].ToString();
+                id_cus = Convert.ToInt16(dr[2]);
+                dateCreate = dr[3].ToString();
+                userCreate = dr[4].ToString();
+                dateUpdate = dr[5].ToString();
+                userUpdate = dr[6].ToString();
+                status = dr[7].ToString();
+                idEmp = Convert.ToInt16(dr[8]);
+                rule = dr[9].ToString();
+                return new User_Apartment(username, password, id_cus, dateCreate, userCreate, dateUpdate, userUpdate, status, idEmp, rule);
+            }
+            return null;
+
+
+        }
 
     }
 }

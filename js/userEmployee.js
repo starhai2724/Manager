@@ -23,7 +23,7 @@ function bindData() {
         data: {},
         success: loadTable,
         error: function (data) {
-            alert("error  sfsdf")
+            alert("Không thành công")
         }
     });
 }
@@ -85,7 +85,7 @@ function add() {
 
     if (chek == true) {
 
-        alert("abc")
+        
         $.ajax({
             url: 'userEmployee.aspx/add',
             type: 'POST',
@@ -94,15 +94,15 @@ function add() {
             data: JSON.stringify({ username: username, password: password, rePassword: rePassword, employee: employee, rule: rule }),
             success: function (data) {
                 if (null != data.d) {
-                    alert("Them thanh cong!")
+                    alert("Thêm thành công!")
                     bindData();
                 } else {
-                    alert("Khong thanh cong!")
+                    alert("Không thành công")
                 }
 
             },
             error: function (data) {
-                alert("error  Add")
+                alert("Không thành công")
             }
         });
     }
@@ -201,15 +201,15 @@ function getEmloyees() {
 
         },
         error: function (result) {
-            alert("Error");
+            alert("Không thành công");
         }
     });
 
 }
 //delete 
 function deleteUser(username) {
-    alert("delete");
-    var chek = confirm("Ban chac chan muon xoa?");
+   
+    var chek = confirm("Bạn có muốn xóa?");
     if (chek == true) {
         $.ajax({
             url: 'userEmployee.aspx/delete',
@@ -219,12 +219,12 @@ function deleteUser(username) {
             data: JSON.stringify({ username: username }),
             success: function (data) {
                 if (data.d != null) {
-                    alert("Xoa thanh cong!")
+                    alert("Xóa thành công!")
                     bindData();
                 }
             },
             error: function (data) {
-                alert("error  ")
+                alert("Không thành công ")
             }
         });
     }
@@ -238,10 +238,10 @@ function editUser() {
     var rePassword = $('#txt_rePassword').val();
     var employee = $('#employee').val();
     var rule = $('#rule').val();
-    alert("rule: " + rule);
+   
     // alert("username  " + username + "; " + "password  " + password + "; " + "customer  " + customer + "; " + "rePassword  " + rePassword + "; " + "employee  " + employee + "; " + "  " + "; " + "rule  " + rule + " ");
     var chek = validation("DHF", password, rePassword, employee, rule);
-    alert("check " + chek + "employee: " + employee);
+    
     if (chek == true) {
         if (chek == true) {
 
@@ -253,15 +253,15 @@ function editUser() {
                 data: JSON.stringify({ username: username, password: password, rePassword: rePassword, employee: employee, rule: rule }),
                 success: function (data) {
                     if (null != data.d) {
-                        alert("Sua thanh cong!")
+                        alert("Sửa thành công!")
                         bindData();
                     } else {
-                        alert("Khong thanh cong!")
+                        alert("Không thành công")
                     }
 
                 },
                 error: function (data) {
-                    alert("error  Add")
+                    alert("Không thành công")
                 }
             });
 
@@ -277,7 +277,7 @@ function loadUser(username) {
     $('#btnAdd').prop('disabled', true);
     var user;
     var employee;
-    alert("user: " + username);
+    
     for (var i = 0; i < items.length; i++) {
         if (username == items[i].username)
             user = items[i];
@@ -388,7 +388,7 @@ function searchUserEmployee() {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var find = $('#srch').val();
-    alert("search  " + find);
+  
     $.ajax({
         type: "POST",
         url: "userEmployee.aspx/search",
@@ -398,7 +398,7 @@ function searchUserEmployee() {
         success: loadTable,
         error: function (result) {
 
-            alert("Error");
+            alert("Không thành công");
         }
     });
 
