@@ -199,7 +199,7 @@ function loadCustomer(idCustomer) {
 
 function getData(data) {
     var customer = data.d;
-    alert("customer: " + customer.idCustomer);
+    
     $('#idCustomer').val(customer.idCustomer);
     $('#txtName').val(customer.nameCustomer);
     $('#txtAddress').val(customer.addressCustomer);
@@ -218,7 +218,7 @@ function getData(data) {
     if ($('#idApartment').length != 0) {
         $('#idApartment').remove();
     }
-    alert("apartment: " + apartments.length);
+   // alert("apartment: " + apartments.length);
     var st = " <div class='form-group'>"
             + "<p>Căn hộ</p>"
             + "<select class='form-control' style='margin-top: -10px;' id='idApartment'>";

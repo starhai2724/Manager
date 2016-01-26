@@ -107,7 +107,7 @@ function edit() {
     var statusApartment = $('#status').val();
     var userEdit = localStorage.getItem('username');
     var check = validationApartment(idApartment, nameApartment, typeApartment, size, priceSale, priceRent, statusApartment);
-    if (chek == true) {
+    if (check == true) {
         $.ajax({
             type: "POST",
             url: "apartment.aspx/editApartment",
@@ -141,7 +141,7 @@ function add() {
     var statusApartment = $('#status').val();
     var idApartment = $('#text_idApartment').val();
     var check = validationApartment(idApartment, nameApartment, typeApartment, size, priceSale, priceRent, statusApartment);
-    if (chek == true) {
+    if (check == true) {
         $.ajax({
             type: "POST",
             url: "apartment.aspx/add",
@@ -290,7 +290,7 @@ function search() {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var find = $('#srch').val();
-    alert("search  " + find);
+   
     $.ajax({
         type: "POST",
         url: "apartment.aspx/search",

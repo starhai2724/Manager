@@ -227,7 +227,7 @@ function search() {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var find = $('#srch').val();
-    alert("search  " + find);
+   // alert("search  " + find);
     $.ajax({
         type: "POST",
         url: "price.aspx/search",

@@ -35,7 +35,7 @@
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Mật khẩu</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="txt_password" placeholder="Nhập mật khẩu" />
+                    <input type="password" class="form-control" style="margin-top: -10px;" id="txt_password" placeholder="Nhập mật khẩu" />
                     <p id="password_err" style="color: red; font-size: 12px"></p>
                 </div>
             </div>

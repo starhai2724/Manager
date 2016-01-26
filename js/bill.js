@@ -41,7 +41,7 @@ function getDatas_bill(response) {
     var items = response.d;
     bills = items;
 
-    alert("size bill : " + items.length);
+   // alert("size bill : " + items.length);
     var table = "<table class='table table-striped table-bordered table-hover' id='dataTables_cus' style='margin-top: -13px;'>" +
                     "<thead>" +
                         "<tr class='info'>"
@@ -386,7 +386,7 @@ function loadBill(idBill) {
         if ($('#idApartment').length != 0) {
             $('#idApartment').remove();
         }
-        alert("apartments " + apartments.length);
+     //   alert("apartments " + apartments.length);
         var st = " <div class='form-group'>"
                 + "<p>Căn hộ</p>"
                 + "<select class='form-control' style='margin-top: -10px;' id='idApartment' onblur='get_oldWater_oldElectric_trash_internet(this.value)' >";
@@ -510,7 +510,8 @@ function edit() {
 
 }
 function validation(idApartment, dateBill, electric_new, electric_old, water_new, water_old,status) {
-
+    var numElectric = electric_new - electric_old;
+    var numWater = water_new - water_old;
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var err = "<div class='form-group' id='listErr'";
@@ -520,11 +521,11 @@ function validation(idApartment, dateBill, electric_new, electric_old, water_new
         check = false;
         err += "<p style='color:red'>Chọn căn hộ</p>";
     }
-    if ("" == electric_new || 0 == electric_new||electric_new<electric_old) {
+    if ("" == electric_new || 0 == electric_new||numElectric<0) {
         check = false;
         err += "<p style='color:red'>Nhập lại số điện</p>";
     }
-    if ("" == water_new || 0 == water_new || water_new < water_old) {
+    if ("" == water_new || 0 == water_new || numWater<0) {
         check = false;
         err += "<p style='color:red'>Nhập lại số nước</p>";
     }
@@ -590,7 +591,7 @@ function searchBill() {
     if ($('#listErr').length != 0)
         $('#listErr').remove();
     var find = $('#srch').val();
-    alert("search  " + find);
+    
     $.ajax({
         type: "POST",
         url: "bill.aspx/search",

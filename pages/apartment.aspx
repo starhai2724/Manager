@@ -1,7 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="apartment.aspx.cs" Inherits="_apartment" MasterPageFile="~/masterPage/HomePage.master" %>
-
-
-
 <%@ Import Namespace="Manager.Models" %>
 
 <asp:Content ContentPlaceHolderID="CPH1" runat="server">
@@ -20,13 +17,9 @@
     <!-- add apartment -->
     <div class="row">
         <div class="row">
-
             <div class="col col-sm-4 col-md-4 col-lg-4" id="err" >
             </div>
-
-
         </div>
-
         <div class="row">
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">

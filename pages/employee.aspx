@@ -68,7 +68,7 @@
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
                     <p>Lương *</p>
-                    <input type="text" class="form-control" style="margin-top: -10px;" id="text_salaryEmployee" placeholder="Nhập lương" />
+                    <input type="text" class="form-control" style="margin-top: -10px; TEXT-ALIGN: right;" id="text_salaryEmployee" placeholder="Nhập lương" />
                 </div>
             </div>
 

@@ -242,7 +242,7 @@
                 <a href="#" class="hamburger"></a>
                 <nav>
                    
-                    <a href="#" class="login_btn">Login</a>
+                    <a href="#" class="login_btn">Đăng nhập</a>
                 </nav>
             </div>
         </header>

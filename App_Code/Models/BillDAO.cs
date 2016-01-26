@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 namespace Manager.Models
@@ -34,10 +35,7 @@ namespace Manager.Models
 
         }
 
-        public static List<Bill> getInfomation_apartment(int v, string date_start, string date_end)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public List<Bill> getBills()
         {
@@ -314,7 +312,73 @@ namespace Manager.Models
         }
 
 
+        //thu
+        public static List<Bill> getBillsByIdApartment(int id_Apartment)
+        {
 
+            string sql = "select * from Bill  Where id_Apartment=@id_Apartment";
+            SqlCommand cmd = GenericDataAccess.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@id_Apartment", id_Apartment);
+            DataTable dt = GenericDataAccess.ExecuteSelectCommand(cmd);
+            Bill bill;
+            int idBill;
+            int idApartment;
+            int idPrice;
+            double totalElectric;
+            double totalWater;
+            double totalTrash;
+            double totalInternet;
+            double totalApartment;
+            double total;
+            string status;
+            string dateBill;
+            string userCreate;
+            string dateUpdate;
+            string userUpdate;
+
+            List<Bill> lst = new List<Bill>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                idBill = Convert.ToInt16(dr[0]);
+                dateBill = dr[1].ToString();
+                totalElectric = Convert.ToDouble(dr[2]);
+                totalWater = Convert.ToDouble(dr[3]);
+                totalTrash = Convert.ToDouble(dr[4]);
+                totalInternet = Convert.ToDouble(dr[5]);
+                total = Convert.ToDouble(dr[6]);
+                idApartment = Convert.ToInt16(dr[7]);
+                idPrice = Convert.ToInt16(dr[8]);
+                userCreate = dr[9].ToString();
+                dateUpdate = dr[10].ToString();
+                userUpdate = dr[11].ToString();
+                status = dr[12].ToString();
+                totalApartment = Convert.ToDouble(dr[13]);
+                bill = new Bill(idBill, idApartment, idPrice, totalElectric, totalWater, totalTrash, totalInternet, totalApartment, total, status, dateBill, userCreate, dateUpdate, userUpdate);
+                lst.Add(bill);
+            }
+            return lst;
+
+        }
+
+
+        public static List<Bill> getInfomation_apartment(int id_Cus, string date_start, string date_end)
+        {
+            CustomerDAO cusDAO = new CustomerDAO();
+            Customer cus = cusDAO.getCustomer(id_Cus);
+            Apartment apartment = ApartmentDAO.getApartment(cus.idApartment);
+            DateTime start = DateTime.ParseExact(date_start, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime end = DateTime.ParseExact(date_end, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            List<Bill> result = new List<Bill>();
+            List<Bill> lst = getBillsByIdApartment(apartment.idApartment);
+            foreach (Bill b in lst)
+            {
+                DateTime dateBill = DateTime.Parse(b.dateBill);// ngày tạo Bill
+                if (dateBill.Date >= start.Date && dateBill.Date <= end.Date)
+                    result.Add(b);
+            }
+            return result;
+        }
 
 
 

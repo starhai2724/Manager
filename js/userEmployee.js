@@ -189,7 +189,7 @@ function getEmloyees() {
                    + "<select class='form-control' style='margin-top: -10px;' id='employee'  >";
                 var row;
                 for (var i = 0; i < employees.length; i++) {
-                    row += "<option  value='" + employees[i].idEmployee + "'>" + employees[i].identifiCard + "</option>";
+                    row += "<option  value='" + employees[i].idEmployee + "'>" + employees[i].idEmployee + "</option>";
                 }
                 row += "<option  selected='selected' value='0'>" + "</option>";
                 st += row;
@@ -305,9 +305,9 @@ function loadUser(username) {
             var row;
             for (var i = 0; i < employees.length; i++) {
                 if (employee.idEmployee == employees[i].idEmployee) {
-                    row += "<option selected='selected'  value='" + employees[i].idEmployee + "'>" + employees[i].identifiCard + "</option>";
+                    row += "<option selected='selected'  value='" + employees[i].idEmployee + "'>" + employees[i].idEmployee + "</option>";
                 } else {
-                    row += "<option  value='" + employees[i].idEmployee + "'>" + employees[i].identifiCard + "</option>";
+                    row += "<option  value='" + employees[i].idEmployee + "'>" + employees[i].idEmployee + "</option>";
                 }
             }
             row += "<option  value='0'>" + "</option>";

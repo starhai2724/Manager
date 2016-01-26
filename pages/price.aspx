@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col col-sm-4 col-md-4 col-lg-4">
                 <div class="form-group">
-                    <p>Giá nước/ký</p>
+                    <p>Giá nước/m3</p>
                     <input type="text" class="form-control" style="margin-top: -10px; TEXT-ALIGN: right;" id="text_priceWater" placeholder="0VND" />
                 </div>
             </div>
